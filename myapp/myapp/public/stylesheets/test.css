@@ -248,14 +248,16 @@ html, body
 	
 	#menu li
 	{
-
+		float: left;
 		display: table-cell 
 		
 		
 		
 	}
-	#menu.login{
+	#menu .login {
+		width:20%;
 		float:right;
+		display:table-cell;
 	}
 	#menu a 
 	{
