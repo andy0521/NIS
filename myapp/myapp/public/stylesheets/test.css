@@ -240,20 +240,23 @@ html, body
 		padding: 20px 0px 20px 0px;
 		list-style: none;
 		line-height: normal;
-		display: -webkit-box;
+		
 		-webkit-box-orient: horizontal;
-		-webkit-box-flex:1;
+	
 		text-align: center;
 	}
 	
 	#menu li
 	{
 
-        display: table-cell 
+		display: table-cell 
+		
 		
 		
 	}
-	
+	#menu.login{
+		float:right;
+	}
 	#menu a 
 	{
 		display: block;
