@@ -1,4 +1,11 @@
+<<<<<<< HEAD
 
+=======
+html, body
+	{
+		height: 100%;
+	}
+>>>>>>> parent of d487ab1... 登入畫面
 	
 	body
 	{
@@ -6,9 +13,15 @@
 		padding: 0px,20px,20px,20px;
 		background: #EFEFEF url(images/bg01.png) repeat;
 		font-family: 'Open Sans', sans-serif;
+<<<<<<< HEAD
 		font-size: 18px;
 	
 		color: white;
+=======
+		font-size: 10pt;
+		font-weight: 400;
+		color: #8d8d8d;
+>>>>>>> parent of d487ab1... 登入畫面
 	}
 	
 	
@@ -44,20 +57,11 @@
 
 	.container
 	{
-		margin: 0px, auto;
-		width: auto;
-		height: 12vh;
+		margin: 0px auto;
+        width: 1000px;
         
 	}
-	.Care_Message{
-		width: 20vw;
-		 height: 100vh;
-		 background-color:gray;
-	}
-	body,ul,li{
-        margin: 0;
-        padding: 0;
-}
+	
 /*********************************************************************************/
 /* Image Style                                                                   */
 /*********************************************************************************/
@@ -68,7 +72,10 @@
 /* List Styles                                                                   */
 /*********************************************************************************/
 
-	
+	ul.style1
+	{
+	}
+
 
 /*********************************************************************************/
 /* Social Icon Styles                                                            */
@@ -117,7 +124,27 @@
 /* Button Style                                                                  */
 /*********************************************************************************/
 
-
+	.button
+	{
+		display: inline-block;
+		padding: 1em 3em 1em 0em;
+		letter-spacing: 0.10em;
+		text-decoration: none;
+		text-transform: uppercase;
+		font-weight: 800;
+		font-size: 0.90em;
+		color: #333;
+	}
+	
+	.button:before
+	{
+		display: inline-block;
+		background: #8aa2fc;
+		margin-right: 1em;
+		padding: 8px;
+		text-align: center;
+		color: #FFF;
+	}
 		
 /*********************************************************************************/
 /* Header 選單                                                                        */
@@ -135,16 +162,22 @@
 
 	#logo
 	{
+<<<<<<< HEAD
 		padding: 1em 1em;
 		width: 100%;
 		height: 16vh;
+=======
+		padding: 4em 0em;
+		text-transform: uppercase;
+>>>>>>> parent of d487ab1... 登入畫面
 	}
 
 	#logo h1
 	{
-		text-align:start;
+		text-align: center;
 		font-weight: 900;
 		font-size: 2.5em;
+<<<<<<< HEAD
 		height: 8vh;
 	}
 	
@@ -156,6 +189,13 @@
 		height: 8vh;
 	}
 
+=======
+	}
+	
+	#logo h1 a
+	{
+	}
+>>>>>>> parent of d487ab1... 登入畫面
 
 	#logo span
 	{
@@ -175,7 +215,7 @@
 
 	#menu ul
 	{
-        width:auto;height:auto;
+        width:100%;height:50px;
 		margin: 0;
 		padding: 10px 0px 10px 0px;
 		font-size: 18pt;
@@ -189,7 +229,8 @@
 	#menu li
 	{
 		float: left;
-		display: table-cell ;
+		display: table-cell 
+		
 		
 		
 	}
@@ -223,10 +264,195 @@
 		color: #FFF;
 	}
 
+/*********************************************************************************/
+/* Banner                                                                        */
+/*********************************************************************************/
+
+	#banner
+	{
+		margin-bottom: 3em;
+	}
+
+/*********************************************************************************/
+/* Page                                                                          */
+/*********************************************************************************/
+
+	#page-wrapper
+	{
+		padding: 4em 0em 6em 0em;
+		background: #FFF;
+		border-top: 1px solid #47A665;
+	}
+
+	#page
+	{
+		overflow: hidden;
+		padding-top: 6em;
+		border-top: 1px solid #E5E5E5;
+		color: #717171;
+	}
+
+	#page .title
+	{
+		margin-bottom: 2em;
+	}
+	
+	#page .title h2
+	{
+		font-size: 2em;
+		font-weight: 800;
+		color: #333;
+	}
+
+/*********************************************************************************/
+/* Content                                                                       */
+/*********************************************************************************/
+
+	#content
+	{
+		float: left;
+		width: 588px;
+	}
+
+/*********************************************************************************/
+/* Sidebar                                                                       */
+/*********************************************************************************/
+
+	#sidebar
+	{
+		float: right;
+		width: 588px;
+	}
+
+/*********************************************************************************/
+/* Footer                                                                        */
+/*********************************************************************************/
+
+	#footer-wrapper
+	{
+		padding: 6em 0em 6em 0em;
+		background: #f4f4f4;
+		border-bottom: 1px solid #EDEDED;
+		border-top: 1px solid #EDEDED;
+	}
+
+	#footer {
+		overflow: hidden;
+		color: #666666;
+	}
+	
+	#footer h2
+	{
+		letter-spacing: 0.10em;
+		padding-bottom: 1em;
+		font-size: 1.3em;
+		font-weight: 700;
+		color: #333;
+	}
+
+	#footer #fbox1 {
+		float: left;
+		width: 282px;
+		margin-right: 24px;
+	}
+	
+	#footer #fbox2 {
+		float: left;
+		width: 282px;
+		margin-right: 24px;
+	}
+	
+	#footer #fbox3 {
+		float: left;
+		width: 282px;
+	}
+
+	#footer #fbox4 {
+		float: right;
+		width: 282px;
+	}
 
 
+/*********************************************************************************/
+/* Copyright                                                                     */
+/*********************************************************************************/
 
+	#copyright
+	{
+		padding: 6em 0em;
+		font-size: 0.85em;
+		letter-spacing: 0.10em;
+		text-align: center;
+		color: #6A6A6A;
+	}
+	
+	#copyright a
+	{
+		color: #747474;
+	}
 
+/*********************************************************************************/
+/* Featured                                                                      */
+/*********************************************************************************/
+
+	#featured
+	{
+		overflow: hidden;
+		padding-bottom: 6em;
+		color: #717171;
+	}
+	
+	#featured img
+	{
+		margin-bottom: 2em;
+	}
+	
+	#featured .box
+	{
+		padding-bottom: 1.5em;
+	}
+	
+	#featured .title
+	{
+		margin-bottom: 2em;
+	}
+	
+	#featured .title h2
+	{
+		font-size: 2em;
+		font-weight: 800;
+		color: #333;
+	}
+	
+	#featured .subtitle
+	{
+		padding-bottom: 1em;
+		font-size: 1.3em;
+		font-weight: 700;
+		color: #333;
+	}
+
+	#featured #box1 {
+		float: left;
+		width: 282px;
+		margin-right: 24px;
+	}
+	
+	#featured #box2 {
+		float: left;
+		width: 282px;
+		margin-right: 24px;
+	}
+	
+	#featured #box3 {
+		float: left;
+		width: 282px;
+	}
+
+	#featured #box4 {
+		float: right;
+		width: 282px;
+	}
 
 
 
