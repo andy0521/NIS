@@ -1,6 +1,8 @@
 html, body
 	{
-		height: 100%;
+		width: auto;
+		height: 100vh;
+		font-size: 32px;
 	}
 	
 	body
@@ -9,9 +11,9 @@ html, body
 		padding: 0px;
 		background: #EFEFEF url(images/bg01.png) repeat;
 		font-family: 'Open Sans', sans-serif;
-		font-size: 10pt;
+		font-size: 18pt;
 		font-weight: 400;
-		color: #8d8d8d;
+		color: white;
 	}
 	
 	
@@ -55,11 +57,20 @@ html, body
 
 	.container
 	{
-		margin: 0px auto;
-        width: 1000px;
+		margin: 0px, auto;
+		width: auto;
+		height: 12vh;
         
 	}
-	
+	.Care_Message{
+		width: 20vw;
+		 height: 100vh;
+		 background-color:gray;
+	}
+	body,ul,li{
+        margin: 0;
+        padding: 0;
+}
 /*********************************************************************************/
 /* Image Style                                                                   */
 /*********************************************************************************/
@@ -104,10 +115,7 @@ html, body
 /* List Styles                                                                   */
 /*********************************************************************************/
 
-	ul.style1
-	{
-	}
-
+	
 
 /*********************************************************************************/
 /* Social Icon Styles                                                            */
@@ -160,27 +168,7 @@ html, body
 /* Button Style                                                                  */
 /*********************************************************************************/
 
-	.button
-	{
-		display: inline-block;
-		padding: 1em 3em 1em 0em;
-		letter-spacing: 0.10em;
-		text-decoration: none;
-		text-transform: uppercase;
-		font-weight: 800;
-		font-size: 0.90em;
-		color: #333;
-	}
-	
-	.button:before
-	{
-		display: inline-block;
-		background: #8aa2fc;
-		margin-right: 1em;
-		padding: 8px;
-		text-align: center;
-		color: #FFF;
-	}
+
 		
 /*********************************************************************************/
 /* Header                                                                        */
@@ -198,20 +186,21 @@ html, body
 
 	#logo
 	{
-		padding: 4em 0em;
+		padding: 1em 0em;
 		text-transform: uppercase;
+		width: auto;
+		height: 8vh;
 	}
 
 	#logo h1
 	{
-		text-align: center;
+		text-align:start;
 		font-weight: 900;
 		font-size: 2.5em;
+		height: 5vh;
 	}
 	
-	#logo h1 a
-	{
-	}
+
 
 	#logo span
 	{
@@ -235,7 +224,7 @@ html, body
 
 	#menu ul
 	{
-        width:100%;height:50px;
+        width:auto;height:auto;
 		margin: 0;
 		padding: 20px 0px 20px 0px;
 		list-style: none;
@@ -249,8 +238,7 @@ html, body
 	#menu li
 	{
 		float: left;
-		display: table-cell 
-		
+		display: table-cell ;
 		
 		
 	}
@@ -284,195 +272,10 @@ html, body
 		color: #FFF;
 	}
 
-/*********************************************************************************/
-/* Banner                                                                        */
-/*********************************************************************************/
-
-	#banner
-	{
-		margin-bottom: 3em;
-	}
-
-/*********************************************************************************/
-/* Page                                                                          */
-/*********************************************************************************/
-
-	#page-wrapper
-	{
-		padding: 4em 0em 6em 0em;
-		background: #FFF;
-		border-top: 1px solid #47A665;
-	}
-
-	#page
-	{
-		overflow: hidden;
-		padding-top: 6em;
-		border-top: 1px solid #E5E5E5;
-		color: #717171;
-	}
-
-	#page .title
-	{
-		margin-bottom: 2em;
-	}
-	
-	#page .title h2
-	{
-		font-size: 2em;
-		font-weight: 800;
-		color: #333;
-	}
-
-/*********************************************************************************/
-/* Content                                                                       */
-/*********************************************************************************/
-
-	#content
-	{
-		float: left;
-		width: 588px;
-	}
-
-/*********************************************************************************/
-/* Sidebar                                                                       */
-/*********************************************************************************/
-
-	#sidebar
-	{
-		float: right;
-		width: 588px;
-	}
-
-/*********************************************************************************/
-/* Footer                                                                        */
-/*********************************************************************************/
-
-	#footer-wrapper
-	{
-		padding: 6em 0em 6em 0em;
-		background: #f4f4f4;
-		border-bottom: 1px solid #EDEDED;
-		border-top: 1px solid #EDEDED;
-	}
-
-	#footer {
-		overflow: hidden;
-		color: #666666;
-	}
-	
-	#footer h2
-	{
-		letter-spacing: 0.10em;
-		padding-bottom: 1em;
-		font-size: 1.3em;
-		font-weight: 700;
-		color: #333;
-	}
-
-	#footer #fbox1 {
-		float: left;
-		width: 282px;
-		margin-right: 24px;
-	}
-	
-	#footer #fbox2 {
-		float: left;
-		width: 282px;
-		margin-right: 24px;
-	}
-	
-	#footer #fbox3 {
-		float: left;
-		width: 282px;
-	}
-
-	#footer #fbox4 {
-		float: right;
-		width: 282px;
-	}
 
 
-/*********************************************************************************/
-/* Copyright                                                                     */
-/*********************************************************************************/
 
-	#copyright
-	{
-		padding: 6em 0em;
-		font-size: 0.85em;
-		letter-spacing: 0.10em;
-		text-align: center;
-		color: #6A6A6A;
-	}
-	
-	#copyright a
-	{
-		color: #747474;
-	}
 
-/*********************************************************************************/
-/* Featured                                                                      */
-/*********************************************************************************/
-
-	#featured
-	{
-		overflow: hidden;
-		padding-bottom: 6em;
-		color: #717171;
-	}
-	
-	#featured img
-	{
-		margin-bottom: 2em;
-	}
-	
-	#featured .box
-	{
-		padding-bottom: 1.5em;
-	}
-	
-	#featured .title
-	{
-		margin-bottom: 2em;
-	}
-	
-	#featured .title h2
-	{
-		font-size: 2em;
-		font-weight: 800;
-		color: #333;
-	}
-	
-	#featured .subtitle
-	{
-		padding-bottom: 1em;
-		font-size: 1.3em;
-		font-weight: 700;
-		color: #333;
-	}
-
-	#featured #box1 {
-		float: left;
-		width: 282px;
-		margin-right: 24px;
-	}
-	
-	#featured #box2 {
-		float: left;
-		width: 282px;
-		margin-right: 24px;
-	}
-	
-	#featured #box3 {
-		float: left;
-		width: 282px;
-	}
-
-	#featured #box4 {
-		float: right;
-		width: 282px;
-	}
 
 
 
