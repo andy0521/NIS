@@ -1,17 +1,20 @@
-html, body
-	{
-		height: 100%;
-	}
-	
+
 	body
 	{
 		margin: 0px;
 		padding: 0px;
 		background: #EFEFEF url(images/bg01.png) repeat;
 		font-family: 'Open Sans', sans-serif;
+
+		font-size: 18px;
+	
+		color: white;
+
 		font-size: 10pt;
 		font-weight: 400;
 		color: #8d8d8d;
+
+
 	}
 	
 	
@@ -198,8 +201,17 @@ html, body
 
 	#logo
 	{
+
 		padding: 4em 0em;
 		text-transform: uppercase;
+
+		padding: 1em 1em;
+		width: 100%;
+		height: 16vh;
+
+		padding: 4em 0em;
+		text-transform: uppercase;
+
 	}
 
 	#logo h1
@@ -207,27 +219,24 @@ html, body
 		text-align: center;
 		font-weight: 900;
 		font-size: 2.5em;
+
+
+	}
+	#logo h2
+	{
+		text-align: center;
+		font-weight: 900;
+		font-size: 2.5em;
+
 	}
 	
-	#logo h1 a
-	{
-	}
-
+	
 	#logo span
 	{
 		padding: 0em 0em 0em 0.5em;
 	}
 	
-	#logo h1:before
-	{
-		
-	}
 	
-	#logo a 
-	{
-		color: #51AD6F;
-	}
-
 
 /*********************************************************************************/
 /* Menu                                                                          */
@@ -348,50 +357,29 @@ html, body
 /* Footer                                                                        */
 /*********************************************************************************/
 
-	#footer-wrapper
-	{
-		padding: 6em 0em 6em 0em;
-		background: #f4f4f4;
-		border-bottom: 1px solid #EDEDED;
-		border-top: 1px solid #EDEDED;
-	}
 
-	#footer {
-		overflow: hidden;
-		color: #666666;
-	}
-	
-	#footer h2
+
+/*********************************************************************************/
+/* Copyright                                                                     */
+/*********************************************************************************/
+
+	#copyright
 	{
+		padding: 6em 0em;
+		font-size: 0.85em;
 		letter-spacing: 0.10em;
-		padding-bottom: 1em;
-		font-size: 1.3em;
-		font-weight: 700;
-		color: #333;
-	}
-
-	#footer #fbox1 {
-		float: left;
-		width: 282px;
-		margin-right: 24px;
+		text-align: center;
+		color: #6A6A6A;
 	}
 	
-	#footer #fbox2 {
-		float: left;
-		width: 282px;
-		margin-right: 24px;
-	}
-	
-	#footer #fbox3 {
-		float: left;
-		width: 282px;
+	#copyright a
+	{
+		color: #747474;
 	}
 
-	#footer #fbox4 {
-		float: right;
-		width: 282px;
-	}
-
+/*********************************************************************************/
+/* Featured                                                                      */
+/*********************************************************************************/
 
 /*********************************************************************************/
 /* Copyright                                                                     */
@@ -469,10 +457,117 @@ html, body
 		width: 282px;
 	}
 
-	#featured #box4 {
+
+/*********************************************************************************/
+/* Page                                                                          */
+/*********************************************************************************/
+
+	#page-wrapper
+	{
+		padding: 4em 0em 6em 0em;
+		background: #FFF;
+		border-top: 1px solid #47A665;
+	}
+
+	#page
+	{
+		overflow: hidden;
+		padding-top: 6em;
+		border-top: 1px solid #E5E5E5;
+		color: #717171;
+	}
+
+	#page .title
+	{
+		margin-bottom: 2em;
+	}
+	
+	#page .title h2
+	{
+		font-size: 2em;
+		font-weight: 800;
+		color: #333;
+	}
+
+/*********************************************************************************/
+/* Content                                                                       */
+/*********************************************************************************/
+
+	#content
+	{
+		float: left;
+		width: 588px;
+	}
+
+/*********************************************************************************/
+/* Sidebar                                                                       */
+/*********************************************************************************/
+
+	#sidebar
+	{
+		float: right;
+		width: 588px;
+	}
+
+/*********************************************************************************/
+/* Footer                                                                        */
+/*********************************************************************************/
+
+	#footer-wrapper
+	{
+		padding: 6em 0em 6em 0em;
+		background: #f4f4f4;
+		border-bottom: 1px solid #EDEDED;
+		border-top: 1px solid #EDEDED;
+	}
+
+	#footer {
+		overflow: hidden;
+		color: #666666;
+	}
+	
+	#footer h2
+	{
+		letter-spacing: 0.10em;
+		padding-bottom: 1em;
+		font-size: 1.3em;
+		font-weight: 700;
+		color: #333;
+	}
+
+	#footer #fbox1 {
+		float: left;
+		width: 282px;
+		margin-right: 24px;
+	}
+	
+	#footer #fbox2 {
+		float: left;
+		width: 282px;
+		margin-right: 24px;
+	}
+	
+	#footer #fbox3 {
+		float: left;
+		width: 282px;
+	}
+
+	#footer #fbox4 {
 		float: right;
 		width: 282px;
 	}
+
+
+/*********************************************************************************/
+/* Copyright                                                                     */
+/*********************************************************************************/
+
+
+/*********************************************************************************/
+/* Featured                                                                      */
+/*********************************************************************************/
+
+
 
 
 
