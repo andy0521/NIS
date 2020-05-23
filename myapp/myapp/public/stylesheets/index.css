@@ -10,11 +10,6 @@
 	
 		color: white;
 
-		font-size: 10pt;
-		font-weight: 400;
-		color: #8d8d8d;
-
-
 	}
 	
 	
@@ -22,6 +17,8 @@
 	{
 		margin: 0;
 		padding: 0;
+		width: auto;
+		height: 8vh;
 		color: #333;
 	}
 	
@@ -193,6 +190,7 @@
 	{
 		background: #56BD78;
 		border-top: 1px solid #47A665;
+		height: 12vh;
 	}
 
 /*********************************************************************************/
@@ -202,9 +200,9 @@
 	#logo
 	{
 
-		padding: 4em 0em;
+		
 		text-transform: uppercase;
-
+		text-decoration: none;
 		padding: 1em 1em;
 		width: 100%;
 		height: 16vh;
@@ -249,11 +247,10 @@
 
 	#menu ul
 	{
-        width:100%;height:50px;
+        width:100%;height:12vh;
 		margin: 0;
-		padding: 20px 0px 20px 0px;
-		list-style: none;
-		line-height: normal;
+		padding: 10px 0px 10px 0px;
+	
 		
 		-webkit-box-orient: horizontal;
 	
@@ -263,24 +260,21 @@
 	#menu li
 	{
 		float: left;
-		display: table-cell 
-		
-		
-		
+		display: table-cell ;
 	}
 	#menu .login {
-		width:20%;
-		float:right;
+		float: right;
 		display:table-cell;
 	}
 	#menu a 
 	{
+		float: right;
 		display: block;
 		padding: 1em 2em;
-		letter-spacing: 1px;
+		
 		text-decoration: none;
 		text-transform: uppercase;
-		font-size: 14px;
+		font-size: 18px;
 		font-weight: 700;
 		color: #FFF;
 	}
