@@ -7,8 +7,3 @@ router.get('/', function(req, res, next) {
 });
 
 module.exports = router;
-module.exports = {
-  items: [
-  {name: 'test', password: '0000'}
-  ]
-  };
