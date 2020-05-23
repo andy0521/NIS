@@ -209,8 +209,7 @@
 		width: 100%;
 		height: 16vh;
 
-		padding: 4em 0em;
-		text-transform: uppercase;
+	
 
 	}
 
@@ -240,6 +239,8 @@
 		width: 20vw;
 		 height: 100vh;
 		 background-color:gray;
+		 font-size: 20pt;
+		 color: black;
 	}
 
 /*********************************************************************************/
