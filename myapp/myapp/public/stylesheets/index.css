@@ -59,6 +59,14 @@
         width: 1000px;
         
 	}
+	table.patient{
+		
+		background-color: #4D95BD;
+		height:100px;
+		width:790px;
+		margin-bottom:10px;
+		float:left;
+	  }
 	
 /*********************************************************************************/
 /* Image Style                                                                   */
@@ -234,11 +242,15 @@
 	}
 	
 	.Care_Message{
-		width: 20vw;
-		 height: 100vh;
-		 background-color:gray;
+		 
 		 font-size: 20pt;
 		 color: black;
+		 background-color: #87B3D7;
+		height:100vh;
+		width:190px;
+		margin-bottom:10px;
+		margin-right:10px;
+		float:left;
 	}
 
 /*********************************************************************************/
@@ -492,12 +504,7 @@
 /* Content                                                                       */
 /*********************************************************************************/
 
-	#Care_Message
-	{
-		float: left;
-		width: 588px;
-		color: gray;
-	}
+	
 
 
 
