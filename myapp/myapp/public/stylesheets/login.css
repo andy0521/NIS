@@ -1,0 +1,24 @@
+body {
+    padding: 50px;
+    background: -webkit-linear-gradient(top,blue,white);
+    background-attachment: fixed;
+}
+
+a{
+    color:white;
+}
+h1{
+    color:white;
+}
+h2{
+    color: white;
+}
+h3{
+    color:white;
+}
+.login {
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+    
+}
