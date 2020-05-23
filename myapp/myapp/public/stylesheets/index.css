@@ -216,7 +216,7 @@
 
 	#logo h1
 	{
-		text-align: center;
+		text-align: start;
 		font-weight: 900;
 		font-size: 2.5em;
 
@@ -224,10 +224,10 @@
 	}
 	#logo h2
 	{
-		text-align: center;
+		text-align:start;
 		font-weight: 900;
 		font-size: 2.5em;
-
+		height: 8vh;
 	}
 	
 	
@@ -236,7 +236,11 @@
 		padding: 0em 0em 0em 0.5em;
 	}
 	
-	
+	.Care_Message{
+		width: 20vw;
+		 height: 100vh;
+		 background-color:gray;
+	}
 
 /*********************************************************************************/
 /* Menu                                                                          */
@@ -493,79 +497,13 @@
 /* Content                                                                       */
 /*********************************************************************************/
 
-	#content
+	#Care_Message
 	{
 		float: left;
 		width: 588px;
+		color: gray;
 	}
 
-/*********************************************************************************/
-/* Sidebar                                                                       */
-/*********************************************************************************/
-
-	#sidebar
-	{
-		float: right;
-		width: 588px;
-	}
-
-/*********************************************************************************/
-/* Footer                                                                        */
-/*********************************************************************************/
-
-	#footer-wrapper
-	{
-		padding: 6em 0em 6em 0em;
-		background: #f4f4f4;
-		border-bottom: 1px solid #EDEDED;
-		border-top: 1px solid #EDEDED;
-	}
-
-	#footer {
-		overflow: hidden;
-		color: #666666;
-	}
-	
-	#footer h2
-	{
-		letter-spacing: 0.10em;
-		padding-bottom: 1em;
-		font-size: 1.3em;
-		font-weight: 700;
-		color: #333;
-	}
-
-	#footer #fbox1 {
-		float: left;
-		width: 282px;
-		margin-right: 24px;
-	}
-	
-	#footer #fbox2 {
-		float: left;
-		width: 282px;
-		margin-right: 24px;
-	}
-	
-	#footer #fbox3 {
-		float: left;
-		width: 282px;
-	}
-
-	#footer #fbox4 {
-		float: right;
-		width: 282px;
-	}
-
-
-/*********************************************************************************/
-/* Copyright                                                                     */
-/*********************************************************************************/
-
-
-/*********************************************************************************/
-/* Featured                                                                      */
-/*********************************************************************************/
 
 
 
