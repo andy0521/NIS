@@ -1,18 +1,13 @@
-html, body
-	{
-		width: auto;
-		height: 100vh;
-		font-size: 32px;
-	}
+
 	
 	body
 	{
-		margin: 0px;
-		padding: 0px;
+		margin: 0px,auto;
+		padding: 0px,20px,20px,20px;
 		background: #EFEFEF url(images/bg01.png) repeat;
 		font-family: 'Open Sans', sans-serif;
-		font-size: 18pt;
-		font-weight: 400;
+		font-size: 18px;
+	
 		color: white;
 	}
 	
@@ -20,8 +15,8 @@ html, body
 	h1, h2, h3
 	{
 		margin: 0;
-		padding: 0;
-		color: #333;
+		padding: 20px,0;
+		color: black;
 	}
 	
 	p, ol, ul
@@ -45,15 +40,7 @@ html, body
 		color: #525252;
 	}
 	
-	a
-	{
-		color: #525252;
-	}
-	
-	a:hover
-	{
-		text-decoration: none;
-	}
+
 
 	.container
 	{
@@ -75,41 +62,7 @@ html, body
 /* Image Style                                                                   */
 /*********************************************************************************/
 
-	.image
-	{
-		display: inline-block;
-	}
 	
-	.image img
-	{
-		display: block;
-		width: 100%;
-	}
-	
-	.image-full
-	{
-		display: block;
-		width: 100%;
-		margin: 0 0 2em 0;
-	}
-	
-	.image-left
-	{
-		float: left;
-		margin: 0 2em 2em 0;
-	}
-	
-	.image-centered
-	{
-		display: block;
-		margin: 0 0 2em 0;
-	}
-	
-	.image-centered img
-	{
-		margin: 0 auto;
-		width: auto;
-	}
 
 /*********************************************************************************/
 /* List Styles                                                                   */
@@ -158,11 +111,7 @@ html, body
 		color: #FFFFFF;
 	}
 	
-	ul.contact li a.icon-twitter:before { background: #2DAAE4; }
-	ul.contact li a.icon-facebook:before { background: #39599F; }
-	ul.contact li a.icon-dribbble:before { background: #C4376B;	}
-	ul.contact li a.icon-tumblr:before { background: #31516A; }
-	ul.contact li a.icon-rss:before { background: #F2600B; }
+	
 
 /*********************************************************************************/
 /* Button Style                                                                  */
@@ -171,7 +120,7 @@ html, body
 
 		
 /*********************************************************************************/
-/* Header                                                                        */
+/* Header 選單                                                                        */
 /*********************************************************************************/
 
 	#header
@@ -186,10 +135,9 @@ html, body
 
 	#logo
 	{
-		padding: 1em 0em;
-		text-transform: uppercase;
-		width: auto;
-		height: 8vh;
+		padding: 1em 1em;
+		width: 100%;
+		height: 16vh;
 	}
 
 	#logo h1
@@ -197,24 +145,27 @@ html, body
 		text-align:start;
 		font-weight: 900;
 		font-size: 2.5em;
-		height: 5vh;
+		height: 8vh;
 	}
 	
+	#logo h2
+	{
+		text-align:start;
+		font-weight: 900;
+		font-size: 2.5em;
+		height: 8vh;
+	}
 
 
 	#logo span
 	{
-		padding: 0em 0em 0em 0.5em;
+		padding: 1em 0em 1em 0.5em;
 	}
 	
-	#logo h1:before
-	{
-		
-	}
-	
+
 	#logo a 
 	{
-		color: #51AD6F;
+		color: black;
 	}
 
 
@@ -226,9 +177,9 @@ html, body
 	{
         width:auto;height:auto;
 		margin: 0;
-		padding: 20px 0px 20px 0px;
-		list-style: none;
-		line-height: normal;
+		padding: 10px 0px 10px 0px;
+		font-size: 18pt;
+		
 		
 		-webkit-box-orient: horizontal;
 	
