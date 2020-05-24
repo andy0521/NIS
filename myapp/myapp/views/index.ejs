@@ -8,6 +8,9 @@
         <title><%= title %></title>
         <link rel='stylesheet' href='/stylesheets/index.css' />
         <link href="/stylesheets/index.css" rel="stylesheet" type="text/css" media="all" />
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
       </head>
       <body>
         
@@ -18,34 +21,43 @@
 
             <div id="header">
                 
-                
-                <div id="menu" class="container">
-                    <div id="logo" >
-                        <h1><span>護理控台</span></h1>
-                        <h2><span>10號護理站</span></h2>
-                    </div>
-                    <ul >
-
-                        <li><a href="#" accesskey="1" title="">首頁</a></li>
-                        <li><a href="#" accesskey="1" title="">公告訊息</a></li>
-                        <li><a href="#" accesskey="2" title="">聯絡資訊</a></li>
-                        <li><a href="#" accesskey="3" title="">逃生資訊</a></li>
-                        <li><a href="#" accesskey="4" title="">護理排班</a></li>
-                        <li><a href="#" accesskey="5" title=""> 白板操作指南</a></li>
-                        <li><a href="login" accesskey="" title="">登入</a></li>
-                    </ul>
+                <div id="logo" >
+                    <h1><span>護理控台</span></h1>
+                    <h2><span>10號護理站</span></h2>
                 </div>
             </div>
-
+            <nav>
+                <div id="menu" >
+                    <div>
+                        <ul class=" nav nav-tabs">
+                            <li><a href="#" accesskey="1" title="">首頁</a></li>
+                            <li><a href="#" accesskey="1" title="">公告訊息</a></li>
+                            <li><a href="#" accesskey="2" title="">聯絡資訊</a></li>
+                            <li><a href="#" accesskey="3" title="">逃生資訊</a></li>
+                            <li><a href="#" accesskey="4" title="">護理排班</a></li>
+                            <li><a href="#" accesskey="5" title=""> 白板操作指南</a></li>
+                            <li class="login"><a href="login" accesskey="" title="">登入</a></li>
+                        </ul>
+                    </div>
+                    
+                </div>
+            </nav>
             <div class="content">
                 <div class ="Care_Message">
                     <ul>
                         <li>需求通報訊息紀錄</li>
                     </ul>
+                    <table class="log">log</table>
                 </div>
-                <div class="container">
+
+                <div class="flex-container">
                     
                   </div>
+                  
+                  
+              
+            </div>
+               
             </body>
             
 
