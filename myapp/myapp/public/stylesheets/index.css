@@ -18,7 +18,7 @@
 		margin: 0;
 		padding: 0;
 		width: auto;
-		height: 8vh;
+		height: 8vh,auto;
 		color: #333;
 	}
 	
@@ -63,7 +63,7 @@
 		
 		background-color: #4D95BD;
 		height:100px;
-		width:790px;
+		width:790px,auto;
 		margin-bottom:10px;
 		float:left;
 	  }
@@ -112,83 +112,18 @@
 /* List Styles                                                                   */
 /*********************************************************************************/
 
-	ul.style1
-	{
-	}
-
+	
 
 /*********************************************************************************/
 /* Social Icon Styles                                                            */
 /*********************************************************************************/
 
-	ul.contact
-	{
-		margin: 0;
-		padding: 2em 0em 0em 0em;
-		list-style: none;
-	}
-	
-	ul.contact li
-	{
-		display: inline-block;
-		padding: 0em 0.10em;
-		font-size: 1em;
-	}
-	
-	ul.contact li span
-	{
-		display: none;
-		margin: 0;
-		padding: 0;
-	}
-	
-	ul.contact li a
-	{
-		color: #FFF;
-	}
-	
-	ul.contact li a:before
-	{
-		display: inline-block;
-		width: 30px;
-		height: 30px;
-		background: #3f3f3f;
-		line-height: 30px;
-		text-align: center;
-		color: #FFFFFF;
-	}
-	
-	ul.contact li a.icon-twitter:before { background: #2DAAE4; }
-	ul.contact li a.icon-facebook:before { background: #39599F; }
-	ul.contact li a.icon-dribbble:before { background: #C4376B;	}
-	ul.contact li a.icon-tumblr:before { background: #31516A; }
-	ul.contact li a.icon-rss:before { background: #F2600B; }
 
 /*********************************************************************************/
 /* Button Style                                                                  */
 /*********************************************************************************/
 
-	.button
-	{
-		display: inline-block;
-		padding: 1em 3em 1em 0em;
-		letter-spacing: 0.10em;
-		text-decoration: none;
-		text-transform: uppercase;
-		font-weight: 800;
-		font-size: 0.90em;
-		color: #333;
-	}
-	
-	.button:before
-	{
-		display: inline-block;
-		background: #8aa2fc;
-		margin-right: 1em;
-		padding: 8px;
-		text-align: center;
-		color: #FFF;
-	}
+
 		
 /*********************************************************************************/
 /* Header                                                                        */
@@ -198,7 +133,7 @@
 	{
 		background: #56BD78;
 		border-top: 1px solid #47A665;
-		height: 12vh;
+		height: 40%;
 	}
 
 /*********************************************************************************/
@@ -212,8 +147,8 @@
 		text-transform: uppercase;
 		text-decoration: none;
 		padding: 1em 1em;
-		width: 100%;
-		height: 16vh;
+		width: 100%,auto;
+		height: 16vh,auto;
 
 	
 
@@ -247,7 +182,7 @@
 		 color: black;
 		 background-color: #87B3D7;
 		height:100vh;
-		width:190px;
+		width:200px,auto;
 		margin-bottom:10px;
 		margin-right:10px;
 		float:left;
@@ -259,7 +194,7 @@
 
 	#menu ul
 	{
-        width:100%;height:12vh;
+        width:100%,auto;height:12vh;
 		margin: 0;
 		padding: 10px 0px 10px 0px;
 	
@@ -273,6 +208,7 @@
 	{
 		float: left;
 		display: table-cell ;
+		width: auto;
 	}
 	#menu .login {
 		float: right;
@@ -288,7 +224,7 @@
 		text-transform: uppercase;
 		font-size: 18px;
 		font-weight: 700;
-		color: #FFF;
+		color: black;
 	}
 	
 	#menu .current_page_item a
@@ -374,19 +310,6 @@
 /* Copyright                                                                     */
 /*********************************************************************************/
 
-	#copyright
-	{
-		padding: 6em 0em;
-		font-size: 0.85em;
-		letter-spacing: 0.10em;
-		text-align: center;
-		color: #6A6A6A;
-	}
-	
-	#copyright a
-	{
-		color: #747474;
-	}
 
 /*********************************************************************************/
 /* Featured                                                                      */
@@ -396,109 +319,19 @@
 /* Copyright                                                                     */
 /*********************************************************************************/
 
-	#copyright
-	{
-		padding: 6em 0em;
-		font-size: 0.85em;
-		letter-spacing: 0.10em;
-		text-align: center;
-		color: #6A6A6A;
-	}
-	
-	#copyright a
-	{
-		color: #747474;
-	}
+
 
 /*********************************************************************************/
 /* Featured                                                                      */
 /*********************************************************************************/
 
-	#featured
-	{
-		overflow: hidden;
-		padding-bottom: 6em;
-		color: #717171;
-	}
-	
-	#featured img
-	{
-		margin-bottom: 2em;
-	}
-	
-	#featured .box
-	{
-		padding-bottom: 1.5em;
-	}
-	
-	#featured .title
-	{
-		margin-bottom: 2em;
-	}
-	
-	#featured .title h2
-	{
-		font-size: 2em;
-		font-weight: 800;
-		color: #333;
-	}
-	
-	#featured .subtitle
-	{
-		padding-bottom: 1em;
-		font-size: 1.3em;
-		font-weight: 700;
-		color: #333;
-	}
 
-	#featured #box1 {
-		float: left;
-		width: 282px;
-		margin-right: 24px;
-	}
-	
-	#featured #box2 {
-		float: left;
-		width: 282px;
-		margin-right: 24px;
-	}
-	
-	#featured #box3 {
-		float: left;
-		width: 282px;
-	}
 
 
 /*********************************************************************************/
 /* Page                                                                          */
 /*********************************************************************************/
 
-	#page-wrapper
-	{
-		padding: 4em 0em 6em 0em;
-		background: #FFF;
-		border-top: 1px solid #47A665;
-	}
-
-	#page
-	{
-		overflow: hidden;
-		padding-top: 6em;
-		border-top: 1px solid #E5E5E5;
-		color: #717171;
-	}
-
-	#page .title
-	{
-		margin-bottom: 2em;
-	}
-	
-	#page .title h2
-	{
-		font-size: 2em;
-		font-weight: 800;
-		color: #333;
-	}
 
 /*********************************************************************************/
 /* Content                                                                       */
