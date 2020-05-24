@@ -5,9 +5,7 @@
 	
 		background: #EFEFEF url(images/bg01.png) repeat;
 		font-family: 'Open Sans', sans-serif;
-
 		font-size: 18px;
-	
 		color: gray;
 
 	}
@@ -73,6 +71,19 @@
 		margin: 0;
 		width: 100%;
 	}
+	#content
+	{
+		
+		width: auto;
+	}
+	#member {
+		margin-top: 11px;
+		margin: 2px;
+		font-size: 20px;
+		list-style: none;
+		padding: 1em 1em;
+		color: black;
+	  }
 
 /*********************************************************************************/
 /* Logo                                                                          */
@@ -95,7 +106,7 @@
 		text-align: start;
 		font-weight: 900;
 		font-size: 2.5em;
-
+		display: inline-table;
 
 	}
 	#logo h2
@@ -104,11 +115,17 @@
 		font-weight: 900;
 		font-size: 2.5em;
 		height: 8vh;
+		display: inline-table;
 	}
 	
 	
 	#logo span
 	{
+		padding: 0em 0em 0em 0.5em;
+	}
+	
+	ul li {
+		display:inline-table;
 		padding: 0em 0em 0em 0.5em;
 	}
 	
@@ -118,11 +135,11 @@
 		 color: black;
 		 background-color: #87B3D7;
 		height:100vh;
-		width:200px,auto;
-		margin-bottom:10px;
+		width:20%,auto;
+		
 		
 		float:left;
-		position: fixed;
+	
 	}
 	table.detail{
 		
@@ -145,17 +162,19 @@
 	  }
 	  .flex-container {
 		display: flex;
-		flex-direction: column-reverse;
+		
 		background-color: DodgerBlue;
+
 	  }
 	  
 	  .flex-container > div {
 		background-color: #f1f1f1;
-		width: 100px;
+		width: 80%;
 		margin: 10px;
 		text-align: center;
 		line-height: 75px;
 		font-size: 30px;
+		
 	  }
 
 /*********************************************************************************/
@@ -214,9 +233,5 @@
 /* Content                                                                       */
 /*********************************************************************************/
 
-	#content
-	{
-		float: left;
-		width: 20%,auto;
-	}
+
 
