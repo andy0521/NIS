@@ -20,46 +20,22 @@
 		color: #333;
 	}
 	
-	p, ol, ul
-	{
-		margin-top: 0;
-	}
 	
-	ol, ul
+	 ul
 	{
 		padding: 0;
 		list-style: none;
 	}
 	
-	p
-	{
-		line-height: 180%;
-	}
+
 	
-	strong
-	{
-		color: #525252;
-	}
-	
-	a
-	{
-		color: #525252;
-	}
 	
 	a:hover
 	{
 		text-decoration: none;
 	}
 
-	
-	table.patient{
-		
-		background-color: #4D95BD;
-		height:100px;
-		width:790px,auto;
-		margin-bottom:10px;
-		float:left;
-	  }
+
 	
 /*************************************************************/
 
@@ -73,8 +49,7 @@
 	}
 	#content
 	{
-		
-		width: auto;
+		width: 100%;
 	}
 	#member {
 		margin-top: 11px;
@@ -136,10 +111,35 @@
 		 background-color: #87B3D7;
 		height:100vh;
 		width:20%,auto;
-		
-		
 		float:left;
 	
+	}
+	.Care_Message>.logbar{
+		background-color: #f1f1f1;
+		width: 80%;
+		height: auto;
+		margin: 10px;
+		text-align: center;
+		line-height: 75px;
+		font-size: 30px;
+		border: solid;
+		padding: 1em,1em;
+	}
+	.Care_Message>.logbar>.patientData{
+
+		width: 100%;
+		height: 16vh;
+		border:solid;
+		
+	}
+	.patientData>.BedNO{
+	
+		margin-left: 0px;
+		margin-top: 0px;
+		font-size: 14px;
+		float: none;
+		
+		
 	}
 	table.detail{
 		
