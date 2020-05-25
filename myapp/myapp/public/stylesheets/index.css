@@ -47,10 +47,7 @@
 		margin: 0;
 		width: 100%;
 	}
-	#content
-	{
-		width: 100%;
-	}
+
 	#member {
 		margin-top: 11px;
 		margin: 2px;
@@ -109,7 +106,7 @@
 		 font-size: 20pt;
 		 color: black;
 		 background-color: #87B3D7;
-		height:100vh;
+		height:20vh,auto;
 		width:20%,auto;
 		float:left;
 	
@@ -119,27 +116,45 @@
 		width: 80%;
 		height: auto;
 		margin: 10px;
-		text-align: center;
-		line-height: 75px;
-		font-size: 30px;
+	
 		border: solid;
 		padding: 1em,1em;
+	
 	}
 	.Care_Message>.logbar>.patientData{
 
 		width: 100%;
+	
 		height: 16vh;
+		
 		border:solid;
+	
+		position: relative;
 		
 	}
 	.patientData>.BedNO{
-	
-		margin-left: 0px;
-		margin-top: 0px;
+		padding: 0,0;
+		border: black;
+		background-color: cyan;
 		font-size: 14px;
-		float: none;
-		
-		
+		float: left;
+		text-align: left;
+		vertical-align: 0%;
+		position: absolute;
+		left: 1px;
+		top:1px;
+	}
+	.patientData>.log{
+		padding: 0,0;
+		border: black;
+		background-color: cyan;
+		font-size: 14px;
+		float: right;
+		text-align: left;
+		vertical-align: 0%;
+		position: absolute;
+		right: 1px;
+		top:1px;
 	}
 	table.detail{
 		
@@ -153,11 +168,11 @@
 	}
 	.block_point_item {
 		float: right;
-		width:70%;
+		width:80%;
 		display: flex;
 		flex-direction: column;
 		border: black;
-		
+		width:80%;
 	
 	  }
 	  .flex-container {
