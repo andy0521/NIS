@@ -136,7 +136,7 @@
 		padding: 0,0;
 		border: black;
 		background-color: cyan;
-		font-size: 14px;
+		font-size: 18px;
 		float: left;
 		text-align: left;
 		vertical-align: 0%;
@@ -168,12 +168,75 @@
 		left:  1px;
 		bottom: 1px;
 	}
-	table.detail{
+	
+	.WardInform{
+		display:inline-flex;
 		
+		background-color: #f1f1f1;
+		width: 20%;
+		height: 20vh;
+		margin: 5px;
+		border: solid;
+		position: relative;
+
 		
-		border:solid black;
-		border-collapse: collapse;
 	}
+	.WardInform>.BedNO{
+		padding: 0,0;
+		border: black solid;
+		background-color: rgb(138, 170, 230);
+		font-size: 18px;
+		float: left;
+		text-align: left;
+		vertical-align: 0%;
+		position: absolute;
+		left: 1px;
+		top:1px;
+	}
+	.WardInform>.Nurse{
+		padding: 0,0;
+		border: black;
+		
+		font-size: 20px;
+		float: right;
+		text-align: right;
+		vertical-align: 0%;
+		position: absolute;
+		right:1px;
+		top:1px;
+	}
+	.WardInform>.CareMessage{
+		padding: 0,0;
+		border: black;
+		background-color: cyan;
+		font-size: 20px;
+		float: right;
+		text-align: right;
+		vertical-align: 0%;
+		position: absolute;
+		right:1px;
+		bottom:1px;
+	}
+	.WardInform>.detail{
+		padding: 0,0;
+		background-color: cyan;
+		font-size: 20px;
+		float: left;
+		text-align: left;
+		vertical-align: 0%;
+		position: absolute;
+		left:1px;
+		bottom:1px;
+	}
+	.WardInform>.patientName{
+		margin: auto;
+		border: black;
+	
+		font-size: 24px;
+		
+		text-align: center;
+	}
+
 	table th,td{
 		border:solid black;
 		
