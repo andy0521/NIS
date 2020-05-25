@@ -125,7 +125,7 @@
 
 		width: 100%;
 	
-		height: 16vh;
+		height: 10vh;
 		
 		border:solid;
 	
@@ -149,12 +149,24 @@
 		border: black;
 		background-color: cyan;
 		font-size: 14px;
-		float: right;
+	
 		text-align: left;
 		vertical-align: 0%;
 		position: absolute;
 		right: 1px;
 		top:1px;
+	}
+	.patientData>.demand{
+		padding: 0,0;
+		border: black;
+		background-color: cyan;
+		font-size: 14px;
+		
+		text-align: left;
+		vertical-align: 0%;
+		position: absolute;
+		left:  1px;
+		bottom: 1px;
 	}
 	table.detail{
 		
