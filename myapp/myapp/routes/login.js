@@ -4,5 +4,5 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
     res.render('login', { title: '護理控台' });
   });
-  
   module.exports = router;
+ 
