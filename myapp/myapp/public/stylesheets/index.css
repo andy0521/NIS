@@ -27,7 +27,9 @@
 		list-style: none;
 	}
 	
-
+	a{
+		text-decoration:none;
+	}
 	
 	
 	a:hover
@@ -35,7 +37,11 @@
 		text-decoration: none;
 	}
 
-
+	a:visited {
+	
+		color:#ffffff;
+		
+		}
 	
 /*************************************************************/
 
