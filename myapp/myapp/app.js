@@ -11,6 +11,8 @@ var bodyparser = require('body-parser');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/login');
+var username = "admin";
+var pwd="0000";
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -32,12 +34,14 @@ app.get('/login', function(req, res){
 });
 
 app.post('/login', function(req, res){
-  if(req.body.username == 'admin' && req.body.pwd == 'admin123'){
+  if(req.body.username == username && req.body.pwd == pwd){
       req.session.userName = req.body.username; // 登录成功，设置 session
       res.redirect('/');
   }
   else{
+      res.redirect('/');
       res.json({ret_code : 1, ret_msg : '账号或密码错误'});// 若登录失败，重定向到登录页面
+     
   }
 });
 
