@@ -57,6 +57,9 @@ app.get('/logout', function (req, res) {
   req.session.userName = null; // 删除session
   res.redirect('login');
 });
+
+
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
