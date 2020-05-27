@@ -39,8 +39,8 @@ app.post('/login', function(req, res){
       res.redirect('/');
   }
   else{
-      res.redirect('/');
-      res.json({ret_code : 1, ret_msg : '帳號或密碼錯誤'});
+    
+    res.send("帳號或密碼錯誤")
      
   }
 });
@@ -63,10 +63,11 @@ app.get('/changepwd', function(req, res){
 app.post('/changepwd', function(req, res){
   if(req.body.username == username && req.body.pwd == pwd){
       pwd=req.body.new_pwd
+      
       res.redirect('/');
   }
   else{
-      res.redirect('/changepwd');
+    res.send("帳號或密碼錯誤")
    
      
   }
