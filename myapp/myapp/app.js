@@ -7,7 +7,7 @@ var app = express();
 var session = require('express-session');
 var bodyparser = require('body-parser');
 
-
+var wrong=false;
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/login');
@@ -30,17 +30,23 @@ app.use(session({
 }));
 // 獲取登入頁面
 app.get('/login', function(req, res){
-  res.render('login')
-});
+  res.render('login',{'wrong':" "})
+  
+    })
+  
+
 
 app.post('/login', function(req, res){
   if(req.body.username == username && req.body.pwd == pwd){
       req.session.userName = req.body.username; // 登錄成功，设置 session
+      wrong=false;
       res.redirect('/');
+
   }
   else{
+
+    res.render('login',{'wrong':"帳號或密碼錯誤"})
     
-    res.send("帳號或密碼錯誤")
      
   }
 });
@@ -48,8 +54,11 @@ app.post('/login', function(req, res){
 // 獲取主頁
 app.get('/', function (req, res) {
   if(req.session.userName){  //判斷session 狀態，如果有效，則返回主頁，否则轉到登錄頁面
+    wrong=false;
       res.render('index',{username : req.session.userName});
+      
   }else{
+  
       res.redirect('login');
   }
 })
@@ -58,7 +67,7 @@ app.get('/logout', function (req, res) {
   res.redirect('login');
 });
 app.get('/changepwd', function(req, res){
-  res.render('changepwd')
+  res.render('changepwd',{'wrong':" "})
 });
 app.post('/changepwd', function(req, res){
   if(req.body.username == username && req.body.pwd == pwd){
@@ -67,7 +76,7 @@ app.post('/changepwd', function(req, res){
       res.redirect('/');
   }
   else{
-    res.send("帳號或密碼錯誤")
+    res.render('changepwd',{'wrong':"帳號或密碼錯誤"})
    
      
   }
