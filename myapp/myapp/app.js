@@ -17,37 +17,37 @@ var pwd="0000";
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.use(bodyparser.json()); // 使用bodyparder中间件，
+app.use(bodyparser.json()); // 使用bodyparder
 app.use(bodyparser.urlencoded({ extended: true }));
-// 使用 session 中间件
+// 使用 session
 app.use(session({
-    secret :  'secret', // 对session id 相关的cookie 进行签名
+    secret :  'secret', // 對session id 相關的cookie 進行签名
     resave : true,
-    saveUninitialized: false, // 是否保存未初始化的会话
+    saveUninitialized: false, 
     cookie : {
-        maxAge : 1000 * 60 * 3, // 设置 session 的有效时间，单位毫秒
+        maxAge : 1000 * 60 * 3, // 設置 session 的有效时間，單位毫秒
     },
 }));
-// 获取登录页面
+// 獲取登入頁面
 app.get('/login', function(req, res){
-  res.sendFile(__dirname,'views' + '/login.html')
+  res.render('login')
 });
 
 app.post('/login', function(req, res){
   if(req.body.username == username && req.body.pwd == pwd){
-      req.session.userName = req.body.username; // 登录成功，设置 session
+      req.session.userName = req.body.username; // 登錄成功，设置 session
       res.redirect('/');
   }
   else{
       res.redirect('/');
-      res.json({ret_code : 1, ret_msg : '账号或密码错误'});// 若登录失败，重定向到登录页面
+      res.json({ret_code : 1, ret_msg : '帳號或密碼錯誤'});
      
   }
 });
 
-// 获取主页
+// 獲取主頁
 app.get('/', function (req, res) {
-  if(req.session.userName){  //判断session 状态，如果有效，则返回主页，否则转到登录页面
+  if(req.session.userName){  //判斷session 狀態，如果有效，則返回主頁，否则轉到登錄頁面
       res.render('index',{username : req.session.userName});
   }else{
       res.redirect('login');
@@ -57,8 +57,20 @@ app.get('/logout', function (req, res) {
   req.session.userName = null; // 删除session
   res.redirect('login');
 });
-
-
+app.get('/changepwd', function(req, res){
+  res.render('changepwd')
+});
+app.post('/changepwd', function(req, res){
+  if(req.body.username == username && req.body.pwd == pwd){
+      pwd=req.body.new_pwd
+      res.redirect('/');
+  }
+  else{
+      res.redirect('/changepwd');
+   
+     
+  }
+});
 
 app.use(logger('dev'));
 app.use(express.json());

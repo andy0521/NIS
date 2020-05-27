@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>變更密碼</title>
+    <link rel='stylesheet' href='/stylesheets/login.css' />
+  
+  </head>
+  <body>
+    <h1 style="text-align: center;" > </h1>
+    <h2 style="text-align: center;">變更密碼</h2>
+    <h3 style="text-align: center;"><a href="/">返回首頁</a></h3>
+    
+    <form class="login" method="POST" action="/changepwd">
+    
+        請輸入員工編號<br>
+        <input type="text" id="username" name="username">
+        <br><label for="pwd">舊密碼:</label>
+        <br><input type="password" id="password" name="pwd"></br>
+        <br>
+        <br><label for="pwd">請輸入新密碼:</label>
+        <br><input type="password" id="password" name="new_pwd"></br>
+        <br>
+        <input type="submit" value="提交" id="submit_btn">
+        <input type="reset" value="重置">
+      </br>
+      </form>
+  
+ 
+  </body>
+</html>
