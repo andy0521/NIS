@@ -11,6 +11,9 @@ var wrong=false;
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/login');
+var exitmapRouter = require('./routes/exitmap');
+var messageRouter = require('./routes/messsage');
+var remindRouter = require('./routes/remind');
 var username = "admin";
 var pwd="";
 // view engine setup
@@ -80,7 +83,20 @@ app.post('/changepwd', function(req, res){
    
      
   }
+  app.get('/logout', function (req, res) {
+  req.session.userName = null; // 删除session
+  res.redirect('login');
 });
+});
+app.get('/exitmap', function (req, res) {
+ res.render('exitmap')
+});
+app.get('/message', function (req, res) {
+  res.render('message')
+ });
+ app.get('/remind', function (req, res) {
+  res.render('remind')
+ });
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -91,6 +107,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/login', loginRouter);
+app.use('/exitmap', exitmapRouter);
+app.use('/message', messageRouter);
+app.use('/remind', remindRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
