@@ -3,7 +3,7 @@ const pool = mysql.createPool({
   host: 'localhost',
   user: 'root',
   password: '123456',
-  database: 'test' // 手動建DB Test
+  database: 'nis' // 手動建DB Test
 })
 
 let query = function (sql, values) {
@@ -43,7 +43,7 @@ createTable(member)
 // ------------------------------------------------------------------
 // 查詢登入者資訊
 let queryMember = function (userNo, password) {
-  let _sql = `select * from cgh_member where userNo = "${userNo}" and password = "${password}"`
+  let _sql = `select * from eecode where DeptCode = "${userNo}" and password = "${password}"`
   return query(_sql)
 }
 

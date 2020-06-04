@@ -14,8 +14,16 @@ var loginRouter = require('./routes/login');
 var exitmapRouter = require('./routes/exitmap');
 var messageRouter = require('./routes/messsage');
 var remindRouter = require('./routes/remind');
-var username = "admin";
-var pwd="";
+var shiftRouter = require('./routes/shift');
+var preusername = "admin";
+var prepwd="";
+/*var connection = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: '123456',
+  database: 'nis'
+});
+connection.connect();*/
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -40,7 +48,20 @@ app.get('/login', function(req, res){
 
 
 app.post('/login', function(req, res){
-  if(req.body.username == username && req.body.pwd == pwd){
+  var username = req.body.username;
+  var password = req.body.pwd; 
+ /* var sql = `select * from eecode where DeptCode = '${username}' and Password = '${password}'`;
+  connection.query(sql, function (err, result) {
+    console.log(result)
+    if (err || result.length == 0) {
+        res.status(200),
+            res.json("登陸失敗")
+    } else {
+        res.status(200),
+            res.json("登陸成功")
+    }
+});*/
+  if(username == preusername && password == prepwd){
       req.session.userName = req.body.username; // 登錄成功，设置 session
       wrong=false;
       res.redirect('/');
@@ -97,7 +118,9 @@ app.get('/message', function (req, res) {
  app.get('/remind', function (req, res) {
   res.render('remind')
  });
-
+app.get('/shift',function(req,res){
+  res.render('shift')
+});
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -110,6 +133,7 @@ app.use('/login', loginRouter);
 app.use('/exitmap', exitmapRouter);
 app.use('/message', messageRouter);
 app.use('/remind', remindRouter);
+app.use('/shift',shiftRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
