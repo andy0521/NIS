@@ -15,6 +15,19 @@ app.use(session({
     //  maxAge : 1000 * 60 * 3, // 設置 session 的有效时間，單位毫秒
   },
 }));
+//sql setting
+var conn = mysql.createConnection({
+  host : 'localhost',
+  prot : '3306',
+  user: 'root',
+  password : '123456',
+  database : 'nis'
+});
+
+var connStatus = 0;
+
+
+
 router.get('/login', function(req, res, next) {
     res.render('login', { title: '護理控台' });
   });

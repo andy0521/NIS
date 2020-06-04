@@ -6,7 +6,7 @@ var logger = require('morgan');
 var app = express();
 var session = require('express-session');
 var bodyparser = require('body-parser');
-
+var mysql = require('mysql');
 var wrong=false;
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -31,6 +31,13 @@ app.set('view engine', 'ejs');
 app.use(bodyparser.json()); // 使用bodyparder
 app.use(bodyparser.urlencoded({ extended: true }));
 // 使用 session
+var conn = mysql.createConnection({
+  host: 'localhost',
+  port: '3306',
+  user: 'root',
+  password: '123456',
+  database: 'nis'
+});
 app.use(session({
     secret :  'secret', // 對session id 相關的cookie 進行签名
     resave : true,
@@ -48,31 +55,33 @@ app.get('/login', function(req, res){
 
 
 app.post('/login', function(req, res){
+  
   var username = req.body.username;
   var password = req.body.pwd; 
- /* var sql = `select * from eecode where DeptCode = '${username}' and Password = '${password}'`;
-  connection.query(sql, function (err, result) {
-    console.log(result)
-    if (err || result.length == 0) {
-        res.status(200),
-            res.json("登陸失敗")
-    } else {
-        res.status(200),
-            res.json("登陸成功")
-    }
-});*/
   if(username == preusername && password == prepwd){
-      req.session.userName = req.body.username; // 登錄成功，设置 session
-      wrong=false;
-      res.redirect('/');
+    req.session.userName = req.body.username; // 登錄成功，设置 session
+    wrong=false;
+    res.redirect('/');
 
-  }
-  else{
-
-    res.render('login',{'wrong':"帳號或密碼錯誤"})
-    
+}
+else{
+}
+  var sql = 'select DeptCode, Password from eecode where DeptCode = "'+ username +'" and Password = "'+ password +'")';
+  if(username && password){
+    conn.query(sql,[username,password], function(error, results, fields){
      
-  }
+        req.session.userName = req.body.username; // 登錄成功，设置 session
+        wrong=false;
+        console.log(username+' '+password);
+        res.redirect('/');		
+			res.end();
+		});       
+         // res.render('login',{'wrong':"帳號或密碼錯誤"})
+  } else {
+    res.render('login',{'wrong':"帳號或密碼錯誤"})
+		res.end();
+	}
+  
 });
 
 // 獲取主頁
@@ -94,8 +103,9 @@ app.get('/changepwd', function(req, res){
   res.render('changepwd',{'wrong':" "})
 });
 app.post('/changepwd', function(req, res){
-  if(req.body.username == username && req.body.pwd == pwd){
-      pwd=req.body.new_pwd
+
+  if(req.body.username == preusername && req.body.pwd == prepwd){
+      prepwd=req.body.new_pwd
       
       res.redirect('/');
   }
@@ -150,5 +160,4 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
 module.exports = app;
