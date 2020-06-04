@@ -15,6 +15,7 @@ var exitmapRouter = require('./routes/exitmap');
 var messageRouter = require('./routes/messsage');
 var remindRouter = require('./routes/remind');
 var shiftRouter = require('./routes/shift');
+var messagelistRouter = require('./routes/messagelist');
 var preusername = "admin";
 var prepwd="";
 /*var connection = mysql.createConnection({
@@ -131,6 +132,10 @@ app.get('/message', function (req, res) {
 app.get('/shift',function(req,res){
   res.render('shift')
 });
+app.get('/messagelist',function(req,res){
+  res.render('messagelist')
+});
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -144,6 +149,7 @@ app.use('/exitmap', exitmapRouter);
 app.use('/message', messageRouter);
 app.use('/remind', remindRouter);
 app.use('/shift',shiftRouter);
+app.use('/messagelist',messagelistRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

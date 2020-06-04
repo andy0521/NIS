@@ -50,23 +50,24 @@
                             <li class="changpwd"><a href="/changepwd" accesskey="" title="">變更密碼</a></li>
                         </ul>
                     </div>
-                    <form>
-                        <div style="width:300px;height:20px;margin-left:25%;margin-right:25%;margin-top: 3%;">
-                            <div>
-                                <span style="font-family:DFKai-sb;margin-right:15px; font-size:25px;">主題</span>
-                                <input type="text" name="欄位名稱"  style="width:300px;height:30px;">
-                            </div>
-                            <div>
-                                <span style="font-family:DFKai-sb;margin-right:5px; font-size:25px;">內容</span>
-                                <input type="text" name="欄位名稱"  style="width:150%;height:35em;">
-                            </div>
-                            <br>
-                            <div>
-                                <button type="button">確認送出</button>
-                                <button type="reset">清除重填</button>
-                            </div>
-                        </div>
-                    </form>
+                    <div style="width:300px;height:20px;margin-left:25%;margin-right:25%;margin-top: 3%;">
+                        <table style="width:1000px;overflow:auto">
+                            <caption style="font-family:DFKai-sb;margin-right:5px; font-size:25px;">護理站訊息列表</caption>
+                            <tr>
+                                <th>主題</th>
+                                <th>內容</th>
+                                <th><input type="button"  value="新增" onclick="javascript:location.href='message'"></button></th>
+                            </tr>
+                            <tr>
+                                <td>小明</td>
+                                <td>02-2345-6789</td>
+                                <td>
+                                    <button type="button"  href="#">修改</button>
+                                    <button type="button"  href="#">刪除</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
             </nav>
                            
