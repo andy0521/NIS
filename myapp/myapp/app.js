@@ -7,10 +7,11 @@ var app = express();
 var session = require('express-session');
 var bodyparser = require('body-parser');
 var mysql = require('mysql');
+var conn = require ('./lib/mysql');
 var wrong=false;
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var loginRouter = require('./routes/login');
+//var loginRouter = require('./routes/login');
 var exitmapRouter = require('./routes/exitmap');
 var messageRouter = require('./routes/messsage');
 var remindRouter = require('./routes/remind');
@@ -26,6 +27,7 @@ var prepwd="";
 });
 connection.connect();*/
 // view engine setup
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
@@ -39,20 +41,41 @@ var conn = mysql.createConnection({
   password: '123456',
   database: 'nis'
 });
+
+
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
-    secret :  'secret', // 對session id 相關的cookie 進行签名
-    resave : true,
-    saveUninitialized: false, 
-    cookie : {
-        maxAge : 1000 * 60 * 3, // 設置 session 的有效时間，單位毫秒
-    },
+  secret :  'secret', // 對session id 相關的cookie 進行签名
+  resave : true,
+  saveUninitialized: false, 
+  cookie : {
+     // maxAge : 1000 * 60 * 3, // 設置 session 的有效时間，單位毫秒
+  },
 }));
+
+
+app.use('/', indexRouter);
+//app.use('/login', loginRouter);
+app.use('/users', usersRouter);
+app.use('/exitmap', exitmapRouter);
+app.use('/message', messageRouter);
+app.use('/remind', remindRouter);
+app.use('/shift',shiftRouter);
+app.use('/messagelist',messagelistRouter);
+
+
 // 獲取登入頁面
 app.get('/login', function(req, res){
   res.render('login',{'wrong':" "})
   
     })
   
+
+
 
 
 app.post('/login', function(req, res){
@@ -64,8 +87,7 @@ app.post('/login', function(req, res){
     wrong=false;
     res.redirect('/');
 
-}
-else{
+}else{
 }
   var sql = 'select DeptCode, Password from eecode where DeptCode = "'+ username +'" and Password = "'+ password +'")';
   if(username && password){
@@ -77,7 +99,7 @@ else{
         res.redirect('/');		
 			res.end();
 		});       
-         // res.render('login',{'wrong':"帳號或密碼錯誤"})
+         
   } else {
     res.render('login',{'wrong':"帳號或密碼錯誤"})
 		res.end();
@@ -92,8 +114,7 @@ app.get('/', function (req, res) {
       res.render('index',{username : req.session.userName});
       
   }else{
-  
-      res.redirect('login');
+      res.redirect('login');//導向登入頁面
   }
 })
 app.get('/logout', function (req, res) {
@@ -136,20 +157,6 @@ app.get('/messagelist',function(req,res){
   res.render('messagelist')
 });
 
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/login', loginRouter);
-app.use('/exitmap', exitmapRouter);
-app.use('/message', messageRouter);
-app.use('/remind', remindRouter);
-app.use('/shift',shiftRouter);
-app.use('/messagelist',messagelistRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -166,4 +173,5 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
 module.exports = app;
