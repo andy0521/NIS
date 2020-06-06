@@ -6,11 +6,11 @@ var logger = require('morgan');
 var app = express();
 var session = require('express-session');
 var bodyparser = require('body-parser');
-var mysql = require('mysql');
+var mysql = require("mysql");
 var conn = require ('./lib/mysql');
 var wrong=false;
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var users = require('./routes/users');
 //var loginRouter = require('./routes/login');
 var exitmapRouter = require('./routes/exitmap');
 var messageRouter = require('./routes/messsage');
@@ -35,13 +35,20 @@ app.use(bodyparser.json()); // 使用bodyparder
 app.use(bodyparser.urlencoded({ extended: true }));
 // 使用 session
 var conn = mysql.createConnection({
-  host: 'localhost',
-  port: '3306',
+  host : 'localhost',
+  prot : '3306',
   user: 'root',
-  password: '123456',
-  database: 'nis'
+  password : '123456',
+  database : 'nis'
 });
 
+con.connect(function(err) {
+  if (err) {
+      console.log('connecting error');
+      return;
+  }
+  console.log('connecting success');
+});
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -60,7 +67,7 @@ app.use(session({
 
 app.use('/', indexRouter);
 //app.use('/login', loginRouter);
-app.use('/users', usersRouter);
+app.use('/users', users);
 app.use('/exitmap', exitmapRouter);
 app.use('/message', messageRouter);
 app.use('/remind', remindRouter);
@@ -82,32 +89,34 @@ app.post('/login', function(req, res){
   
   var username = req.body.username;
   var password = req.body.pwd; 
-  if(username == preusername && password == prepwd){
+  if(username == preusername & password == prepwd){
     req.session.userName = req.body.username; // 登錄成功，设置 session
-    wrong=false;
+ 
     
     res.render('index',{'user':username});
 
 }else{
+      res.render('login',{'wrong':"帳號或密碼錯誤"})
+      res.end();
 }
   var sql = 'select DeptCode, Password from eecode where DeptCode = "'+ username +'" and Password = "'+ password +'")';//檢查資料庫有沒有使用者
-  if(username && password){
+  if(username & password){
     conn.query(sql,[username,password], function(error, results, fields){
-     
+      if(result.length >0){
         req.session.userName = req.body.username; // 登錄成功，设置 session
-        wrong=false;
         console.log(username+' '+password);
         res.render('index',{'user':username});
-			res.end();
+      res.end();
+    } else {
+      res.render('login',{'wrong':"帳號或密碼錯誤"})
+      res.end();
+    }
 		});       
          
-  } else {
-    res.render('login',{'wrong':"帳號或密碼錯誤"})
-		res.end();
-	}
-  
-});
 
+  
+}
+});
 // 獲取主頁
 app.get('/', function (req, res) {
   if(req.session.userName){  //判斷session 狀態，如果有效，則返回主頁，否则轉到登錄頁面
@@ -126,13 +135,20 @@ app.get('/changepwd', function(req, res){
   res.render('changepwd',{'wrong':" "})
 });
 app.post('/changepwd', function(req, res){
-
+  var username = req.body.username;
+  var password = req.body.pwd;
+  if(req.body.username==username&req.body.pwd == password){
+    var sql = 'Update eecode set Password = "'+ req.body.new_pwd +'" where DeptCode = "'+ username +'")';
+    conn.query(sql,[username,password], function(error, results, fields){
+      console.log(username+' '+req.body.new_pwd);
+      res.render('index',{'user':username});
+    })
+  }
   if(req.body.username == preusername && req.body.pwd == prepwd){
       prepwd=req.body.new_pwd
       
       res.redirect('/');
-  }
-  else{
+  }else{
     res.render('changepwd',{'wrong':"帳號或密碼錯誤"})
    
      
