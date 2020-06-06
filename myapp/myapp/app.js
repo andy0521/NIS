@@ -85,18 +85,19 @@ app.post('/login', function(req, res){
   if(username == preusername && password == prepwd){
     req.session.userName = req.body.username; // 登錄成功，设置 session
     wrong=false;
-    res.redirect('/');
+    
+    res.render('index',{'user':username});
 
 }else{
 }
-  var sql = 'select DeptCode, Password from eecode where DeptCode = "'+ username +'" and Password = "'+ password +'")';
+  var sql = 'select DeptCode, Password from eecode where DeptCode = "'+ username +'" and Password = "'+ password +'")';//檢查資料庫有沒有使用者
   if(username && password){
     conn.query(sql,[username,password], function(error, results, fields){
      
         req.session.userName = req.body.username; // 登錄成功，设置 session
         wrong=false;
         console.log(username+' '+password);
-        res.redirect('/');		
+        res.render('index',{'user':username});
 			res.end();
 		});       
          

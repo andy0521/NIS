@@ -7,6 +7,7 @@ var session = require('express-session');
 var preusername = "admin";
 var prepwd="";
 /* GET home page. */
+var loginRouter = require('./routes/login');
 var conn = mysql.createConnection({
   host : 'localhost',
   prot : '3306',
@@ -15,7 +16,7 @@ var conn = mysql.createConnection({
   database : 'nis'
 });
 
-router.get('/login', function(req, res){//取得登入頁面
+/*router.get('/login', function(req, res){//取得登入頁面
   res.render('login',{'wrong':" "})
 })
 
@@ -97,5 +98,5 @@ router.get('/messagelist',function(req,re,next){
   res.render('messagelist')
 });
 
-
+*/
 module.exports = router;
