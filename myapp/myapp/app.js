@@ -32,9 +32,9 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.use(bodyparser.json()); // 使用bodyparder
-app.use(bodyparser.urlencoded({ extended: true }));
+app.use(bodyparser.urlencoded({ extended: false }));
 // 使用 session
-var conn = mysql.createConnection({
+var con = mysql.createConnection({
   host: 'localhost',
   port: '3306',
   user: 'root',
@@ -48,6 +48,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(function(req, res, next) {
+  req.con = con;
+  next();
+});
 app.use(session({
   secret :  'secret', // 對session id 相關的cookie 進行签名
   resave : true,
@@ -91,7 +95,7 @@ app.post('/login', function(req, res){
 } 
   var sql = "select EEName from eecode where EENO = '"+username+"'and Password = '"+password+"'";//檢查資料庫有沒有使用者
   if(username && password){
-    conn.query(sql,[username,password], function(err, rs, fields){
+    con.query(sql,[username,password], function(err, rs, fields){
       if(rs.length >0){
         req.session.userName = req.body.username; // 登錄成功，设置 session
    
@@ -99,12 +103,15 @@ app.post('/login', function(req, res){
         console.log(rs);
         console.log(username+' '+password);
         res.render('index',{'user':rs[0].EEName});
+        con.end();
         res.end();
       }else {
         res.render('login',{'wrong':"帳號或密碼錯誤"})
         console.log(wrong);
         res.end();
       }
+      
+      
       
 		});       
          
@@ -116,25 +123,30 @@ app.post('/login', function(req, res){
 });
 
 // 獲取主頁
-app.get('/', function (req, res) {
+app.get('/', function (req, res,next) {
   if(req.session.userName){  //判斷session 狀態，如果有效，則返回主頁，否则轉到登錄頁面
     wrong=false;
-    var data = "";
+ 
+ 
     var sql1 = "select EENo,EEName,DeptCode from eecode" ;
-    conn.query(sql1, function(err, rs){
+    con.query(sql1, function(err, rows){
       if (err) {
         console.log(err);
     }
-      var data =rs;
+    data=rows;
+    console.log(rows);
 
-      res.render('index',{username : req.session.userName});
-    
+      res.render('index',{"username":req.session.userName,"data":data});
+     
+    con.end();
     
 
       });
   
   }else{
+    var data=　"" ;
       res.redirect('login');//導向登入頁面
+     
   }
 })
 app.get('/logout', function (req, res) {
