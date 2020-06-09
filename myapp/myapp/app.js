@@ -71,7 +71,6 @@ app.use('/messagelist',messagelistRouter);
 // 獲取登入頁面
 app.get('/login', function(req, res){
   res.render('login',{'wrong':" "})
-  
     })
   
 
@@ -86,20 +85,20 @@ app.post('/login', function(req, res){
   if(username == preusername && password == prepwd){
     req.session.userName = req.body.username; // 登錄成功，设置 session
     console.log("fakelogin");
-    
     res.render('index',{'user':username});
 
 }else{
 } 
-  var sql = "select DeptCode, Password from eecode where DeptCode = '"+username+"'and Password = '"+password+"'";//檢查資料庫有沒有使用者
+  var sql = "select EEName from eecode where EENO = '"+username+"'and Password = '"+password+"'";//檢查資料庫有沒有使用者
   if(username && password){
     conn.query(sql,[username,password], function(err, rs, fields){
       if(rs.length >0){
         req.session.userName = req.body.username; // 登錄成功，设置 session
+   
         wrong=false;
         console.log(rs);
         console.log(username+' '+password);
-        res.render('index',{'user':username});
+        res.render('index',{'user':rs[0].EEName});
         res.end();
       }else {
         res.render('login',{'wrong':"帳號或密碼錯誤"})
@@ -120,8 +119,20 @@ app.post('/login', function(req, res){
 app.get('/', function (req, res) {
   if(req.session.userName){  //判斷session 狀態，如果有效，則返回主頁，否则轉到登錄頁面
     wrong=false;
+    var data = "";
+    var sql1 = "select EENo,EEName,DeptCode from eecode" ;
+    conn.query(sql1, function(err, rs){
+      if (err) {
+        console.log(err);
+    }
+      var data =rs;
+
       res.render('index',{username : req.session.userName});
-      
+    
+    
+
+      });
+  
   }else{
       res.redirect('login');//導向登入頁面
   }
