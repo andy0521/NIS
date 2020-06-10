@@ -78,7 +78,7 @@ app.post('/login', function(req, res){
   
    username = ""+req.body.username;
    password = ""+req.body.pwd; 
-  var NST = 9;//預設護理站
+  var NST = 16;//預設護理站
   
   if(username == preusername && password == prepwd){
     req.session.userName = req.body.username; // 登錄成功，设置 session
@@ -192,7 +192,8 @@ app.get("/changeNST",function(req,res){
   res.redirect("index");
 })
 app.post('/changeNST', function (req, res) {
-  let NST = req.body.changeNST;
+  var  NST = req.body.NSTdata;
+
   console.log(NST);
   con.query('Select BNo,PName,MN,CNS  from bhdata join patientdata using(PNo) where BNo like '+"?",[NST+"%"]  , function(err, rows) {
       if (err) {
@@ -212,6 +213,8 @@ app.post('/changeNST', function (req, res) {
         }
 });
 });
+
+
 app.use('/', indexRouter);
 //app.use('/login', loginRouter);
 app.use('/users', usersRouter);

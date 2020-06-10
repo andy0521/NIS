@@ -15,7 +15,8 @@ var con = mysql.createConnection({
     database: "nis"
 });
 
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res, next) {//重新導入至首頁
+
     if(req.session.userName){ 
    
     var data = "";
@@ -45,7 +46,7 @@ router.get('/', function(req, res, next) {
         // use index.ejs
        
     });
-    
+    con.end();
     
    
     }else{
@@ -58,10 +59,9 @@ router.get('/', function(req, res, next) {
 // add page
 
    
-app.post('/changeNST', function (req, res) {
-    var  NST = req.body.NSTdata;
-  
-    console.log(NST);
+router.post('/changeNST', function (req, res) {
+    NST =req.body.NSTdata;
+
     con.query('Select BNo,PName,MN,CNS  from bhdata join patientdata using(PNo) where BNo like '+"?",[NST+"%"]  , function(err, rows) {
         if (err) {
             console.log(err);
@@ -79,7 +79,9 @@ app.post('/changeNST', function (req, res) {
         
           }
   });
+  con.end();
   });
+ 
 // edit page
 
 
