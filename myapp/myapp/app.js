@@ -77,13 +77,15 @@ app.post('/login', function(req, res){
   
   var  username = ""+req.body.username;
   var password = ""+req.body.pwd; 
-  var NIS = 9;
+  var NST = 9;//預設護理站
   
   if(username == preusername && password == prepwd){
     req.session.userName = req.body.username; // 登錄成功，设置 session
-    req.session.patientDetail="1234";
+    
     console.log("fakelogin");
-    res.render('index',{'user':username, patientDetail:"1234"});
+    
+    res.render('index',{'user':username, data:" "});
+    
 
 }else{
 } 
@@ -109,7 +111,7 @@ app.post('/login', function(req, res){
         // use index.ejs
        
     });
-    con.query('Select * from bhdata join patientdata using(PNo) where BNo like '+"?",[NIS+"%"] , function(err, rows) {
+    con.query('Select BNo,PName,MN,CNS  from bhdata join patientdata using(PNo) where BNo like '+"?",[NST+"%"] , function(err, rows) {
       if (err) {
           console.log(err);
       }
@@ -124,10 +126,6 @@ app.post('/login', function(req, res){
      
       
         }
-      
-     
-      // use index.ejs
-     
   });
     
      
@@ -185,6 +183,10 @@ app.get('/messagelist',function(req,res){
 app.get('/detail',function(req,res){
   res.render('detail')
 });
+app.get("/changeNST",function(req,res){
+  NST=
+  res.redirect("index");
+})
 app.use('/', indexRouter);
 //app.use('/login', loginRouter);
 app.use('/users', usersRouter);

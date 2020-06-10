@@ -22,9 +22,9 @@ router.get('/', function(req, res, next) {
 
     var user = "";
     var user = req.query.user;
-    var NIS = 9;
+    var NIS =9;
   
-    con.query('Select * from bhdata where BNo like '+"?",[NIS+"%"] , function(err, rows) {
+    con.query('Select BNo,PName,MN,CNS  from bhdata join patientdata using(PNo) where BNo like '+"?",[NIS+"%"]  , function(err, rows) {
         if (err) {
             console.log(err);
         }
