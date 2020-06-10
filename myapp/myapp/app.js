@@ -43,7 +43,8 @@ var con = mysql.createConnection({
 });
 
 var user = "";
-
+var  username = "";
+var password = ""; 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -75,13 +76,13 @@ app.get('/login', function(req, res){
 
 app.post('/login', function(req, res){
   
-  var  username = ""+req.body.username;
-  var password = ""+req.body.pwd; 
+   username = ""+req.body.username;
+   password = ""+req.body.pwd; 
   var NST = 9;//預設護理站
   
   if(username == preusername && password == prepwd){
     req.session.userName = req.body.username; // 登錄成功，设置 session
-    
+
     console.log("fakelogin");
     
     res.render('index',{'user':username, data:" "});
@@ -92,6 +93,7 @@ app.post('/login', function(req, res){
   var sql = "select EEName from eecode where EENO = "+username+" and Password = '"+password+"'";//檢查資料庫有沒有使用者
   if(username && password){
     con.query(sql,[username,password], function(err, rs, fields){
+
       if(rs.length >0){
         req.session.userName = req.body.username; // 登錄成功，设置 session
    
@@ -142,8 +144,10 @@ app.post('/login', function(req, res){
 
 // 獲取主頁
 app.get('/logout', function (req, res) {
+   username = "";
+  password = ""; 
   req.session.userName = null; // 删除session
-  res.redirect('login');
+  res.render('login',{'wrong':" "})
 });
 app.get('/changepwd', function(req, res){
   res.render('changepwd',{'wrong':" "})
@@ -187,6 +191,27 @@ app.get("/changeNST",function(req,res){
   NST=
   res.redirect("index");
 })
+app.post('/changeNST', function (req, res) {
+  let NST = req.body.changeNST;
+  console.log(NST);
+  con.query('Select BNo,PName,MN,CNS  from bhdata join patientdata using(PNo) where BNo like '+"?",[NST+"%"]  , function(err, rows) {
+      if (err) {
+          console.log(err);
+      }
+      if(rows.length >0){
+          console.log(rows);
+          var data = rows;
+          console.log (data);
+
+          res.render('index',{"user":req.session.userName,data:data});
+        }else {
+          res.render('index',{"user":req.session.userName,data:"null"});
+          console.log(wrong);
+     
+      
+        }
+});
+});
 app.use('/', indexRouter);
 //app.use('/login', loginRouter);
 app.use('/users', usersRouter);

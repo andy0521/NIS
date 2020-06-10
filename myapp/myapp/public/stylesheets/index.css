@@ -37,6 +37,7 @@
 	
 	a{
 		text-decoration:none;
+		color: black;
 	}
 	
 	
@@ -45,11 +46,6 @@
 		text-decoration: none;
 	}
 
-	a:visited {
-	
-		color:#ffffff;
-		
-		}
 	
 /*************************************************************/
 
@@ -191,7 +187,7 @@
 	
 	.patient_detail_box{
 		font-size: 18pt;
-		background-color: white;
+		
 	}
 	
 	#patient_detail{

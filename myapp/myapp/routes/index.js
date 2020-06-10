@@ -22,9 +22,9 @@ router.get('/', function(req, res, next) {
 
     var user = "";
     var user = req.query.user;
-    var NIS =9;
+    var NST =9;
   
-    con.query('Select BNo,PName,MN,CNS  from bhdata join patientdata using(PNo) where BNo like '+"?",[NIS+"%"]  , function(err, rows) {
+    con.query('Select BNo,PName,MN,CNS  from bhdata join patientdata using(PNo) where BNo like '+"?",[NST+"%"]  , function(err, rows) {
         if (err) {
             console.log(err);
         }
@@ -58,8 +58,28 @@ router.get('/', function(req, res, next) {
 // add page
 
    
-
-
+app.post('/changeNST', function (req, res) {
+    var  NST = req.body.NSTdata;
+  
+    console.log(NST);
+    con.query('Select BNo,PName,MN,CNS  from bhdata join patientdata using(PNo) where BNo like '+"?",[NST+"%"]  , function(err, rows) {
+        if (err) {
+            console.log(err);
+        }
+        if(rows.length >0){
+            console.log(rows);
+            var data = rows;
+            console.log (data);
+  
+            res.render('index',{"user":req.session.userName,data:data});
+          }else {
+            res.render('index',{"user":req.session.userName,data:"null"});
+            console.log(wrong);
+       
+        
+          }
+  });
+  });
 // edit page
 
 

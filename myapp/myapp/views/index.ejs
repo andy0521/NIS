@@ -23,8 +23,8 @@
                 
                 <div id="logo" >
                     <h1><span>護理控台</span></h1>
-                    <h2><form class="NST">
-                        <select name="NST" action="/changeNST">
+                    <h2><form class="NST" method="POST" onchange="changeNST(this.value)">
+                        <select name="NSTdata" method="post"  >
                         　<option value="9">09號護理站</option>
                         　<option value="10">10號護理站</option>
                         　<option value="11">11號護理站</option>
@@ -33,8 +33,8 @@
                         　<option value="14">14號護理站</option>
                         　<option value="15">15號護理站</option>
                         　<option value="16">16號護理站</option>
-                       
                         </select>
+              
                         </form>
                     </h2>
                     <ul id="member">
@@ -48,7 +48,7 @@
                 <div  >
                     <div>
                         <ul class="nav nav-tabs drop-down-menu">
-                            <li><a href="" accesskey="1" title="">首頁</a></li>
+                            <li><a href="/" accesskey="1" title="">首頁</a></li>
                             <li><a href="#" accesskey="1" title="">公告訊息</a>
                                 <ul>
                                     <li><a href="/messagelist" accesskey="1.1" title="">護理站訊息</a></li>
@@ -101,10 +101,10 @@
                
                 <table>
                 <tr>
-                    <th>BNO</th>
-                    <th>PName</th>
-                    <th>MN</th>
-                    <th>CNS</th>
+                    <th>床號</th>
+                    <th>病患</th>
+                    <th>護理師</th>
+                    <th>專師</th>
                     <th>編輯</th>
                 </tr>
                 <% for ( var i = 0 ; i < data.length ; i++){ %>
