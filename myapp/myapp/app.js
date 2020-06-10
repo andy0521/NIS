@@ -102,13 +102,16 @@ app.post('/login', function(req, res){
         wrong=false;
         console.log(rs);
         console.log(username+' '+password);
-        res.render('index',{'user':rs[0].EEName});
-        con.end();
+        user = rs[0].EEName;
+        res.render('index',{'user':user});
         res.end();
+
+       
       }else {
         res.render('login',{'wrong':"帳號或密碼錯誤"})
         console.log(wrong);
-        res.end();
+   
+    
       }
       
       
@@ -118,37 +121,12 @@ app.post('/login', function(req, res){
   } else {
     res.render('login',{'wrong':"帳號或密碼錯誤"})
 		res.end();
-	}
+  }
+  
   
 });
 
 // 獲取主頁
-app.get('/', function (req, res,next) {
-  if(req.session.userName){  //判斷session 狀態，如果有效，則返回主頁，否则轉到登錄頁面
-    wrong=false;
- 
- 
-    var sql1 = "select EENo,EEName,DeptCode from eecode" ;
-    con.query(sql1, function(err, rows){
-      if (err) {
-        console.log(err);
-    }
-    data=rows;
-    console.log(rows);
-
-      res.render('index',{"username":req.session.userName,"data":data});
-     
-    con.end();
-    
-
-      });
-  
-  }else{
-    var data=　"" ;
-      res.redirect('login');//導向登入頁面
-     
-  }
-})
 app.get('/logout', function (req, res) {
   req.session.userName = null; // 删除session
   res.redirect('login');

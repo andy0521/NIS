@@ -11,7 +11,7 @@ router.get('/', function(req, res, next) {
 
 var mysql = require("mysql");
 
-var conn = mysql.createConnection({
+var con = mysql.createConnection({
     host: "localhost",
     port: '3306',
     user: "root",
@@ -19,9 +19,9 @@ var conn = mysql.createConnection({
     database: "nis"
 });
 
-conn.query('SELECT 12 + 34 AS result', function(err, rows, fields) {
+con.query('SELECT 12 + 34 AS result', function(err, rows, fields) {
   if (err) throw err;
   console.log('The result is: ', rows[0].result);
 }); 
-conn.end();
+con.end();
 module.exports = router;
