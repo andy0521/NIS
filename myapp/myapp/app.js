@@ -42,6 +42,7 @@ var con = mysql.createConnection({
   database: 'nis'
 });
 
+var user = "";
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -62,15 +63,6 @@ app.use(session({
 }));
 
 
-app.use('/', indexRouter);
-//app.use('/login', loginRouter);
-app.use('/users', usersRouter);
-app.use('/exitmap', exitmapRouter);
-app.use('/message', messageRouter);
-app.use('/remind', remindRouter);
-app.use('/shift',shiftRouter);
-app.use('/messagelist',messagelistRouter);
-
 
 // 獲取登入頁面
 app.get('/login', function(req, res){
@@ -85,15 +77,17 @@ app.post('/login', function(req, res){
   
   var  username = ""+req.body.username;
   var password = ""+req.body.pwd; 
+  var NIS = 9;
   
   if(username == preusername && password == prepwd){
     req.session.userName = req.body.username; // 登錄成功，设置 session
+    req.session.patientDetail="1234";
     console.log("fakelogin");
-    res.render('index',{'user':username});
+    res.render('index',{'user':username, patientDetail:"1234"});
 
 }else{
 } 
-  var sql = "select EEName from eecode where EENO = '"+username+"'and Password = '"+password+"'";//檢查資料庫有沒有使用者
+  var sql = "select EEName from eecode where EENO = "+username+" and Password = '"+password+"'";//檢查資料庫有沒有使用者
   if(username && password){
     con.query(sql,[username,password], function(err, rs, fields){
       if(rs.length >0){
@@ -103,9 +97,8 @@ app.post('/login', function(req, res){
         console.log(rs);
         console.log(username+' '+password);
         user = rs[0].EEName;
-        res.render('index',{'user':user});
-        res.end();
-
+        
+       
        
       }else {
         res.render('login',{'wrong':"帳號或密碼錯誤"})
@@ -113,11 +106,34 @@ app.post('/login', function(req, res){
    
     
       }
+        // use index.ejs
+       
+    });
+    con.query('Select * from bhdata join patientdata using(PNo) where BNo like '+"?",[NIS+"%"] , function(err, rows) {
+      if (err) {
+          console.log(err);
+      }
+      if(rows.length >0){
+          var data = rows;
+          console.log (data);
+
+          res.render('index',{"user":req.session.userName,data:data});
+        }else {
+          res.render('index',{"user":req.session.userName,data:"null"});
+          console.log(wrong);
+     
       
+        }
       
+     
+      // use index.ejs
+     
+  });
+    
+     
+  
       
-		});       
-         
+      con.end(); 
   } else {
     res.render('login',{'wrong':"帳號或密碼錯誤"})
 		res.end();
@@ -166,6 +182,18 @@ app.get('/shift',function(req,res){
 app.get('/messagelist',function(req,res){
   res.render('messagelist')
 });
+app.get('/detail',function(req,res){
+  res.render('detail')
+});
+app.use('/', indexRouter);
+//app.use('/login', loginRouter);
+app.use('/users', usersRouter);
+app.use('/exitmap', exitmapRouter);
+app.use('/message', messageRouter);
+app.use('/remind', remindRouter);
+app.use('/shift',shiftRouter);
+app.use('/messagelist',messagelistRouter);
+
 
 
 // catch 404 and forward to error handler

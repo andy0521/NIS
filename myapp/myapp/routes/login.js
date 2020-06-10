@@ -26,48 +26,6 @@ var conn = mysql.createConnection({
   database : 'nis'
 });
 
-var connStatus = 0;
 
-
-router.get('/login', function(req, res){//取得登入頁面
-  res.render('login',{'wrong':" "})
-})
-  router.get('/', function(req, res, next) {
-    if(req.session.userName){  //判斷session 狀態，如果有效，則返回主頁，否则轉到登錄頁面
-      wrong=false;
-        res.render('index',{username : req.session.userName}); 
-    }else{
-        res.redirect('login');//導向登入頁面
-    }
-  });
-
-  app.post('/login', function(req, res,next){ 
-    var username = req.body.username;
-    var password = req.body.pwd; 
-    if(username == preusername && password == prepwd){//假密碼登入
-      req.session.userName = req.body.username; // 登錄成功，设置 session
-      wrong=false;
-      res.redirect('/');
-  }
-  else{
-  }
-    var sql = 'select DeptCode, Password from eecode where DeptCode = "'+ username +'" and Password = "'+ password +'")';
-    if(username && password){
-      conn.query(sql,[username,password], function(error, results, fields){
-       
-          req.session.userName = req.body.username; // 登錄成功，设置 session
-          wrong=false;
-          console.log(username+' '+password);
-          res.redirect('/');
-          req.session.userName = req.body.username; // 登錄成功，设置 session
-        res.end();
-      });       
-           
-    } else {
-      res.render('login',{'wrong':"帳號或密碼錯誤"})
-      res.end();
-    }
-    
-  });
   module.exports = router;
  

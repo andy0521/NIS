@@ -98,22 +98,36 @@
                     </div>
                 </div>
                 <div class="patient_detail_box">
-                <ul id="patient_detail">
-                    <li>床號</li>
-                    <li>病患名</li>
-                    <li>護理師名稱</li>
-                 
-                    <button class="detail"><a href="/detail"></a>編輯</button>
-                    <span>照護訊息</span>
-                </ul>
-            </div>
-            <table class="table">
+               
+                <table>
                 <tr>
-                    <th>EENo</th>
-                    <th>EEName</th>
-                    <th>DeptCode</th>
+                    <th>BNO</th>
+                    <th>PName</th>
+                    <th>MN</th>
+                    <th>CNS</th>
+                    <th>編輯</th>
                 </tr>
-             
+                <% for ( var i = 0 ; i < data.length ; i++){ %>
+                    <tr>
+                        <td>
+                            <%= data[i].BNo  %>
+                        </td>
+                        <td>
+                            <%= data[i].PName  %>
+                        </td>
+                        <td>
+                            <%= data[i].MN  %>
+                        </td>
+                        <td>
+                            <%= data[i].CNS  %>
+                        </td>
+                        <td><button><a href="/detail">編輯</a></button></td>
+
+                    </tr>
+                    <% } %>
+                </table>
+            </div>
+         
             </body>
             
 

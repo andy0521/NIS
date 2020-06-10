@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>護理控台系統</title>
+        <link rel='stylesheet' href='/stylesheets/index.css' />
+        <link href="/stylesheets/index.css" rel="stylesheet" type="text/css" media="all" />
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        
+
+          
+             
+
+
+            <div id="header">
+                
+                <div id="logo" >
+                    <h1><span>護理控台</span></h1>
+                    <h2><span>10號護理站</span></h2>
+                    <ul id="member">
+                        <li class="memberName" id="WD_name">病房主任：XXX</li>
+                        <li class="memberName" id="HN_name">護理長：OOO</li>
+                    </ul>
+                </div>
+            </div>
+            <nav id="menu">
+                <div  >
+                    <div>
+                        <ul class="nav nav-tabs drop-down-menu">
+                            <li><a href="/" accesskey="1" title="">首頁</a></li>
+                            <li><a href="#" accesskey="1" title="">公告訊息</a>
+                                <ul>
+                                    <li><a href="/messagelist" accesskey="1.1" title="">護理站訊息</a></li>
+                                    <li><a href="/remind" accesskey="1.2" title="">溫馨提醒</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#" accesskey="1.1" title="">護理站訊息</a></li>
+                            <li><a href="#" accesskey="2" title="">聯絡資訊</a></li>
+                            <li><a href="/exitmap" accesskey="3" title="">逃生資訊</a></li>
+                            <li><a href="/shift" accesskey="4" title="">護理排班</a></li>
+                            <li><a href="#" accesskey="5" title=""> 白板操作指南</a></li>
+                            <li class="logout"><a href="/logout" accesskey="" title="">登出</a></li>
+                            <li class="changpwd"><a href="/changepwd" accesskey="" title="">變更密碼</a></li>
+                        </ul>
+                    </div>
+                    <div style="width:300px;height:20px;margin-left:25%;margin-right:25%;margin-top: 3%;">
+                        <table style="width:1000px;overflow:auto">
+                            <caption style="font-family:DFKai-sb;margin-right:5px; font-size:25px;">護理站訊息列表</caption>
+                            <tr>
+                                <th>主題</th>
+                                <th>內容</th>
+                                <th><input type="button"  value="新增" onclick="javascript:location.href='message'"></button></th>
+                            </tr>
+                            <tr>
+                                <td>小明</td>
+                                <td>02-2345-6789</td>
+                                <td>
+                                    <button type="button"  href="#">修改</button>
+                                    <button type="button"  href="#">刪除</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </nav>
+                           
+    </body>
+            
+
+</html>

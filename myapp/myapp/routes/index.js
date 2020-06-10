@@ -22,19 +22,32 @@ router.get('/', function(req, res, next) {
 
     var user = "";
     var user = req.query.user;
-    res.render('index',{"username":req.session.userName});//從其他頁面回來時依舊可以取用
-    
-
-    con.query('Select EENo,EEName,DeptCode from eecode ' , function(err, rows) {
+    var NIS = 9;
+  
+    con.query('Select * from bhdata where BNo like '+"?",[NIS+"%"] , function(err, rows) {
         if (err) {
             console.log(err);
         }
-        console.log(rows);
-        var data = rows;
+        if(rows.length >0){
+            console.log(rows);
+            var data = rows;
+            console.log (data);
 
+            res.render('index',{"user":req.session.userName,data:data});
+          }else {
+            res.render('index',{"user":req.session.userName,data:"null"});
+            console.log(wrong);
+       
+        
+          }
+        
+       
         // use index.ejs
-        res.render('index', {user:"", data: data});
+       
     });
+    
+    
+   
     }else{
         var data=　"" ;
           res.redirect('login');//導向登入頁面
