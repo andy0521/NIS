@@ -43,7 +43,7 @@ var con = mysql.createConnection({
 });
 
 var user = "";
-var  username = "";
+var username = "";
 var password = ""; 
 var NST = 9;//預設護理站
 app.use(logger('dev'));
@@ -89,8 +89,8 @@ app.post('/login', function(req, res){
     res.render('index',{'user':username, data:" "});
     
 
-}else{
-} 
+  }else{
+  } 
   var sql = "select EEName from eecode where EENO = "+username+" and Password = '"+password+"'";//檢查資料庫有沒有使用者
   if(username && password){
     con.query(sql,[username,password], function(err, rs, fields){
@@ -129,10 +129,7 @@ app.post('/login', function(req, res){
      
       
         }
-  });
-    
-     
-  
+    });
      
   } else {
     res.render('login',{'wrong':"帳號或密碼錯誤"})
@@ -152,14 +149,23 @@ app.get('/logout', function (req, res) {
 app.get('/changepwd', function(req, res){
   res.render('changepwd',{'wrong':" "})
 });
-app.post('/changepwd', function(req, res){
-
-  if(req.body.username == preusername && req.body.pwd == prepwd){
-      prepwd=req.body.new_pwd
+app.post('/changepwd', function(req, res){ // 變更密碼render & SQL command
+  console.log('original username:'+username+'/ password:'+password);
+  if(req.body.username == preusername && req.body.pwd == prepwd){ // admin情況的模擬變更
       
+      prepwd=req.body.new_pwd;
       res.redirect('/');
-  }
-  else{
+  }else if(req.body.username == username && req.body.pwd == password){ // 一般情況的密碼變更
+      var newpassword = ""+req.body.new_pwd;
+      if(newpassword == password || newpassword == ""){
+        res.render('changepwd', {'wrong':"新密碼不得與舊密碼相同或空白"})
+      }else{
+        con.query("update eecode set Password = '"+ newpassword +"' where EENo ="+username)
+        res.redirect('/')
+      }
+
+
+  }else{
     res.render('changepwd',{'wrong':"帳號或密碼錯誤"})
    
      
