@@ -69,7 +69,9 @@
                 
             </nav>
             <div style="width:300px;height:20px;margin-left:10%;margin-right:10%;margin-top: 3%;">
-                <form name="save" method="POST" style="width:1000px;overflow:auto"> 
+                
+
+                <form name="save" method="POST" style="width:1000px;overflow:auto" action="/savePD"> 
                     <table style="width:1000px;overflow:auto">
                         <caption style="font-family:DFKai-sb;margin-right:5px; font-size:25px;">病患資訊編輯</caption>
                             <tr>
@@ -80,16 +82,12 @@
                             </tr>
                             <tr>
                                 <td><%=PName%></td>
-                                <td><%=BNo%></td>
+                                <td id="BNo"><%=BNo%></td>
                                 <td><%=MN%></td>
                                 <td><%=CNS%></td> 
                             </tr>
-                             
-                            
                     </table>
                     <ul style="font-size: 20px;">注意事項</ul>
-
-                
                             <label class="checkbox-inline">
                                 <input type="checkbox" name="hobby"  value="TABOO-01">左手禁治療
                             </label>
@@ -127,7 +125,7 @@
                                 <input type="checkbox" name="hobby" value="TABOO-12"> 拒絕急救
                             </label>
                     <div>
-                        <input type="button" value="提交"  />
+                        <input type="submit" value="儲存" />
                     </div>
                             
                
@@ -137,4 +135,4 @@
     </body>
             
 
-</html>
+    </html>

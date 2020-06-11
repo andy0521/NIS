@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+
+
+        
+    <style type="text/css">
+   
+    </style>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>護理控台系統</title>
+        <link rel='stylesheet' href='/stylesheets/index.css' />
+        <link href="/stylesheets/index.css" rel="stylesheet" type="text/css" media="all" />
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+      </head>
+      
+      <div id="header">
+                
+        <div id="logo" >
+            <h1><span>護理控台</span></h1>
+            <h2><form class="NST" method="POST" action="changeNST"  >
+
+                <select id="NSTdata"name="NSTdata" method="post"  >
+              
+                　<option value="9">09號護理站</option>
+                　<option value="10">10號護理站</option>
+                　<option value="11">11號護理站</option>
+                　<option value="12">12號護理站</option>
+                　<option value="13">13號護理站</option>
+                　<option value="14">14號護理站</option>
+                　<option value="15">15號護理站</option>
+                　<option value="16">16號護理站</option>
+                </select>
+
+                <input type="submit" value="切換護理站" id="changeNST_btn">
+       
+                </form>
+            </h2>
+            <ul id="member">
+                <li class="memberName" id="WD_name">病房主任：XXX</li>
+                <li class="memberName" id="HN_name">護理長：OOO</li>
+                <li class="memberName" id='user'>當前使用者:<%=user%></li>
+            </ul>
+        </div>
+    </div>
+    <nav id="menu">
+        <div  >
+            <div>
+                <ul class="nav nav-tabs drop-down-menu">
+                    <li><a href="/" accesskey="1" title="">首頁</a></li>
+                    <li><a href="#" accesskey="1" title="">公告訊息</a>
+                        <ul>
+                            <li><a href="/messagelist" accesskey="1.1" title="">護理站訊息編輯</a></li>
+                            <li><a href="/remind" accesskey="1.2" title="">溫馨提醒編輯</a></li>
+                        </ul>
+                    </li>
+                   
+                    <li><a href="#" accesskey="2" title="">聯絡資訊</a></li>
+                    <li><a href="/exitmap" accesskey="3" title="">逃生資訊</a></li>
+                    <li><a href="/shift" accesskey="4" title="">護理排班</a></li>
+                    <li><a href="#" accesskey="5" title=""> 白板操作指南</a></li>
+                    <li class="logout"><a href="/logout" accesskey="" title="">登出</a></li>
+                    
+                    <li class="changpwd"><a href="/changepwd" accesskey="" title="">變更密碼</a></li>
+                </ul>
+            </div>
+            
+        </div>
+    <body>
+    <div id="DIV1">
+    <ul>
+    <li>電話:(03)1111111</li>
+    <li>mail:ooxx@gmail.com</li>
+    </ul>
+    </div>
+    <div id="DIV2"><ul>
+    <li>聯絡人:OOO</li>
+    <li>聯絡人電話:0987654321</li>
+    </ul></div>
+    
+    <div id="DIV3"><ul><li>地址:OO式OO區OO路OO號OO樓</li></ul></div>
+    </body>
+    </html>
