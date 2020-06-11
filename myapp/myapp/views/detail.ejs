@@ -23,7 +23,7 @@
                 
                 <div id="logo" >
                     <h1><span>護理控台</span></h1>
-                    <h2><form class="NST" method="POST" action="changeNST"  >
+                    <h2><form class="NST" method="POST" action="/changeNST"  >
                         <select id="NSTdata"name="NSTdata" method="post"  >
                         　<option value="9">09號護理站</option>
                         　<option value="10">10號護理站</option>
@@ -64,32 +64,76 @@
                             <li class="changpwd"><a href="/changepwd" accesskey="" title="">變更密碼</a></li>
                         </ul>
                     </div>
-                    <div style="width:300px;height:20px;margin-left:25%;margin-right:25%;margin-top: 3%;">
-                        <table style="width:1000px;overflow:auto">
-                            <caption style="font-family:DFKai-sb;margin-right:5px; font-size:25px;">護理站訊息列表</caption>
-                            <tr>
-                                <th>主題</th>
-                                <th>內容</th>
-                                <th><input type="button"  value="新增" onclick="javascript:location.href='message'"></button></th>
-                            </tr>
-                            <tr>
-                                 <td><%=BNo%></td>
-                                 <td></td>
-                                 <td><%=PName%></td>
-                                <td><%=CNS%></td>
-                                <td></td>
-                               
-                                <td>02-2345-6789</td>
-                                <td>
-                                    <button type="button"  href="#">修改</button>
-                                    <button type="button"  href="#">刪除</button>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
+                    
                 </div>
+                
             </nav>
-                           
+            <div style="width:300px;height:20px;margin-left:10%;margin-right:10%;margin-top: 3%;">
+                <form name="save" method="POST" style="width:1000px;overflow:auto"> 
+                    <table style="width:1000px;overflow:auto">
+                        <caption style="font-family:DFKai-sb;margin-right:5px; font-size:25px;">病患資訊編輯</caption>
+                            <tr>
+                                <th>姓名</th>
+                                <th>床號</th>
+                                <th>護理師姓名</th>
+                                <th>專師姓名</th>
+                            </tr>
+                            <tr>
+                                <td><%=PName%></td>
+                                <td><%=BNo%></td>
+                                <td><%=MN%></td>
+                                <td><%=CNS%></td> 
+                            </tr>
+                             
+                            
+                    </table>
+                    <ul style="font-size: 20px;">注意事項</ul>
+
+                
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="hobby"  value="TABOO-01">左手禁治療
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="hobby" value="TABOO-02"> 右手禁治療
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="hobby" value="TABOO-03"> 左腳禁治療
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="hobby"  value="TABOO-04">右腳禁治療
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="hobby" value="TABOO-05"> 禁止飲食
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="hobby" value="TABOO-06"> 禁止喝水
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="hobby"  value="TABOO-07">藥物過敏
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="hobby" value="TABOO-08"> 食物過敏
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="hobby" value="TABOO-09"> 小心跌倒
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="hobby"  value="TABOO-10">注意洗手
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="hobby" value="TABOO-11"> 禁止下床
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="hobby" value="TABOO-12"> 拒絕急救
+                            </label>
+                    <div>
+                        <input type="button" value="提交"  />
+                    </div>
+                            
+               
+                
+            </form>
+            </div>        
     </body>
             
 

@@ -114,7 +114,7 @@ app.post('/login', function(req, res){
         // use index.ejs
        
     });
-    con.query('Select BNo,PName,MN,CNS  from bhdata join patientdata using(PNo) where BNo like '+"?",[NST+"%"] , function(err, rows) {
+    con.query('Select BNo,PName,MN,CNS  from bhdata join patientdata using(PNo) where DHDate =0 and BNo like '+"?",[NST+"%"]  , function(err, rows) {//查詢預設護理站欄位
       if (err) {
           console.log(err);
       }
@@ -187,7 +187,7 @@ app.get('/messagelist',function(req,res){
 app.get('/detail/:BNo',function(req,res){
   BNo=req.params.BNo;
 console.log(BNo);
-  con.query('Select BNo,PName,MN,CNS  from bhdata join patientdata using(PNo) where BNo like '+"?",[BNo]  , function(err, rows) {
+  con.query('Select BNo,PName,MN,CNS  from bhdata join patientdata using(PNo) where  BNo like '+"?",[BNo]  , function(err, rows) {
     if (err) {
         console.log(err);
     }
@@ -196,7 +196,7 @@ console.log(BNo);
         var data = rows;
         console.log (data);
         console.log(data[0].PName);
-        res.render('detail.ejs',{PName:data[0].PName,BNo:data[0].BNo,CNS:data[0].CNS});
+        res.render('detail.ejs',{PName:data[0].PName,BNo:data[0].BNo,CNS:data[0].CNS,MN:data[0].MN});
       }else {
         res.render('index',{"user":req.session.userName,data:"null"});
         console. log(wrong);
@@ -211,7 +211,7 @@ app.post('/changeNST', function (req, res) {//切換護理站
    NST = req.body.NSTdata;
   
   console.log(NST);
-  con.query('Select BNo,PName,MN,CNS  from bhdata join patientdata using(PNo) where BNo like '+"?",[NST+"%"]  , function(err, rows) {
+  con.query('Select BNo,PName,MN,CNS  from bhdata join patientdata using(PNo) where  DHDate =0 and BNo like '+"?",[NST+"%"]  , function(err, rows) {
       if (err) {
           console.log(err);
       }
