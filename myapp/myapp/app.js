@@ -17,6 +17,7 @@ var messageRouter = require('./routes/messsage');
 var remindRouter = require('./routes/remind');
 var shiftRouter = require('./routes/shift');
 var messagelistRouter = require('./routes/messagelist');
+const { data } = require('jquery');
 var preusername = "admin";
 var prepwd="";
 /*var connection = mysql.createConnection({
@@ -159,6 +160,8 @@ app.post('/changepwd', function(req, res){
       
       res.redirect('/');
   }
+
+
   else{
     res.render('changepwd',{'wrong':"帳號或密碼錯誤"})
    
@@ -172,6 +175,9 @@ app.post('/changepwd', function(req, res){
 app.get('/exitmap', function (req, res) {
  res.render('exitmap')
 });
+app.get('/contact', function (req, res) {
+  res.render('contact',{"user":req.session.userName})
+ });
 app.get('/message', function (req, res) {
   res.render('message')
  });
@@ -209,7 +215,7 @@ console.log(BNo);
 
 app.post('/changeNST', function (req, res) {//切換護理站
    NST = req.body.NSTdata;
-  
+    var changeNSt=req.body.NSTdata;
   console.log(NST);
   con.query('Select BNo,PName,MN,CNS  from bhdata join patientdata using(PNo) where  DHDate =0 and BNo like '+"?",[NST+"%"]  , function(err, rows) {
       if (err) {
@@ -219,7 +225,7 @@ app.post('/changeNST', function (req, res) {//切換護理站
           console.log(rows);
           var data = rows;
           console.log (data);
-
+          
           res.render('index',{"user":req.session.userName,data:data});
         }else {
           res.render('index',{"user":req.session.userName,data:""});
@@ -230,7 +236,11 @@ app.post('/changeNST', function (req, res) {//切換護理站
         }
 });
 });
-
+app.post('/savePD',function(req,res){
+  BNo=req.body.BNo;
+  
+  console.log(BNo);
+})
 
 app.use('/', indexRouter);
 //app.use('/login', loginRouter);

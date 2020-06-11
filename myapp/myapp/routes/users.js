@@ -24,4 +24,6 @@ con.query('SELECT 12 + 34 AS result', function(err, rows, fields) {
   console.log('The result is: ', rows[0].result);
 }); 
 con.end();
+
+
 module.exports = router;
