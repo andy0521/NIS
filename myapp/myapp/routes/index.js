@@ -14,9 +14,9 @@ var con = mysql.createConnection({
     password: "123456",
     database: "nis"
 });
-
+var NST = "9";
 router.get('/', function(req, res, next) {//重新導入至首頁
-    var  NST = "9";
+
 
     if(req.session.userName){ 
    
@@ -118,9 +118,7 @@ router.post('/changeNST', function (req, res) {
  app.get('/messagelist',function(req,res){
    res.render('messagelist')
  });
- app.get('/detail',function(req,res){
-   res.render('detail')
- });
+
 // edit page
 
 

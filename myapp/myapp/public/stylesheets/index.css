@@ -28,7 +28,9 @@
 	h2 select{	
 		background-color:rgb(173, 230, 192) ;
 	}
-	
+	h2 input{
+		font-size: 20px;
+	}
 	 ul
 	{
 		padding: 0;
@@ -187,7 +189,14 @@
 	
 	.patient_detail_box{
 		font-size: 18pt;
-		
+	
+	}
+	.patient_detail_box>table{
+		font-size: 18pt;
+		width: 74%;
+		height: auto;
+		float:right;
+
 	}
 	
 	#patient_detail{

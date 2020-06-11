@@ -45,6 +45,7 @@ var con = mysql.createConnection({
 var user = "";
 var  username = "";
 var password = ""; 
+var NST = 9;//預設護理站
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -78,7 +79,7 @@ app.post('/login', function(req, res){
   
    username = ""+req.body.username;
    password = ""+req.body.pwd; 
-  var NST = 16;//預設護理站
+  
   
   if(username == preusername && password == prepwd){
     req.session.userName = req.body.username; // 登錄成功，设置 session
@@ -183,12 +184,31 @@ app.get('/shift',function(req,res){
 app.get('/messagelist',function(req,res){
   res.render('messagelist')
 });
-app.get('/detail',function(req,res){
-  res.render('detail')
+app.get('/detail/:BNo',function(req,res){
+  BNo=req.params.BNo;
+console.log(BNo);
+  con.query('Select BNo,PName,MN,CNS  from bhdata join patientdata using(PNo) where BNo like '+"?",[BNo]  , function(err, rows) {
+    if (err) {
+        console.log(err);
+    }
+    if(rows.length >0){
+        console.log(rows);
+        var data = rows;
+        console.log (data);
+        console.log(data[0].PName);
+        res.render('detail.ejs',{PName:data[0].PName,BNo:data[0].BNo,CNS:data[0].CNS});
+      }else {
+        res.render('index',{"user":req.session.userName,data:"null"});
+        console. log(wrong);
+   
+    
+      }
+});
+ 
 });
 
 app.post('/changeNST', function (req, res) {//切換護理站
-  var  NST = req.body.NSTdata;
+   NST = req.body.NSTdata;
   
   console.log(NST);
   con.query('Select BNo,PName,MN,CNS  from bhdata join patientdata using(PNo) where BNo like '+"?",[NST+"%"]  , function(err, rows) {
