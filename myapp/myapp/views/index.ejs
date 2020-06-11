@@ -23,8 +23,8 @@
                 
                 <div id="logo" >
                     <h1><span>護理控台</span></h1>
-                    <h2><form class="NST" method="POST" action="/changeNST">
-                        <select id="NSTdata"name="NSTdata" method="post" action="/changeNST" >
+                    <h2><form class="NST" method="POST" action="changeNST"  >
+                        <select id="NSTdata"name="NSTdata" method="post"  >
                         　<option value="9">09號護理站</option>
                         　<option value="10">10號護理站</option>
                         　<option value="11">11號護理站</option>
@@ -34,6 +34,7 @@
                         　<option value="15">15號護理站</option>
                         　<option value="16">16號護理站</option>
                         </select>
+                        <input type="submit" value="切換護理站" id="changeNST_btn">
                
                         </form>
                     </h2>
@@ -128,8 +129,6 @@
                 </table>
        
             </body>
-            <script>
 
-            </script>
 
 </html>

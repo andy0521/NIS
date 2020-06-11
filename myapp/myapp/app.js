@@ -105,7 +105,7 @@ app.post('/login', function(req, res){
        
        
       }else {
-        res.render('login',{'wrong':"帳號或密碼錯誤"})
+        res.redirect('login',{'wrong':"帳號或密碼錯誤"})
         console.log(wrong);
    
     
@@ -123,7 +123,7 @@ app.post('/login', function(req, res){
 
           res.render('index',{"user":req.session.userName,data:data});
         }else {
-          res.render('index',{"user":req.session.userName,data:"null"});
+          res.redirect('index',{"user":req.session.userName,data:"null"});
           console.log(wrong);
      
       
@@ -132,11 +132,10 @@ app.post('/login', function(req, res){
     
      
   
-      
-      con.end(); 
+     
   } else {
     res.render('login',{'wrong':"帳號或密碼錯誤"})
-		res.end();
+
   }
   
   
@@ -187,13 +186,10 @@ app.get('/messagelist',function(req,res){
 app.get('/detail',function(req,res){
   res.render('detail')
 });
-app.get("/changeNST",function(req,res){
-  NST=
-  res.redirect("index");
-})
-app.post('/changeNST', function (req, res) {
-  var  NST = req.body.NSTdata;
 
+app.post('/changeNST', function (req, res) {//切換護理站
+  var  NST = req.body.NSTdata;
+  
   console.log(NST);
   con.query('Select BNo,PName,MN,CNS  from bhdata join patientdata using(PNo) where BNo like '+"?",[NST+"%"]  , function(err, rows) {
       if (err) {
