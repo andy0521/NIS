@@ -196,7 +196,7 @@ console.log(BNo);
         var data = rows;
         console.log (data);
         console.log(data[0].PName);
-        res.render('detail.ejs',{PName:data[0].PName,BNo:data[0].BNo,CNS:data[0].CNS});
+        res.render('detail.ejs',{PName:data[0].PName,BNo:data[0].BNo,CNS:data[0].CNS,MN:data[0].MN});
       }else {
         res.render('index',{"user":req.session.userName,data:"null"});
         console. log(wrong);

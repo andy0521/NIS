@@ -19,9 +19,5 @@ var con = mysql.createConnection({
     database: "nis"
 });
 
-con.query('SELECT 12 + 34 AS result', function(err, rows, fields) {
-  if (err) throw err;
-  console.log('The result is: ', rows[0].result);
-}); 
-con.end();
+
 module.exports = router;

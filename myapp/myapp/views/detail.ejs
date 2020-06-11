@@ -64,32 +64,34 @@
                             <li class="changpwd"><a href="/changepwd" accesskey="" title="">變更密碼</a></li>
                         </ul>
                     </div>
-                    <div style="width:300px;height:20px;margin-left:25%;margin-right:25%;margin-top: 3%;">
-                        <table style="width:1000px;overflow:auto">
-                            <caption style="font-family:DFKai-sb;margin-right:5px; font-size:25px;">護理站訊息列表</caption>
-                            <tr>
-                                <th>主題</th>
-                                <th>內容</th>
-                                <th><input type="button"  value="新增" onclick="javascript:location.href='message'"></button></th>
-                            </tr>
-                            <tr>
-                                 <td><%=BNo%></td>
-                                 <td></td>
-                                 <td><%=PName%></td>
-                                <td><%=CNS%></td>
-                                <td></td>
-                               
-                                <td>02-2345-6789</td>
-                                <td>
-                                    <button type="button"  href="#">修改</button>
-                                    <button type="button"  href="#">刪除</button>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
+                    
                 </div>
+                
             </nav>
-                           
+            <div style="width:300px;height:20px;margin-left:10%;margin-right:10%;margin-top: 3%;">
+            <form name="save" method="POST"> 
+                <table style="width:1000px;overflow:auto">
+                    <caption style="font-family:DFKai-sb;margin-right:5px; font-size:25px;">病患資訊編輯</caption>
+                    <tr>
+                        <th>姓名</th>
+                        <th>床號</th>
+                        <th>護理師姓名</th>
+                        <th>專師姓名</th>
+                    </tr>
+                    <tr>
+                         <td><%=PName%></td>
+                         <td><%=BNo%></td>
+                         <td><%=MN%></td>
+                        <td><%=CNS%></td> 
+                    </tr>
+                    <tr>
+                        <td>
+                            <button type="button"  href="#">儲存</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+            </div>        
     </body>
             
 
