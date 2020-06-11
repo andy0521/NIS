@@ -222,7 +222,8 @@ app.post('/changeNST', function (req, res) {//切換護理站
 
           res.render('index',{"user":req.session.userName,data:data});
         }else {
-          res.render('index',{"user":req.session.userName,data:"null"});
+          res.render('index',{"user":req.session.userName,data:""});
+
           console.log(wrong);
      
       
