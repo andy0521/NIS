@@ -103,39 +103,33 @@ app.post('/login', function(req, res){
         console.log(rs);
         console.log(username+' '+password);
         user = rs[0].EEName;
-        
-       
-       
-      }else {
-        res.redirect('login',{'wrong':"帳號或密碼錯誤"})
-        console.log(wrong);
-   
+
+      } else {
+        res.render('login',{'wrong':"帳號或密碼錯誤"})
     
       }
-        // use index.ejs
-       
-    });
-    con.query('Select BNo,PName,MN,CNS  from bhdata join patientdata using(PNo) where DHDate =0 and BNo like '+"?",[NST+"%"]  , function(err, rows) {//查詢預設護理站欄位
-      if (err) {
-          console.log(err);
-      }
-      if(rows.length >0){
-          var data = rows;
-          console.log (data);
-
-          res.render('index',{"user":req.session.userName,data:data});
-        }else {
-          res.redirect('index',{"user":req.session.userName,data:"null"});
-          console.log(wrong);
-     
       
+      con.query('Select BNo,PName,MN,CNS  from bhdata join patientdata using(PNo) where DHDate =0 and BNo like '+"?",[NST+"%"]  , function(err, rows) {//查詢預設護理站欄位
+        if (err) {
+            console.log(err);
         }
+        if(rows.length >0){
+            var data = rows;
+            console.log (data);
+  
+            res.render('index',{"user":req.session.userName,data:data});
+          }else {
+            res.redirect('index',{"user":req.session.userName,data:"null"});
+            console.log(wrong);
+       
+        
+          }
+      });
+        // use index.ejs
     });
-     
-  } else {
-    res.render('login',{'wrong':"帳號或密碼錯誤"})
-
   }
+    
+     
   
   
 });
@@ -156,7 +150,6 @@ app.post('/changepwd', function(req, res){ // 變更密碼render & SQL command
       
       prepwd=req.body.new_pwd;
       res.redirect('/');
-<<<<<<< HEAD
   }else if(req.body.username == username && req.body.pwd == password){ // 一般情況的密碼變更
       var newpassword = ""+req.body.new_pwd;
       if(newpassword == password || newpassword == ""){
@@ -168,12 +161,6 @@ app.post('/changepwd', function(req, res){ // 變更密碼render & SQL command
 
 
   }else{
-=======
-  }
-
-
-  else{
->>>>>>> c74fa7d59747035c074ebd6418359a5406a13f6b
     res.render('changepwd',{'wrong':"帳號或密碼錯誤"})
    
      
