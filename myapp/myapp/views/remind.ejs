@@ -48,14 +48,13 @@
                 <div  >
                     <div>
                         <ul class="nav nav-tabs drop-down-menu">
-                            <li><a href="" accesskey="1" title="">首頁</a></li>
+                            <li><a href="/" accesskey="1" title="">首頁</a></li>
                             <li><a href="#" accesskey="1" title="">公告訊息</a>
                                 <ul>
                                     <li><a href="/messagelist" accesskey="1.1" title="">護理站訊息編輯</a></li>
                                     <li><a href="/remind" accesskey="1.2" title="">溫馨提醒編輯</a></li>
                                 </ul>
                             </li>
-                  
                             <li><a href="#" accesskey="2" title="">聯絡資訊</a></li>
                             <li><a href="/exitmap" accesskey="3" title="">逃生資訊</a></li>
                             <li><a href="/shift" accesskey="4" title="">護理排班</a></li>
@@ -64,9 +63,24 @@
                             <li class="changpwd"><a href="/changepwd" accesskey="" title="">變更密碼</a></li>
                         </ul>
                     </div>
-                    <div>
-
-                    </div>
+                    <form>
+                        <div style="width:300px;height:20px;margin-left:25%;margin-right:25%;margin-top: 3%;">
+                            <div>
+                                <span style="font-family:DFKai-sb;margin-right:15px; font-size:25px;">主題</span>
+                                <input type="text" name="欄位名稱"  style="width:300px;height:30px;">
+                            </div>
+                            <div>
+                                <span style="font-family:DFKai-sb;margin-right:5px; font-size:25px;">內容</span>
+                                <input type="text" name="欄位名稱"  style="width:150%;height:35em;">
+                            </div>
+                            <br>
+                            <div>
+                                <button type="button">確認送出</button>
+                                <button type="reset">清除重填</button>
+                                <input type="button"  value="返回" onclick="javascript:location.href='messagelist'">
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </nav>
                            

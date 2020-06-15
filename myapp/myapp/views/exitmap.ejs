@@ -11,14 +11,17 @@
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+        <script>
+            x=1;
+            function change(){
+              x++;
+               document.getElementById("photo").src="https://www.hosp.ncku.edu.tw/nckm/floor/"+x+"F.jpg";
+            }
+        </script>
     </head>
     <body>
         
-
-          
-             
-
-
             <div id="header">
                 
                 <div id="logo" >
@@ -52,7 +55,7 @@
                             <li><a href="#" accesskey="1" title="">公告訊息</a>
                                 <ul>
                                     <li><a href="/messagelist" accesskey="1.1" title="">護理站訊息編輯</a></li>
-                                    <li><a href="/remind" accesskey="1.2" title="">溫馨提醒編輯</a></li>
+                                    <li><a href="/remindlist" accesskey="1.2" title="">溫馨提醒編輯</a></li>
                                 </ul>
                             </li>
                          
@@ -64,13 +67,34 @@
                             <li class="changpwd"><a href="/changepwd" accesskey="" title="">變更密碼</a></li>
                         </ul>
                     </div>
-                    <div>
-                        <img src="https://depart.femh.org.tw/medical_image/images/2F%E5%B9%B3%E9%9D%A2%E5%9C%96.jpg" style="display:block; margin:auto;">
-                    </div>
+
                 </div>
             </nav>
-                           
-    </body>
+            <div>
+                <div style=
+                "float:left; 
+                border:2px blue solid; 
+                padding:20px; 
+                margin-top:50px; 
+                margin-left:200px;
+                background-color: blue;
+                position:relative;" >
+                    <p>1F</p>
+                    <p>1F</p>
+                    <p>1F</p>
+                    <p>1F</p>
+                    <p>1F</p>
+                    <p>1F</p>
+                    <p>1F</p>
+                </div>
+                <div style="float:left;background-color: orange; position:relative;">
+                    <img id="photo" src='https://www.hosp.ncku.edu.tw/nckm/floor/1F.jpg' onclick="change()" width="50%">
+                    <!--<img src="https://depart.femh.org.tw/medical_image/images/2F%E5%B9%B3%E9%9D%A2%E5%9C%96.jpg" style="display:block; margin:auto;">-->
+                </div>
+                <div style="clear:both;"></div>
+                
+            </div>
+        </body>
             
 
 </html>

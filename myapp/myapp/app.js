@@ -17,6 +17,7 @@ var messageRouter = require('./routes/messsage');
 var remindRouter = require('./routes/remind');
 var shiftRouter = require('./routes/shift');
 var messagelistRouter = require('./routes/messagelist');
+var remindlistRouter = require('./routes/remindlist');
 const { data } = require('jquery');
 var preusername = "admin";
 var prepwd="";
@@ -156,7 +157,6 @@ app.post('/changepwd', function(req, res){ // 變更密碼render & SQL command
       
       prepwd=req.body.new_pwd;
       res.redirect('/');
-<<<<<<< HEAD
   }else if(req.body.username == username && req.body.pwd == password){ // 一般情況的密碼變更
       var newpassword = ""+req.body.new_pwd;
       if(newpassword == password || newpassword == ""){
@@ -168,12 +168,6 @@ app.post('/changepwd', function(req, res){ // 變更密碼render & SQL command
 
 
   }else{
-=======
-  }
-
-
-  else{
->>>>>>> c74fa7d59747035c074ebd6418359a5406a13f6b
     res.render('changepwd',{'wrong':"帳號或密碼錯誤"})
    
      
@@ -200,6 +194,9 @@ app.get('/shift',function(req,res){
 });
 app.get('/messagelist',function(req,res){
   res.render('messagelist')
+});
+app.get('/remindlist',function(req,res){
+  res.render('remindlist')
 });
 app.get('/detail/:BNo',function(req,res){
   BNo=req.params.BNo;
@@ -261,6 +258,7 @@ app.use('/message', messageRouter);
 app.use('/remind', remindRouter);
 app.use('/shift',shiftRouter);
 app.use('/messagelist',messagelistRouter);
+app.use('/remindlist',remindlistRouter);
 
 
 
