@@ -71,8 +71,9 @@
             <div style="width:300px;height:20px;margin-left:10%;margin-right:10%;margin-top: 3%;">
                 
 
-                <form name="save" method="POST" style="width:1000px;overflow:auto" action="/savePD"> 
-                    <table style="width:1000px;overflow:auto">
+                <form name="savePD" method="POST" style="width:1000px;overflow:auto"  action="/savePD"> 
+                    <div>
+                    <table style="width:1000px;overflow:auto" id="PD">
                         <caption style="font-family:DFKai-sb;margin-right:5px; font-size:25px;">病患資訊編輯</caption>
                             <tr>
                                 <th>姓名</th>
@@ -82,49 +83,51 @@
                             </tr>
                             <tr>
                                 <td><%=PName%></td>
-                                <td id="BNo"><%=BNo%></td>
-                                <td><%=MN%></td>
-                                <td><%=CNS%></td> 
+                                <td name="BNo"><%=BNo%></td>
+                                <td name="MN"><%=MN%></td>
+                                <td name="CNS"><%=CNS%></td> 
                             </tr>
                     </table>
                     <ul style="font-size: 20px;">注意事項</ul>
+                    <input type="hidden" name="PName" value="<%=PName%>" />
+                    
                             <label class="checkbox-inline">
-                                <input type="checkbox" name="hobby"  value="TABOO-01">左手禁治療
+                                <input type="checkbox" name="TABOO"  value="TABOO-01">左手禁治療
                             </label>
                             <label class="checkbox-inline">
-                                <input type="checkbox" name="hobby" value="TABOO-02"> 右手禁治療
+                                <input type="checkbox" name="TABOO" value="TABOO-02"> 右手禁治療
                             </label>
                             <label class="checkbox-inline">
-                                <input type="checkbox" name="hobby" value="TABOO-03"> 左腳禁治療
+                                <input type="checkbox" name="TABOO" value="TABOO-03"> 左腳禁治療
                             </label>
                             <label class="checkbox-inline">
-                                <input type="checkbox" name="hobby"  value="TABOO-04">右腳禁治療
+                                <input type="checkbox" name="TABOO"  value="TABOO-04">右腳禁治療
                             </label>
                             <label class="checkbox-inline">
-                                <input type="checkbox" name="hobby" value="TABOO-05"> 禁止飲食
+                                <input type="checkbox" name="TABOO" value="TABOO-05"> 禁止飲食
                             </label>
                             <label class="checkbox-inline">
-                                <input type="checkbox" name="hobby" value="TABOO-06"> 禁止喝水
+                                <input type="checkbox" name="TABOO" value="TABOO-06"> 禁止喝水
                             </label>
                             <label class="checkbox-inline">
-                                <input type="checkbox" name="hobby"  value="TABOO-07">藥物過敏
+                                <input type="checkbox" name="TABOO"  value="TABOO-07">藥物過敏
                             </label>
                             <label class="checkbox-inline">
-                                <input type="checkbox" name="hobby" value="TABOO-08"> 食物過敏
+                                <input type="checkbox" name="TABOO" value="TABOO-08"> 食物過敏
                             </label>
                             <label class="checkbox-inline">
-                                <input type="checkbox" name="hobby" value="TABOO-09"> 小心跌倒
+                                <input type="checkbox" name="TABOO" value="TABOO-09"> 小心跌倒
                             </label>
                             <label class="checkbox-inline">
-                                <input type="checkbox" name="hobby"  value="TABOO-10">注意洗手
+                                <input type="checkbox" name="TABOO"  value="TABOO-10">注意洗手
                             </label>
                             <label class="checkbox-inline">
-                                <input type="checkbox" name="hobby" value="TABOO-11"> 禁止下床
+                                <input type="checkbox" name="TABOO" value="TABOO-11"> 禁止下床
                             </label>
                             <label class="checkbox-inline">
-                                <input type="checkbox" name="hobby" value="TABOO-12"> 拒絕急救
+                                <input type="checkbox" name="TABOO" value="TABOO-12"> 拒絕急救
                             </label>
-                    <div>
+                   
                         <input type="submit" value="儲存" />
                     </div>
                             

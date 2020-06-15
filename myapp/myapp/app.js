@@ -81,8 +81,12 @@ app.post('/login', function(req, res){
   
    username = ""+req.body.username;
    password = ""+req.body.pwd; 
-  
-  
+   if(password==""){
+    res.render('login',{'wrong':"帳號或密碼為空"})
+   }
+   if(username==""){
+    res.render('login',{'wrong':"帳號或密碼為空"})
+   }
   if(username == preusername && password == prepwd){
     req.session.userName = req.body.username; // 登錄成功，设置 session
 
@@ -104,39 +108,33 @@ app.post('/login', function(req, res){
         console.log(rs);
         console.log(username+' '+password);
         user = rs[0].EEName;
-        
-       
-       
-      }else {
-        res.redirect('login',{'wrong':"帳號或密碼錯誤"})
-        console.log(wrong);
-   
+
+      } else {
+        res.render('login',{'wrong':"帳號或密碼錯誤"})
     
       }
-        // use index.ejs
-       
-    });
-    con.query('Select BNo,PName,MN,CNS  from bhdata join patientdata using(PNo) where DHDate =0 and BNo like '+"?",[NST+"%"]  , function(err, rows) {//查詢預設護理站欄位
-      if (err) {
-          console.log(err);
-      }
-      if(rows.length >0){
-          var data = rows;
-          console.log (data);
-
-          res.render('index',{"user":req.session.userName,data:data});
-        }else {
-          res.redirect('index',{"user":req.session.userName,data:"null"});
-          console.log(wrong);
-     
       
+      con.query('Select BNo,PName,MN,CNS  from bhdata join patientdata using(PNo) where DHDate =0 and BNo like '+"?",[NST+"%"]  , function(err, rows) {//查詢預設護理站欄位
+        if (err) {
+            console.log(err);
         }
+        if(rows.length >0){
+            var data = rows;
+            console.log (data);
+  
+            res.render('index',{"user":req.session.userName,data:data});
+          }else {
+            res.redirect('index',{"user":req.session.userName,data:"null"});
+            console.log(wrong);
+       
+        
+          }
+      });
+        // use index.ejs
     });
-     
-  } else {
-    res.render('login',{'wrong':"帳號或密碼錯誤"})
-
   }
+    
+     
   
   
 });
@@ -210,6 +208,8 @@ console.log(BNo);
         var data = rows;
         console.log (data);
         console.log(data[0].PName);
+     
+        
         res.render('detail.ejs',{PName:data[0].PName,BNo:data[0].BNo,CNS:data[0].CNS,MN:data[0].MN});
       }else {
         res.render('index',{"user":req.session.userName,data:"null"});
@@ -245,9 +245,11 @@ app.post('/changeNST', function (req, res) {//切換護理站
 });
 });
 app.post('/savePD',function(req,res){
-  BNo=req.body.BNo;
-  
-  console.log(BNo);
+
+  console.log('PName:' +req.body.PName);
+  console.log('Taboo:' + req.body.TABOO);
+  taboo = req.body.TABOO;
+  res.send(req.body.name + '謝謝你的回覆');
 })
 
 app.use('/', indexRouter);
