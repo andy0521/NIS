@@ -23,7 +23,7 @@ const { data } = require('jquery');
 var preusername = "admin";
 var prepwd="";
 var preNST=9;
-
+var taboocount=12;
 /*var connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
@@ -149,30 +149,56 @@ app.get('/logout', function (req, res) {
   req.session.userName = null; // 删除session
   res.render('login',{'wrong':" "})
 });
-app.get('/changepwd', function(req, res){
-  res.render('changepwd',{'wrong':" "})
+
+app.get('/changepwd', function(req, res){//進入頁面
+  res.render('changepwd',{'wrong':" ","username":req.session.username})
+
 });
-app.post('/changepwd', function(req, res){ // 變更密碼render & SQL command
+app.post('/change_pwd', function(req, res){ // 變更密碼render & SQL command
+  username = req.body.username;
+   con.query("select Password from eecode where EENo = "+""+username+"",function(err,rows){
+    if (err) {
+      console.log(err);
+  }
+  if(rows.length >0){
+    password =rows[0].Password;
+ 
   console.log('original username:'+username+'/ password:'+password);
-  if(req.body.username == preusername && req.body.pwd == prepwd){ // admin情況的模擬變更
-      
+  }
+  if(req.body.username == preusername & req.body.pwd == prepwd){ // admin情況的模擬變更
       prepwd=req.body.new_pwd;
       res.redirect('/');
-  }else if(req.body.username == username && req.body.pwd == password){ // 一般情況的密碼變更
+  }else if(req.body.username == username & req.body.pwd == password){ // 一般情況的密碼變更
       var newpassword = ""+req.body.new_pwd;
+      console.log(newpassword);
       if(newpassword == password || newpassword == ""){
         res.render('changepwd', {'wrong':"新密碼不得與舊密碼相同或空白"})
       }else{
-        con.query("update eecode set Password = '"+ newpassword +"' where EENo ="+username)
-        res.redirect('/')
+        sql ="update eecode set Password = '"+ newpassword +"' where EENo ='"+username+"'";
+        console.log(sql);
+        con.query(sql);
+        con.query('Select BNo,PName,MN,CNS  from bhdata join patientdata using(PNo) where DHDate =0 and BNo like '+"?",[NST+"%"]  , function(err, rows) {//查詢預設護理站欄位
+          if (err) {
+              console.log(err);
+          }
+          if(rows.length >0){
+              var data = rows;
+              console.log (data);
+    
+              res.render('index',{"user":req.session.userName,data:data,NST:NST});
+            }else {
+              res.redirect('index',{"user":req.session.userName,data:"null"});
+              console.log(wrong);
+         
+          
+            }
+        });
+     
       }
 
 
-  }else{
-    res.render('changepwd',{'wrong':"帳號或密碼錯誤"})
-   
-     
   }
+});
   app.get('/logout', function (req, res) {
   req.session.userName = null; // 删除session
   res.redirect('login');
@@ -262,11 +288,14 @@ app.post('/savePD',function(req,res){
   
   console.log('Taboo:' + req.body.TABOO);
   if(req.body.TABOO==null){
-    
+    sql = "";
     res.send(req.body.name + '謝謝你的回覆!12');
   }
  
-  taboo = Boolean(re1.body.TABOO);
+  taboo = Boolean(req.body.TABOO);
+  for(i=0;i<taboo;i++){
+
+  }
   console.log(taboo);
   res.send(req.body.name + '謝謝你的回覆');
   

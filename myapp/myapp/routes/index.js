@@ -34,9 +34,9 @@ router.get('/', function(req, res, next) {//重新導入至首頁
           var data = rows;
           console.log (data);
 
-          res.render('index',{"user":req.session.userName,data:data});
+          res.render('index',{"user":req.session.userName,data:data,NST:NST});
         }else {
-          res.redirect('index',{"user":req.session.userName,data:"null"});
+          res.redirect('index',{"user":req.session.userName,data:"null",NST:NST});
           console.log(wrong);
      
       
