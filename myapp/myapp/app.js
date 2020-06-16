@@ -22,6 +22,7 @@ var remindlistRouter = require('./routes/remindlist');
 const { data } = require('jquery');
 var preusername = "admin";
 var prepwd="";
+var preNST=9;
 
 /*var connection = mysql.createConnection({
   host: 'localhost',
@@ -201,7 +202,7 @@ app.get('/remindlist',function(req,res){
 app.get('/detail/:BNo',function(req,res){
   BNo=req.params.BNo;
 console.log(BNo);
-  con.query('Select BNo,PName,MN,CNS  from bhdata join patientdata using(PNo) where  BNo like '+"?",[BNo]  , function(err, rows) {
+  con.query('Select BNo,PNo,PName,MN,CNS  from bhdata join patientdata using(PNo) where  BNo like '+"?",[BNo]  , function(err, rows) {
     if (err) {
         console.log(err);
     }
@@ -212,7 +213,7 @@ console.log(BNo);
         console.log(data[0].PName);
      
         
-        res.render('detail.ejs',{PName:data[0].PName,BNo:data[0].BNo,CNS:data[0].CNS,MN:data[0].MN});
+        res.render('detail.ejs',{PName:data[0].PName,BNo:data[0].BNo,CNS:data[0].CNS,MN:data[0].MN,PNo:data[0].PNo});
       }else {
         res.render('index',{"user":req.session.userName,data:"null"});
         console. log(wrong);
@@ -224,17 +225,18 @@ console.log(BNo);
 });
 
 app.post('/changeNST', function (req, res) {//切換護理站
-  preNST=9;
 
   NST = req.body.NSTdata;
+  
   if(NST==""){
     NST=preNST;
     
     }
-    var changeNST=NST;
-    console.log("現在護理站:"+changeNST)
+    preNST=NST;
+    
+    console.log("現在護理站:"+preNST)
   console.log(NST);
-  con.query('Select BNo,PName,MN,CNS  from bhdata join patientdata using(PNo) where  DHDate =0 and BNo like '+"?",[NST+"%"]  , function(err, rows) {
+  con.query('Select BNo,PNo,PName,MN,CNS  from bhdata join patientdata using(PNo) where  DHDate =0 and BNo like '+"?",[NST+"%"]  , function(err, rows) {
       if (err) {
           console.log(err);
       }
@@ -243,9 +245,9 @@ app.post('/changeNST', function (req, res) {//切換護理站
           var data = rows;
           console.log (data);
           
-          res.render('index',{"user":req.session.userName,data:data, "NST":changeNST});
+          res.render('index',{"user":req.session.userName,data:data, "NST":preNST});
         }else {
-          res.render('index',{"user":req.session.userName,data:"","NST":changeNST});
+          res.render('index',{"user":req.session.userName,data:"","NST":preNST});
 
           console.log(wrong);
      
@@ -255,11 +257,19 @@ app.post('/changeNST', function (req, res) {//切換護理站
     
 });
 app.post('/savePD',function(req,res){
-
-  console.log('PName:' +req.body.PName);
+  console.log(req.body.PNo);
+  var sql="";
+  
   console.log('Taboo:' + req.body.TABOO);
-  taboo = req.body.TABOO;
+  if(req.body.TABOO==null){
+    
+    res.send(req.body.name + '謝謝你的回覆!12');
+  }
+ 
+  taboo = Boolean(re1.body.TABOO);
+  console.log(taboo);
   res.send(req.body.name + '謝謝你的回覆');
+  
 })
 
 app.use('/', indexRouter);
