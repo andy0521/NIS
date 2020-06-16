@@ -8,6 +8,7 @@ var session = require('express-session');
 var bodyparser = require('body-parser');
 var mysql = require('mysql');
 var conn = require ('./lib/mysql');
+
 var wrong=false;
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -21,6 +22,7 @@ var remindlistRouter = require('./routes/remindlist');
 const { data } = require('jquery');
 var preusername = "admin";
 var prepwd="";
+
 /*var connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
@@ -92,7 +94,7 @@ app.post('/login', function(req, res){
 
     console.log("fakelogin");
     
-    res.render('index',{'user':username, data:" "});
+    res.render('index',{'user':username, data:" ",NST:NST});
     
 
   }else{
@@ -122,7 +124,7 @@ app.post('/login', function(req, res){
             var data = rows;
             console.log (data);
   
-            res.render('index',{"user":req.session.userName,data:data});
+            res.render('index',{"user":req.session.userName,data:data,NST:NST});
           }else {
             res.redirect('index',{"user":req.session.userName,data:"null"});
             console.log(wrong);
@@ -222,8 +224,15 @@ console.log(BNo);
 });
 
 app.post('/changeNST', function (req, res) {//切換護理站
-   NST = req.body.NSTdata;
-    var changeNSt=req.body.NSTdata;
+  preNST=9;
+
+  NST = req.body.NSTdata;
+  if(NST==""){
+    NST=preNST;
+    
+    }
+    var changeNST=NST;
+    console.log("現在護理站:"+changeNST)
   console.log(NST);
   con.query('Select BNo,PName,MN,CNS  from bhdata join patientdata using(PNo) where  DHDate =0 and BNo like '+"?",[NST+"%"]  , function(err, rows) {
       if (err) {
@@ -234,15 +243,16 @@ app.post('/changeNST', function (req, res) {//切換護理站
           var data = rows;
           console.log (data);
           
-          res.render('index',{"user":req.session.userName,data:data});
+          res.render('index',{"user":req.session.userName,data:data, "NST":changeNST});
         }else {
-          res.render('index',{"user":req.session.userName,data:""});
+          res.render('index',{"user":req.session.userName,data:"","NST":changeNST});
 
           console.log(wrong);
      
       
         }
 });
+    
 });
 app.post('/savePD',function(req,res){
 
