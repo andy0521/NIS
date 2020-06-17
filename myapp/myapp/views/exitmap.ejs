@@ -12,13 +12,15 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
-        <script>
+        <!--<script>
             x=1;
             function change(){
               x++;
                document.getElementById("photo").src="https://www.hosp.ncku.edu.tw/nckm/floor/"+x+"F.jpg";
             }
-        </script>
+        </script>-->
+
+
     </head>
     <body>
         
@@ -70,27 +72,67 @@
 
                 </div>
             </nav>
-            <div>
-                <div style=
-                "float:left; 
-                border:2px blue solid; 
-                padding:20px; 
-                margin-top:50px; 
-                margin-left:200px;
-                background-color: blue;
-                position:relative;" >
-                    <p>1F</p>
-                    <p>1F</p>
-                    <p>1F</p>
-                    <p>1F</p>
-                    <p>1F</p>
-                    <p>1F</p>
-                    <p>1F</p>
+            <div style="margin:0 auto; width:1300px; padding:0 10px; overflow:hidden;">
+
+                <script type="text/javascript ">
+                    function show1F(){  
+                        document.getElementById("1F").style.display="block";
+                        document.getElementById("2F").style.display="none"; 
+                        img3F.style.display="none"; 
+                        img4F.style.display="none"; 
+                        img5F.style.display="none";
+                        img6F.style.display="none"; 
+                        img7F.style.display="none"; 
+                        img8F.style.display="none"; 
+                        img9F.style.display="none"; 
+                        img10F.style.display="none"; 
+                        img11F.style.display="none";
+                        img12F.style.display="none"; 
+                    } 
+            
+                    function show2F(){  
+                    alert("測試");            
+            
+                    document.getElementById("1F").style.display="none";
+                    document.getElementById("2F").style.display="block"; 
+                        img3F.style.display="none"; 
+                        img4F.style.display="none"; 
+                        img5F.style.display="none";
+                        img6F.style.display="none"; 
+                        img7F.style.display="none"; 
+                        img8F.style.display="none"; 
+                        img9F.style.display="none"; 
+                        img10F.style.display="none"; 
+                        img11F.style.display="none";
+                        img12F.style.display="none"; 
+                    }   
+                function test() {
+                    alert("測試");  
+                }          
+                </script>
+
+                <div style="float:left; border:2px blue solid; width:170px;" >
+                    <p>一樓</p>
+                    <p>二樓</p>
+                    <input type="button"  value="新增"  οnclick="show2F()">
+                    <button  οnclick="test()">測試</button>
+                    <p>三樓</p>
+                    <p>四樓</p>
+                    <p>五樓</p>
+                    <p>六樓</p>
+                    <p>七樓</p>
+                    <p>八樓</p>
+                    <p>九樓</p>
+                    <p>十樓</p>
+                    <p>十一樓</p>
+                    <p>十二樓</p>
                 </div>
-                <div style="float:left;background-color: orange; position:relative;">
-                    <img id="photo" src='https://www.hosp.ncku.edu.tw/nckm/floor/1F.jpg' onclick="change()" width="50%">
+                <div  style= "margin-left:170px; width:auto;display:block" >
+                    <img id="1F" src='https://www.hosp.ncku.edu.tw/nckm/floor/1F.jpg'  width="100%" style= "display:block">
+                    <img id="2F" src='https://www.hosp.ncku.edu.tw/nckm/floor/2F.jpg'  width="100%" style= "display:none">
                     <!--<img src="https://depart.femh.org.tw/medical_image/images/2F%E5%B9%B3%E9%9D%A2%E5%9C%96.jpg" style="display:block; margin:auto;">-->
                 </div>
+
                 <div style="clear:both;"></div>
                 
             </div>

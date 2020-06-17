@@ -328,3 +328,22 @@ ul.drop-down-menu ul { /*隱藏次選單*/
 ul.drop-down-menu li:hover > ul { /* 滑鼠滑入展開次選單*/
 	display: block;
 }
+
+.mapoutdiv{
+	margin:0 auto; 
+	width:1300px; 
+	padding:0 10px; 
+	overflow:hidden;
+}
+
+.mapfloordiv{
+	float:left; 
+	border:2px blue solid;
+	width:170px;
+}
+
+.mapimagediv{
+	margin-left:170px; 
+	border:2px orange solid; 
+	width:auto;
+}
