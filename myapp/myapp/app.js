@@ -20,6 +20,9 @@ var shiftRouter = require('./routes/shift');
 var messagelistRouter = require('./routes/messagelist');
 var remindlistRouter = require('./routes/remindlist');
 const { data } = require('jquery');
+const { compile } = require('morgan');
+const { cpuUsage } = require('process');
+const f = require('session-file-store');
 var preusername = "admin";
 var prepwd="";
 var preNST=9;
@@ -283,8 +286,62 @@ app.post('/changeNST', function (req, res) {//切換護理站
     
 });
 app.post('/savePD',function(req,res){
-  console.log(req.body.PNo);
-  var sql="";
+  var sqltaboo=[];
+  var settrue=[];
+  var inserttaboo = [];
+  var PNo = req.body.PNo;//序號
+  console.log(PNo);
+  
+  if(req.body.TABOO==null){
+    
+  }else{
+    console.log(req.body.TABOO.length);
+    console.log(req.body.TABOO[0]);
+  for ( i=0;i<req.body.TABOO.length;i++){
+      sqltaboo[i]=req.body.TABOO[i] + '='+'true';
+      console.log("sqltaboo:", sqltaboo);
+
+  }
+
+  for ( i=0;i<req.body.TABOO.length;i++){
+    inserttaboo[i]=req.body.TABOO[i];
+    console.log("sqltaboo:", inserttaboo);
+
+}
+}
+  
+
+  var checkdatasql = "select * from taboorecord where PNo = ?";
+  con.query(checkdatasql,[PNo+""] ,function(err,rows){
+    if (err) {
+      console.log(err);
+  }
+  if(rows.length >0){//查到資料
+      console.log(rows);
+      if(taboo==null){
+        sql = "Update taboorecord set TABOO_01 = false where PNo = ? "
+        con.query(sql,[PNo]);
+      }else{
+      sql="Update taboorecord set ?  where PNo= ?";
+      con.query(sql,[sqltaboo,PNo]);
+      }
+    }else {
+      if(req.body.TABOO==null){//空資料
+        sql = "insert into taboorecord (PNo) value(?)" ;
+        con.query(sql,[PNo+""]);
+      }else{
+        
+        for (i=0;i<req.body.TABOO.length;i++){
+          settrue[i] = 1;
+        }
+     sql = "insert into taboorecord (PNo,?) value(?,?)" ;
+    con.query(sql,[inserttaboo,PNo,settrue]);
+      }
+  
+    }
+  })
+  
+ 
   
   console.log('Taboo:' + req.body.TABOO);
   if(req.body.TABOO==null){
