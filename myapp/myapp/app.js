@@ -27,8 +27,7 @@ var preusername = "admin";
 var prepwd="";
 var preNST=9;
 var taboocount=12;
-import alert from 'alert'
- 
+
 
 /*var connection = mysql.createConnection({
   host: 'localhost',
@@ -79,8 +78,7 @@ app.use(session({
 
 // 獲取登入頁面
 app.get('/login', function(req, res){
-  window.alert(1234);
-  alert('howdy')
+
   res.render('login',{'wrong':" "})
     })
   
@@ -264,7 +262,6 @@ app.post('/changeNST', function (req, res) {//切換護理站
   
   if(NST==""){
     NST=preNST;
-    
     }
     preNST=NST;
     
@@ -294,13 +291,19 @@ app.post('/savePD',function(req,res){
   var sqltaboo=[];
   var settrue=[];
   var  inserttaboo = [];
+  var taboo;
   var PNo = req.body.PNo;//序號
+  req.body.TABOO;
+  console.log(taboo);
   console.log(PNo);
-  
+ 
+  console.log(typeof(taboo));
   if(req.body.TABOO==null){
     
   }else{
-    console.log(req.body.TABOO);
+    taboo = new Array(req.body.TABOO);//轉陣列
+    console.log(taboo.length);
+    console.log (taboo);
 }
 
   var checkdatasql = "select * from taboorecord where PNo =?";
@@ -313,7 +316,7 @@ app.post('/savePD',function(req,res){
   
   if(rows.length >0){//查到資料
       console.log(rows);
-      if(req.body.TABOO==undefined){//沒有選擇
+      if(req.body.TABOO==undefined){//全部傳0
         sql = "Update taboorecord set TABOO_01 = false,TABOO_02 = false,TABOO_03 = false,TABOO_04 = false,TABOO_05 = false,TABOO_06 = false, TABOO_07 = false ,TABOO_08 = false,TABOO_09 = false,TABOO_10 = false,TABOO_11 = false,TABOO_12 = false where PNo = ? "
         con.query(sql,[PNo], function(err,rowa){
           if(err){
@@ -324,21 +327,35 @@ app.post('/savePD',function(req,res){
         
       
       }else{
-      
-      sql="Update taboorecord set "+req.body.TABOO+"=true"+"  where PNo= ?";
-      con.query(sql,[""+PNo]);//有問題
+        if(taboo.length==1){
+        for (i=0;i<taboo.length;i++){
+          settrue[i] = 1;
+        }
+      }else{
+        
+      }
+      let test=req.body.TABOO.join( "=1,");
+
+        console.log (settrue);
+      sql="Update taboorecord set ?"+" where PNo= ?";
+      con.query(sql,[test+"=1",""+PNo]);//有問題
       }
     }else {
-      if(req.body.TABOO==undefined){//空資料
+      if(req.body.TABOO==undefined){//預設值
         sql = "insert into taboorecord (PNo) value(?)" ;
         con.query(sql,[""+PNo]);
       }else{
-        
-        for (i=0;i<req.body.TABOO.length;i++){
-          settrue[i] = 1;
+        if(taboo.length==1){
+          for (i=0;i<taboo.length;i++){
+            settrue[i] = 1;
+          }
+        }else{
+          for (i=0;i<req.body.TABOO.length;i++){
+            settrue[i] = 1;
+          }
         }
      sql = "insert into taboorecord (PNo,?) value(?,?)" ;
-    con.query(sql,[inserttaboo,""+PNo,settrue]);
+    con.query(sql,[taboo,""+PNo,settrue]);
       }
   
     }
@@ -352,7 +369,7 @@ app.post('/savePD',function(req,res){
     res.send(req.body.name + '謝謝你的回覆!12');
   }
  
-  taboo = Boolean(req.body.TABOO);
+ 
   for(i=0;i<taboo;i++){
 
   }

@@ -127,6 +127,8 @@
                             <label class="checkbox-inline">
                                 <input type="checkbox" name="TABOO" value="TABOO_12"> 拒絕急救
                             </label>
+                         
+                            
                    
                         <input type="submit" value="儲存" />
                     </div>
@@ -134,6 +136,51 @@
                
                 
             </form>
+            <form name="savePD" method="POST" style="width:1000px;overflow:auto"  action="/savePD"> 
+                <div>
+               
+                <ul style="font-size: 20px;">DNR</ul>
+                <input type="hidden" name="PNo" value="<%=PNo%>" />
+                
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="TABOO"  value="BIdx-01">DNR
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="TABOO" value="BIdx-02"> 生訊
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="TABOO" value="BIdx-03"> 檢查
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="TABOO"  value="BIdx-04">手術
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="TABOO" value="BIdx-05"> 洗腎
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="TABOO" value="BIdx-06"> 隔離
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="TABOO"  value="BIdx-07">心導管
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="TABOO" value="BIdx-08"> 呼吸器
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="TABOO" value="BIdx-09"> 限制訪客
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="TABOO"  value="BIdx-10">母嬰同室
+                        </label>
+            
+                        
+               
+                    <input type="submit" value="儲存" />
+                </div>
+                        
+           
+            
+        </form>
             </div>        
     </body>
             
