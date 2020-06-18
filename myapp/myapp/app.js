@@ -27,6 +27,9 @@ var preusername = "admin";
 var prepwd="";
 var preNST=9;
 var taboocount=12;
+import alert from 'alert'
+ 
+
 /*var connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
@@ -76,6 +79,8 @@ app.use(session({
 
 // 獲取登入頁面
 app.get('/login', function(req, res){
+  window.alert(1234);
+  alert('howdy')
   res.render('login',{'wrong':" "})
     })
   
@@ -288,54 +293,52 @@ app.post('/changeNST', function (req, res) {//切換護理站
 app.post('/savePD',function(req,res){
   var sqltaboo=[];
   var settrue=[];
-  var inserttaboo = [];
+  var  inserttaboo = [];
   var PNo = req.body.PNo;//序號
   console.log(PNo);
   
   if(req.body.TABOO==null){
     
   }else{
-    console.log(req.body.TABOO.length);
-    console.log(req.body.TABOO[0]);
-  for ( i=0;i<req.body.TABOO.length;i++){
-      sqltaboo[i]=req.body.TABOO[i] + '='+'true';
-      console.log("sqltaboo:", sqltaboo);
-
-  }
-
-  for ( i=0;i<req.body.TABOO.length;i++){
-    inserttaboo[i]=req.body.TABOO[i];
-    console.log("sqltaboo:", inserttaboo);
-
+    console.log(req.body.TABOO);
 }
-}
-  
 
-  var checkdatasql = "select * from taboorecord where PNo = ?";
-  con.query(checkdatasql,[PNo+""] ,function(err,rows){
+  var checkdatasql = "select * from taboorecord where PNo =?";
+  con.query(checkdatasql,[""+PNo] ,function(err,rows){//檢查sql
+
     if (err) {
       console.log(err);
   }
+  console.log(rows);
+  
   if(rows.length >0){//查到資料
       console.log(rows);
-      if(taboo==null){
-        sql = "Update taboorecord set TABOO_01 = false where PNo = ? "
-        con.query(sql,[PNo]);
+      if(req.body.TABOO==undefined){//沒有選擇
+        sql = "Update taboorecord set TABOO_01 = false,TABOO_02 = false,TABOO_03 = false,TABOO_04 = false,TABOO_05 = false,TABOO_06 = false, TABOO_07 = false ,TABOO_08 = false,TABOO_09 = false,TABOO_10 = false,TABOO_11 = false,TABOO_12 = false where PNo = ? "
+        con.query(sql,[PNo], function(err,rowa){
+          if(err){
+            console.log(err);
+          }
+          console.log(rows);
+        });
+        
+      
       }else{
-      sql="Update taboorecord set ?  where PNo= ?";
-      con.query(sql,[sqltaboo,PNo]);
+      
+      sql="Update taboorecord set "+req.body.TABOO+"=true"+"  where PNo= ?";
+      con.query(sql,[""+PNo]);//有問題
       }
     }else {
-      if(req.body.TABOO==null){//空資料
+      if(req.body.TABOO==undefined){//空資料
         sql = "insert into taboorecord (PNo) value(?)" ;
-        con.query(sql,[PNo+""]);
+        con.query(sql,[""+PNo]);
       }else{
         
         for (i=0;i<req.body.TABOO.length;i++){
           settrue[i] = 1;
         }
      sql = "insert into taboorecord (PNo,?) value(?,?)" ;
-    con.query(sql,[inserttaboo,PNo,settrue]);
+    con.query(sql,[inserttaboo,""+PNo,settrue]);
       }
   
     }
