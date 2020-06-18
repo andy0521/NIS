@@ -27,7 +27,6 @@ var preusername = "admin";
 var prepwd="";
 var preNST=9;
 var taboocount=12;
-import alert from 'alert'
  
 
 /*var connection = mysql.createConnection({
@@ -79,8 +78,6 @@ app.use(session({
 
 // 獲取登入頁面
 app.get('/login', function(req, res){
-  window.alert(1234);
-  alert('howdy')
   res.render('login',{'wrong':" "})
     })
   
