@@ -28,7 +28,6 @@ var prepwd="";
 var preNST=9;
 var taboocount=12;
 
-
 /*var connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
@@ -78,7 +77,6 @@ app.use(session({
 
 // 獲取登入頁面
 app.get('/login', function(req, res){
-
   res.render('login',{'wrong':" "})
     })
   
