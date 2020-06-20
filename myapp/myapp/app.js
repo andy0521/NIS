@@ -23,11 +23,12 @@ const { data } = require('jquery');
 const { compile } = require('morgan');
 const { cpuUsage } = require('process');
 const f = require('session-file-store');
+const { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } = require('constants');
 var preusername = "admin";
 var prepwd="";
 var preNST=9;
 var taboocount=12;
-
+var pretaboorecord = ["TABOO_01","TABOO_02","TABOO_03","TABOO_04","TABOO_05","TABOO_06","TABOO_07","TABOO_08","TABOO_09","TABOO_10","TABOO_11","TABOO_12"];
 /*var connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
@@ -232,7 +233,7 @@ app.get('/remindlist',function(req,res){
 app.get('/detail/:BNo',function(req,res){
   BNo=req.params.BNo;
 console.log(BNo);
-  con.query('Select BNo,PNo,PName,MN,CNS  from bhdata join patientdata using(PNo) where  BNo like '+"?",[BNo]  , function(err, rows) {
+  con.query('Select BNo,PNo,PName,MN,CNS  from bhdata join patientdata using(PNo)  where  BNo like '+"?",[BNo]  , function(err, rows) {
     if (err) {
         console.log(err);
     }
@@ -241,7 +242,22 @@ console.log(BNo);
         var data = rows;
         console.log (data);
         console.log(data[0].PName);
-     
+        PNo=data[0].PNo;
+        var checkdatasql = "select * from taboorecord join bedidx using (PNo) where PNo =?";
+        con.query(checkdatasql,[""+PNo] ,function(err,rows){//檢查sql
+
+          if (err) {
+            console.log(err);
+        }
+        if(rows.length >0){//查到資料
+          console.log(rows);
+          selecttaboo= rows[0];
+          console.log(selecttaboo);
+
+      }
+
+
+    });
         
         res.render('detail.ejs',{PName:data[0].PName,BNo:data[0].BNo,CNS:data[0].CNS,MN:data[0].MN,PNo:data[0].PNo});
       }else {
@@ -273,8 +289,9 @@ app.post('/changeNST', function (req, res) {//切換護理站
           console.log(rows);
           var data = rows;
           console.log (data);
-          
-          res.render('index',{"user":req.session.userName,data:data, "NST":preNST});
+         
+        
+          res.render('index',{"user":req.session.userName,data:data, "NST":preNST,taboo:selecttaboo});
         }else {
           res.render('index',{"user":req.session.userName,data:"","NST":preNST});
 
@@ -286,12 +303,16 @@ app.post('/changeNST', function (req, res) {//切換護理站
     
 });
 app.post('/savePD',function(req,res){
-  var sqltaboo=[];
+  console.log("類型："+typeof(req.body.TABOO))
+  console.log(req.body.TABOO);
+   var sqltaboo=[];
   var settrue=[];
   var  inserttaboo = [];
+  var  updatetaboo = [];
   var taboo;
   var PNo = req.body.PNo;//序號
-  req.body.TABOO;
+  taboo=req.body.TABOO;
+  
   console.log(taboo);
   console.log(PNo);
  
@@ -300,8 +321,9 @@ app.post('/savePD',function(req,res){
     
   }else{
     taboo = new Array(req.body.TABOO);//轉陣列
-    console.log(taboo.length);
+    console.log("取得資料長度"+taboo.length);
     console.log (taboo);
+    
 }
 
   var checkdatasql = "select * from taboorecord where PNo =?";
@@ -322,21 +344,24 @@ app.post('/savePD',function(req,res){
           }
           console.log(rows);
         });
-        
-      
       }else{
         if(taboo.length==1){
-        for (i=0;i<taboo.length;i++){
-          settrue[i] = 1;
-        }
+          
+      
       }else{
         
       }
-      let test=req.body.TABOO.join( "=1,");
+ 
 
-        console.log (settrue);
-      sql="Update taboorecord set ?"+" where PNo= ?";
-      con.query(sql,[test+"=1",""+PNo]);//有問題
+  
+
+
+        for (i=0;i<req.body.TABOO.length;i++){//有用
+          updatetaboo[i] = req.body.TABOO[i] +"=1"+" "
+        }
+      sql="Update taboorecord set "+""+updatetaboo+""+ " where PNo= ?";
+      
+      con.query(sql,[""+PNo]);//有問題
       }
     }else {
       if(req.body.TABOO==undefined){//預設值
