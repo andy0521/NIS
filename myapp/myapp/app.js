@@ -311,7 +311,8 @@ console.log(BNo);
                     }
                     console.log(valueList);
                     res.render('detail.ejs',{"user":req.session.userName,PName:data[0].PName,BNo:data[0].BNo,CNS:data[0].CNS,MN:data[0].MN,PNo:data[0].PNo,"changeselect":preNST+"號護理站",TABOO_01:idList[0]
-                    ,TABOO_02:idList[1],TABOO_03:idList[3],TABOO_04:idList[4],TABOO_05:idList[5],TABOO_06:idList[6],TABOO_07:idList[7],TABOO_08:idList[8],TABOO_09:idList[9],TABOO_10:idList[10],TABOO_11:idList[11],TABOO_12:idList[12],checked:valueList});
+                    ,TABOO_02:idList[1],TABOO_03:idList[2],TABOO_04:idList[3],TABOO_05:idList[4],TABOO_06:idList[5],TABOO_07:idList[6],TABOO_08:idList[7],TABOO_09:idList[8],TABOO_10:idList[9],TABOO_11:idList[10],TABOO_12:idList[11],
+                    BIdx_01:idList[12],BIdx_02:idList[13],BIdx_03:idList[14],BIdx_04:idList[15],BIdx_05:idList[16],BIdx_06:idList[17],BIdx_07:idList[18],BIdx_08:idList[19],BIdx_09:idList[20],BIdx_10:idList[21],checked:valueList});
                   }
                   }); 
       //    res.render('detail.ejs',{"user":req.session.userName,PName:data[0].PName,BNo:data[0].BNo,CNS:data[0].CNS,MN:data[0].MN,PNo:data[0].PNo,"changeselect":preNST+"號護理站"});
@@ -327,12 +328,22 @@ console.log(BNo);
                   if(rows.length >0){//查到資料
                     console.log(rows);
                     listtaboo= rows[0];
-                    console.log(Object.keys(listtaboo));
-                    console.log(Object.values(listtaboo));
                     const idList=Object.keys(listtaboo);
-                    console.log(idList[0]);
+                    const valueList =Object.values(listtaboo);
+                    console.log(idList);
+                    console.log(valueList);
+                   
+                    for(i=0;i<valueList.length;i++){
+                      if(valueList[i]==1){
+                        valueList[i]="checked";
+                      }else{
+                        valueList[i]="";
+                      }
+                      
+                    }
                     res.render('detail.ejs',{"user":req.session.userName,PName:data[0].PName,BNo:data[0].BNo,CNS:data[0].CNS,MN:data[0].MN,PNo:data[0].PNo,"changeselect":preNST+"號護理站",TABOO_01:idList[0]
-                    ,TABOO_02:idList[1],TABOO_03:idList[3],TABOO_04:idList[4],TABOO_05:idList[5],TABOO_06:idList[6],TABOO_07:idList[7],TABOO_08:idList[8],TABOO_09:idList[9],TABOO_10:idList[10],TABOO_11:idList[11],TABOO_12:idList[12]});
+                    ,TABOO_02:idList[1],TABOO_03:idList[2],TABOO_04:idList[3],TABOO_05:idList[4],TABOO_06:idList[5],TABOO_07:idList[6],TABOO_08:idList[7],TABOO_09:idList[8],TABOO_10:idList[9],TABOO_11:idList[10],TABOO_12:idList[11],
+                    BIdx_01:idList[12],BIdx_02:idList[13],BIdx_03:idList[14],BIdx_04:idList[15],BIdx_05:idList[16],BIdx_06:idList[17],BIdx_07:idList[18],BIdx_08:idList[19],BIdx_09:idList[20],BIdx_10:idList[21],checked:valueList});
                   }
                   }); 
         });
