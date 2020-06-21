@@ -1,0 +1,64 @@
+ul li {
+    display:inline-table;
+    padding: 0em 0em 0em 0.5em;
+}
+#DIV1{
+    width: 300px;
+    line-height: 20px;
+    padding:20px;
+    margin-right:10px;
+    float:left;
+
+}
+#DIV2{
+    width: 300px;
+    line-height: 20px;
+    padding:20px;
+    margin-right:10px;
+    float:left;
+
+}
+#DIV3{
+    width: 300px;
+    line-height: 20px;
+    padding:20px;
+    margin-right:10px;
+    float:left;
+
+}
+#menu ul
+{
+    width:100%,auto;height:10vh,auto;
+    margin: 0 auto;
+    background-color: cyan;
+    -webkit-box-orient: horizontal;
+    text-align: center;
+    
+}
+
+
+#menu li .login {
+    float: right;
+    
+}
+#menu a 
+{
+    
+    display: block;
+    
+    
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 18px;
+    font-weight: 700;
+    color: black;
+}
+
+
+
+#menu a:hover
+{
+    background: #7BDB99;
+    text-decoration: none;
+    color: #FFF;
+}

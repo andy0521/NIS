@@ -267,6 +267,7 @@ app.get('/remindlist',function(req,res){
 });
 app.get('/detail/:BNo',function(req,res){
   BNo=req.params.BNo;
+  var listtaboo=[];
 console.log(BNo);
   con.query('Select BNo,PNo,PName,MN,CNS  from bhdata join patientdata using(PNo)  where  BNo like '+"?",[BNo]  , function(err, rows) {
     if (err) {
@@ -278,28 +279,67 @@ console.log(BNo);
         console.log (data);
         console.log(data[0].PName);
         PNo=data[0].PNo;
+        console.log(PNo);
         var checkdatasql = "select * from taboorecord join bedidx using (PNo) where PNo =?";
         con.query(checkdatasql,[""+PNo] ,function(err,rows){//檢查sql
-
           if (err) {
             console.log(err);
         }
         if(rows.length >0){//查到資料
           console.log(rows);
-          selecttaboo= rows[0];
-          console.log(selecttaboo);
-
-      }
-
-
-    });
+ 
         
-        res.render('detail.ejs',{"user":req.session.userName,PName:data[0].PName,BNo:data[0].BNo,CNS:data[0].CNS,MN:data[0].MN,PNo:data[0].PNo,"changeselect":preNST+"號護理站"});
+          var checkdatasql = "select TABOO_01,TABOO_02,TABOO_03,TABOO_04,TABOO_05,TABOO_06,TABOO_07,TABOO_08,TABOO_09,TABOO_10,"+
+          "TABOO_11,TABOO_12,BIdx_01,BIdx_02,BIdx_03,BIdx_04,BIdx_05,BIdx_06,BIdx_07,BIdx_08,BIdx_09,BIdx_10 from taboorecord join bedidx using (PNo) where PNo =?";
+                con.query(checkdatasql,[""+PNo] ,function(err,rows){//檢查sql
+                  if(rows.length >0){//查到資料
+                    console.log(rows);
+                    listtaboo= rows[0];
+                    console.log(Object.keys(listtaboo));
+                    console.log(Object.values(listtaboo));
+                    const idList=Object.keys(listtaboo);
+                    const valueList =Object.values(listtaboo);
+                    console.log(idList);
+                    console.log(valueList);
+                    for(i=0;i<valueList.length;i++){
+                      if(valueList[i]==1){
+                        valueList[i]="checked";
+                      }else{
+                        valueList[i]="";
+                      }
+                      
+                    }
+                    console.log(valueList);
+                    res.render('detail.ejs',{"user":req.session.userName,PName:data[0].PName,BNo:data[0].BNo,CNS:data[0].CNS,MN:data[0].MN,PNo:data[0].PNo,"changeselect":preNST+"號護理站",TABOO_01:idList[0]
+                    ,TABOO_02:idList[1],TABOO_03:idList[3],TABOO_04:idList[4],TABOO_05:idList[5],TABOO_06:idList[6],TABOO_07:idList[7],TABOO_08:idList[8],TABOO_09:idList[9],TABOO_10:idList[10],TABOO_11:idList[11],TABOO_12:idList[12],checked:valueList});
+                  }
+                  }); 
+      //    res.render('detail.ejs',{"user":req.session.userName,PName:data[0].PName,BNo:data[0].BNo,CNS:data[0].CNS,MN:data[0].MN,PNo:data[0].PNo,"changeselect":preNST+"號護理站"});
+          }else{
+              sql = "insert into taboorecord (PNo) value(?)" ;//新建資料，需要預設值
+              con.query(sql,[""+PNo]);
+              sql = "insert into bedidx (PNo) value(?)" ;//新建資料
+              con.query(sql,[""+PNo]);
+                }
+                var checkdatasql = "select TABOO_01,TABOO_02,TABOO_03,TABOO_04,TABOO_05,TABOO_06,TABOO_07,TABOO_08,TABOO_09,TABOO_10,"+
+                "TABOO_11,TABOO_12,BIdx_01,BIdx_02,BIdx_03,BIdx_04,BIdx_05,BIdx_06,BIdx_07,BIdx_08,BIdx_09,BIdx_10 from taboorecord join bedidx using (PNo) where PNo =?";
+                con.query(checkdatasql,[""+PNo] ,function(err,rows){//檢查sql
+                  if(rows.length >0){//查到資料
+                    console.log(rows);
+                    listtaboo= rows[0];
+                    console.log(Object.keys(listtaboo));
+                    console.log(Object.values(listtaboo));
+                    const idList=Object.keys(listtaboo);
+                    console.log(idList[0]);
+                    res.render('detail.ejs',{"user":req.session.userName,PName:data[0].PName,BNo:data[0].BNo,CNS:data[0].CNS,MN:data[0].MN,PNo:data[0].PNo,"changeselect":preNST+"號護理站",TABOO_01:idList[0]
+                    ,TABOO_02:idList[1],TABOO_03:idList[3],TABOO_04:idList[4],TABOO_05:idList[5],TABOO_06:idList[6],TABOO_07:idList[7],TABOO_08:idList[8],TABOO_09:idList[9],TABOO_10:idList[10],TABOO_11:idList[11],TABOO_12:idList[12]});
+                  }
+                  }); 
+        });
+     //   res.render('detail.ejs',{"user":req.session.userName,PName:data[0].PName,BNo:data[0].BNo,CNS:data[0].CNS,MN:data[0].MN,PNo:data[0].PNo,"changeselect":preNST+"號護理站",TABOO:listtaboo});
       }else {
         res.render('index',{"user":req.session.userName,data:"null","changeselect":preNST+"號護理站"});
         console. log(wrong);
-   
-    
       }
 });
  
@@ -358,7 +398,6 @@ app.post('/savePD',function(req,res){
     taboo = new Array(req.body.TABOO);//轉陣列
     console.log("取得資料長度"+taboo.length);
     console.log (taboo);
-    
 }
 
   var checkdatasql = "select * from taboorecord where PNo =?";
@@ -371,7 +410,7 @@ app.post('/savePD',function(req,res){
   
   if(rows.length >0){//查到資料
       console.log(rows);
-      if(req.body.TABOO==undefined){//全部傳0
+      if(req.body.TABOO==undefined){//全部為勾選，全部傳0
         sql = "Update taboorecord set TABOO_01 = false,TABOO_02 = false,TABOO_03 = false,TABOO_04 = false,TABOO_05 = false,TABOO_06 = false, TABOO_07 = false ,TABOO_08 = false,TABOO_09 = false,TABOO_10 = false,TABOO_11 = false,TABOO_12 = false where PNo = ? "
         con.query(sql,[PNo], function(err,rowa){
           if(err){
@@ -383,55 +422,30 @@ app.post('/savePD',function(req,res){
         if(taboo.length==1){
           
       
-      }else{
+         }else{
         
-      }
- 
-
-  
-
-
+            }
         for (i=0;i<req.body.TABOO.length;i++){//有用
           updatetaboo[i] = req.body.TABOO[i] +"=1"+" "//加工
         }
-      sql="Update taboorecord set "+""+updatetaboo+""+ " where PNo= ?";
-      
-      con.query(sql,[""+PNo]);
-      }
-    }else {
-      if(req.body.TABOO==undefined){//預設值
-        sql = "insert into taboorecord (PNo) value(?)" ;
-        con.query(sql,[""+PNo]);
-      }else{
-        if(taboo.length==1){
-          for (i=0;i<taboo.length;i++){
-            settrue[i] = 1;
+          sql="Update taboorecord set "+""+updatetaboo+""+ " where PNo= ?";
+          con.query(sql,[""+PNo]);
           }
-        }else{
-          for (i=0;i<req.body.TABOO.length;i++){
-            settrue[i] = 1;
-          }
-        }
-     sql = "insert into taboorecord (PNo,?) value(?,?)" ;
-    con.query(sql,[taboo,""+PNo,settrue]);
-      }
-  
-    }
+         }else {
+
+           }
   })
   
  
   
   console.log('Taboo:' + req.body.TABOO);
-  if(req.body.TABOO==null){
+  if(req.body.TABOO==undefined){
     sql = "";
     res.send(req.body.name + '謝謝你的回覆!12');
   }
  
  
-  for(i=0;i<taboo;i++){
 
-  }
-  console.log(taboo);
   res.send(req.body.name + '謝謝你的回覆');
   
 })
