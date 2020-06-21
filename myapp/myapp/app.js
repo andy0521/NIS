@@ -44,7 +44,7 @@ app.set('view engine', 'ejs');
 app.use(bodyparser.json()); // 使用bodyparder
 app.use(bodyparser.urlencoded({ extended: false }));
 // 使用 session
-var con = mysql.createConnection({
+var con = mysql.createConnection({//建立連線
   host: 'localhost',
   port: '3306',
   user: 'root',
@@ -97,10 +97,10 @@ app.post('/login', function(req, res){
    }
   if(username == preusername && password == prepwd){
     req.session.userName = req.body.username; // 登錄成功，设置 session
-
+    req.session.preNST=preNST;
     console.log("fakelogin");
     
-    res.render('index',{'user':username, data:" ",NST:NST});
+    res.render('index',{'user':username, data:" ",NST:NST,"changeselect":preNST+"號護理站"});
     
 
   }else{
@@ -130,9 +130,9 @@ app.post('/login', function(req, res){
             var data = rows;
             console.log (data);
   
-            res.render('index',{"user":req.session.userName,data:data,NST:NST});
+            res.render('index',{"user":req.session.userName,data:data,NST:NST,"changeselect":preNST+"號護理站"});
           }else {
-            res.redirect('index',{"user":req.session.userName,data:"null"});
+            res.redirect('index',{"user":req.session.userName,data:"null","changeselect":preNST+"號護理站"});
             console.log(wrong);
        
         
@@ -146,7 +146,42 @@ app.post('/login', function(req, res){
   
   
 });
+app.get('/', function(req, res, next) {//重新導入至首頁
 
+    
+  if(req.session.userName){ 
+ 
+  var data = "";
+
+  var user = "";
+  var user = req.query.user;
+
+
+  con.query('Select BNo,PName,MN,CNS  from bhdata join patientdata using(PNo) where DHDate =0 and BNo like '+"?",[NST+"%"] , function(err, rows) {
+    if (err) {
+        console.log(err);
+    }
+    if(rows.length >0){
+        var data = rows;
+        console.log (data);
+
+        res.render('index',{"user":req.session.userName,data:data,NST:NST,"changeselect":preNST+"號護理站"});
+      }else {
+        res.redirect('index',{"user":req.session.userName,data:"null",NST:NST,"changeselect":preNST+"號護理站"});
+        console.log(wrong);
+   
+    
+      }
+});
+
+  
+ 
+  }else{
+      var data=　"" ;
+        res.redirect('login');//導向登入頁面
+       
+    }
+});
 // 獲取主頁
 app.get('/logout', function (req, res) {
    username = "";
@@ -210,25 +245,25 @@ app.post('/change_pwd', function(req, res){ // 變更密碼render & SQL command
 });
 });
 app.get('/exitmap', function (req, res) {
- res.render('exitmap')
+ res.render('exitmap',{"user":req.session.userName,"changeselect":preNST+"號護理站"})
 });
 app.get('/contact', function (req, res) {
-  res.render('contact',{"user":req.session.userName})
+  res.render('contact',{"user":req.session.userName,"changeselect":preNST+"號護理站"})
  });
 app.get('/message', function (req, res) {
-  res.render('message')
+  res.render('message',{"user":req.session.userName,"changeselect":preNST+"號護理站"})
  });
  app.get('/remind', function (req, res) {
   res.render('remind')
  });
 app.get('/shift',function(req,res){
-  res.render('shift')
+  res.render('shift',{"user":req.session.userName,"changeselect":preNST+"號護理站"})
 });
 app.get('/messagelist',function(req,res){
-  res.render('messagelist')
+  res.render('messagelist',{"user":req.session.userName,"changeselect":preNST+"號護理站"})
 });
 app.get('/remindlist',function(req,res){
-  res.render('remindlist')
+  res.render('remindlist',{"user":req.session.userName,"changeselect":preNST+"號護理站"})
 });
 app.get('/detail/:BNo',function(req,res){
   BNo=req.params.BNo;
@@ -259,9 +294,9 @@ console.log(BNo);
 
     });
         
-        res.render('detail.ejs',{PName:data[0].PName,BNo:data[0].BNo,CNS:data[0].CNS,MN:data[0].MN,PNo:data[0].PNo});
+        res.render('detail.ejs',{"user":req.session.userName,PName:data[0].PName,BNo:data[0].BNo,CNS:data[0].CNS,MN:data[0].MN,PNo:data[0].PNo,"changeselect":preNST+"號護理站"});
       }else {
-        res.render('index',{"user":req.session.userName,data:"null"});
+        res.render('index',{"user":req.session.userName,data:"null","changeselect":preNST+"號護理站"});
         console. log(wrong);
    
     
@@ -278,7 +313,7 @@ app.post('/changeNST', function (req, res) {//切換護理站
     NST=preNST;
     }
     preNST=NST;
-    
+    req.session.preNST=preNST;
     console.log("現在護理站:"+preNST)
   console.log(NST);
   con.query('Select BNo,PNo,PName,MN,CNS  from bhdata join patientdata using(PNo) where  DHDate =0 and BNo like '+"?",[NST+"%"]  , function(err, rows) {
@@ -291,9 +326,9 @@ app.post('/changeNST', function (req, res) {//切換護理站
           console.log (data);
          
         
-          res.render('index',{"user":req.session.userName,data:data, "NST":preNST,taboo:selecttaboo});
+          res.render('index',{"user":req.session.userName,data:data, "NST":preNST,"changeselect":preNST+"號護理站"});
         }else {
-          res.render('index',{"user":req.session.userName,data:"","NST":preNST});
+          res.render('index',{"user":req.session.userName,data:"","NST":preNST,"changeselect":preNST+"號護理站"});
 
           console.log(wrong);
      
@@ -357,11 +392,11 @@ app.post('/savePD',function(req,res){
 
 
         for (i=0;i<req.body.TABOO.length;i++){//有用
-          updatetaboo[i] = req.body.TABOO[i] +"=1"+" "
+          updatetaboo[i] = req.body.TABOO[i] +"=1"+" "//加工
         }
       sql="Update taboorecord set "+""+updatetaboo+""+ " where PNo= ?";
       
-      con.query(sql,[""+PNo]);//有問題
+      con.query(sql,[""+PNo]);
       }
     }else {
       if(req.body.TABOO==undefined){//預設值

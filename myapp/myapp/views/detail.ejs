@@ -16,34 +16,28 @@
         
 
           
-             
+        <script language="JavaScript"> 
+            function Do_Query(f_str) { 
 
-
-            <div id="header">
+                    document.forms["NST"].submit(); 
                 
-                <div id="logo" >
-                    <h1><span>護理控台</span></h1>
-                    <h2><form class="NST" method="POST" action="/changeNST"  >
-                        <select id="NSTdata"name="NSTdata" method="post"  >
-                        　<option value="9">09號護理站</option>
-                        　<option value="10">10號護理站</option>
-                        　<option value="11">11號護理站</option>
-                        　<option value="12">12號護理站</option>
-                        　<option value="13">13號護理站</option>
-                        　<option value="14">14號護理站</option>
-                        　<option value="15">15號護理站</option>
-                        　<option value="16">16號護理站</option>
-                        </select>
-                        <input type="submit" value="切換護理站" id="changeNST_btn">
-               
-                        </form>
-                    </h2>
-                    <ul id="member">
-                        <li class="memberName" id="WD_name">病房主任：XXX</li>
-                        <li class="memberName" id="HN_name">護理長：OOO</li>
-                    </ul>
-                </div>
-            </div>
+            } 
+        </script>  
+
+
+<div id="header">
+            
+    <div id="logo" >
+        <h1><span>護理控台</span></h1>
+        <h2>當前護理站:<%=changeselect%></h2>
+      
+        <ul id="member">
+            <li class="memberName" id="WD_name">病房主任：XXX</li>
+            <li class="memberName" id="HN_name">護理長：OOO</li>
+            <li class="memberName" id='user'>當前使用者:<%=user%></li>
+        </ul>
+    </div>
+</div>
             <nav id="menu">
                 <div  >
                     <div>
