@@ -395,15 +395,19 @@ app.post('/savePD',function(req,res){
   var settrue=[];
   var  inserttaboo = [];
   var  updatetaboo = [];
+  var zerotaboo=[];
   var taboo;
   var PNo = req.body.PNo;//序號
-  taboo=req.body.TABOO;
+  taboo=new Object(req.body.TABOO);
   
   console.log(taboo);
   console.log(PNo);
  
   console.log(typeof(taboo));
-  if(req.body.TABOO==null){
+
+  
+
+  if(taboo==null){
     
   }else{
     taboo = new Array(req.body.TABOO);//轉陣列
@@ -439,7 +443,28 @@ app.post('/savePD',function(req,res){
         for (i=0;i<req.body.TABOO.length;i++){//有用
           updatetaboo[i] = req.body.TABOO[i] +"=1"+" "//加工
         }
-          sql="Update taboorecord set "+""+updatetaboo+""+ " where PNo= ?";
+        console.log(updatetaboo);
+        var temp = []; //臨時陣列1 
+        var temparray = [];//臨時陣列2  
+        for (var i = 0; i < req.body.TABOO.length; i++) { 
+          temp[req.body.TABOO[i]] = true;//巧妙地方：把陣列B的值當成臨時陣列1的鍵並賦值為真 
+
+          };
+          console.log(temp); 
+          for (var i = 0; i < pretaboorecord.length; i++  ) { 
+            if (!temp[pretaboorecord[i]]) { 
+            temparray.push(pretaboorecord[i]);//巧妙地方：同時把陣列A的值當成臨時陣列1的鍵並判斷是否為真，如果不為真說明沒重複，就合併到一個新陣列裡，這樣就可以得到一個全新並無重複的陣列 
+            }; 
+            }; 
+            temparray.join(","); 
+            console.log(temparray);
+            console.log(temparray.length);
+        for(i=0;i<temparray.length;i++){
+         zerotaboo[i]= temparray[i]+ "= 0"+" ";
+        }
+        console.log(zerotaboo);
+
+          sql="Update taboorecord set "+" "+updatetaboo+" "+","+" "+zerotaboo+" "+ " where PNo= ?";
           con.query(sql,[""+PNo]);
           }
          }else {
