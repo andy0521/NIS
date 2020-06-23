@@ -29,6 +29,7 @@ var prepwd="";
 var preNST=9;
 var taboocount=12;
 var pretaboorecord = ["TABOO_01","TABOO_02","TABOO_03","TABOO_04","TABOO_05","TABOO_06","TABOO_07","TABOO_08","TABOO_09","TABOO_10","TABOO_11","TABOO_12"];
+var preDNR = ["BIdx_01","BIdx_02","BIdx_03","BIdx_04","BIdx_05","BIdx_06","BIdx_07","BIdx_08","BIdx_09","BIdx_10"];
 /*var connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
@@ -398,19 +399,16 @@ app.post('/savePD',function(req,res){
   var zerotaboo=[];
   var taboo;
   var PNo = req.body.PNo;//序號
-  taboo=new Object(req.body.TABOO);
-  
-  console.log(taboo);
+  console.log(req.body.length);
   console.log(PNo);
  
-  console.log(typeof(taboo));
 
   
 
   if(taboo==null){
     
   }else{
-    taboo = new Array(req.body.TABOO);//轉陣列
+
     console.log("取得資料長度"+taboo.length);
     console.log (taboo);
 }
@@ -433,13 +431,25 @@ app.post('/savePD',function(req,res){
           }
           console.log(rows);
         });
+
+
       }else{
-        if(taboo.length==1){
-          
-      
-         }else{
-        
-            }
+
+        if(typeof(req.body.TABOO)=="string"){//1筆變更的狀況
+          taboo = new Array(req.body.TABOO);//轉陣列
+          for (i=0;i<taboo.length;i++){//有用
+            updatetaboo[i] = taboo +"=1"+" "//加工
+          }
+          console.log("Work")
+          var temp = []; //臨時陣列1 
+          var temparray = [];//臨時陣列2  
+          for (var i = 0; i < taboo.length; i++) { 
+            temp[taboo] = true;//巧妙地方：把陣列B的值當成臨時陣列1的鍵並賦值為真 
+  
+            };
+            
+            console.log(temp); 
+        }else{
         for (i=0;i<req.body.TABOO.length;i++){//有用
           updatetaboo[i] = req.body.TABOO[i] +"=1"+" "//加工
         }
@@ -447,29 +457,30 @@ app.post('/savePD',function(req,res){
         var temp = []; //臨時陣列1 
         var temparray = [];//臨時陣列2  
         for (var i = 0; i < req.body.TABOO.length; i++) { 
-          temp[req.body.TABOO[i]] = true;//巧妙地方：把陣列B的值當成臨時陣列1的鍵並賦值為真 
+          temp[req.body.TABOO[i]] = true;//把陣列B的值當成臨時陣列1的鍵並賦值為真 
 
           };
+          
           console.log(temp); 
+        }
           for (var i = 0; i < pretaboorecord.length; i++  ) { 
             if (!temp[pretaboorecord[i]]) { 
-            temparray.push(pretaboorecord[i]);//巧妙地方：同時把陣列A的值當成臨時陣列1的鍵並判斷是否為真，如果不為真說明沒重複，就合併到一個新陣列裡，這樣就可以得到一個全新並無重複的陣列 
+            temparray.push(pretaboorecord[i]);//同時把陣列A的值當成臨時陣列1的鍵並判斷是否為真，如果不為真說明沒重複，就合併到一個新陣列裡，這樣就可以得到一個全新並無重複的陣列 
             }; 
             }; 
             temparray.join(","); 
             console.log(temparray);
             console.log(temparray.length);
-        for(i=0;i<temparray.length;i++){
+        for(i=0;i<temparray.length;i++){ //設定=0
          zerotaboo[i]= temparray[i]+ "= 0"+" ";
         }
         console.log(zerotaboo);
-
+      
           sql="Update taboorecord set "+" "+updatetaboo+" "+","+" "+zerotaboo+" "+ " where PNo= ?";
           con.query(sql,[""+PNo]);
           }
-         }else {
-
-           }
+        }
+      
   })
   
  
@@ -483,9 +494,113 @@ app.post('/savePD',function(req,res){
  
 
   res.send(req.body.name + '謝謝你的回覆');
+});
+app.post('/saveDNR',function(req,res){
+  console.log("類型："+typeof(req.body.DNR))
+  console.log(req.body.DNR);
+   var sqlDNR=[];
+  var settrue=[];
+  var  insertDNR = [];
+  var  updateDNR = [];
+  var zeroDNR=[];
+  var DNR;
+  var PNo = req.body.PNo;//序號
+  console.log(PNo);
+ 
+
+  
+
+  if(DNR==null){
+    
+  }else{
+
+    console.log("取得資料長度"+DNR.length);
+    console.log (DNR);
+}
+
+  var checkdatasql = "select * from bedidx where PNo =?";
+  con.query(checkdatasql,[""+PNo] ,function(err,rows){//檢查sql
+
+    if (err) {
+      console.log(err);
+  }
+  console.log(rows);
+  
+  if(rows.length >0){//查到資料
+      console.log(rows);
+      if(req.body.DNR==undefined){//全部為勾選，全部傳0
+        sql = "Update bedidx set BIdx_01 = false,BIdx_02 = false,BIdx_03 = false,BIdx_04 = false,BIdx_05 = false,BIdx_06 = false, BIdx_07 = false ,BIdx_08 = false,BIdx_09 = false,BIdx_10 = false where PNo = ? "
+        con.query(sql,[PNo], function(err,rowa){
+          if(err){
+            console.log(err);
+          }
+          console.log(rows);
+        });
+
+
+      }else{
+
+        if(typeof(req.body.DNR)=="string"){//1筆變更的狀況
+          DNR = new Array(req.body.DNR);//轉陣列
+          for (i=0;i<DNR.length;i++){//有用
+            updateDNR[i] = DNR +"=1"+" "//加工
+          }
+          console.log("Work")
+          var temp = []; //臨時陣列1 
+          var temparray = [];//臨時陣列2  
+          for (var i = 0; i < DNR.length; i++) { 
+            temp[DNR] = true;//巧妙地方：把陣列B的值當成臨時陣列1的鍵並賦值為真 
+  
+            };
+            
+            console.log(temp); 
+        }else{
+        for (i=0;i<req.body.DNR.length;i++){//有用
+          updateDNR[i] = req.body.DNR[i] +"=1"+" "//加工
+        }
+        console.log(updateDNR);
+        var temp = []; //臨時陣列1 
+        var temparray = [];//臨時陣列2  
+        for (var i = 0; i < req.body.DNR.length; i++) { 
+          temp[req.body.DNR[i]] = true;//巧妙地方：把陣列B的值當成臨時陣列1的鍵並賦值為真 
+
+          };
+          
+          console.log(temp); 
+        }
+          for (var i = 0; i < preDNR.length; i++  ) { 
+            if (!temp[preDNR[i]]) { 
+            temparray.push(preDNR[i]);//巧妙地方：同時把陣列A的值當成臨時陣列1的鍵並判斷是否為真，如果不為真說明沒重複，就合併到一個新陣列裡，這樣就可以得到一個全新並無重複的陣列 
+            }; 
+            }; 
+            temparray.join(","); 
+            console.log(temparray);
+            console.log(temparray.length);
+        for(i=0;i<temparray.length;i++){ //設定=0
+         zeroDNR[i]= temparray[i]+ "= 0"+" ";
+        }
+        console.log(zeroDNR);
+      
+          sql="Update bedidx set "+" "+updateDNR+" "+","+" "+zeroDNR+" "+ " where PNo= ?";
+          con.query(sql,[""+PNo]);
+          }
+        }
+      
+  })
+  
+ 
+  
+  console.log('DNR:' + req.body.DNR);
+  if(req.body.DNR==undefined){
+    sql = "";
+    res.send(req.body.name + '謝謝你的回覆!12');
+  }
+ 
+ 
+
+  res.send(req.body.name + '謝謝你的回覆');
   
 })
-
 app.use('/', indexRouter);
 //app.use('/login', loginRouter);
 app.use('/users', usersRouter);
