@@ -56,6 +56,7 @@ var con = mysql.createConnection({//建立連線
 var user = "";
 var username = "";
 var password = ""; 
+var BNo;
 var NST = 9;//預設護理站
 app.use(logger('dev'));
 app.use(express.json());
@@ -475,9 +476,9 @@ app.post('/savePD',function(req,res){
          zerotaboo[i]= temparray[i]+ "= 0"+" ";
         }
         console.log(zerotaboo);
-      
           sql="Update taboorecord set "+" "+updatetaboo+" "+","+" "+zerotaboo+" "+ " where PNo= ?";
           con.query(sql,[""+PNo]);
+          res.redirect("/");
           }
         }
       
@@ -485,15 +486,7 @@ app.post('/savePD',function(req,res){
   
  
   
-  console.log('Taboo:' + req.body.TABOO);
-  if(req.body.TABOO==undefined){
-    sql = "";
-    res.send(req.body.name + '謝謝你的回覆!12');
-  }
- 
- 
-
-  res.send(req.body.name + '謝謝你的回覆');
+  
 });
 app.post('/saveDNR',function(req,res){
   console.log("類型："+typeof(req.body.DNR))
@@ -583,23 +576,12 @@ app.post('/saveDNR',function(req,res){
       
           sql="Update bedidx set "+" "+updateDNR+" "+","+" "+zeroDNR+" "+ " where PNo= ?";
           con.query(sql,[""+PNo]);
+        
+          res.redirect("/");
           }
         }
       
   })
-  
- 
-  
-  console.log('DNR:' + req.body.DNR);
-  if(req.body.DNR==undefined){
-    sql = "";
-    res.send(req.body.name + '謝謝你的回覆!12');
-  }
- 
- 
-
-  res.send(req.body.name + '謝謝你的回覆');
-  
 })
 app.use('/', indexRouter);
 //app.use('/login', loginRouter);
