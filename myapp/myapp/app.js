@@ -267,14 +267,15 @@ app.get('/shift',function(req,res){//排班網頁
   }
   if(rows.length >0){
     console.log(rows);
+   
     var  data = rows;
     console.log (data);
-  }
-  sql2="select EENo,EEName from eecode where DeptCode like ?";
+  
+}
   console.log(preNST);
   console.log(typeof(preNST));
 
-  if(preNST>14){
+  if(preNST>=14){
 
     var MNNST=Number(preNST)+1;
   console.log(MNNST);
@@ -283,10 +284,17 @@ app.get('/shift',function(req,res){//排班網頁
     if(preNST<10){
       MNNST=0+String(preNST);
       console.log(MNNST);
+    }else{
+      MNNST=preNST+"";
     }
 
+    
+
   }
+
   console.log(MNNST);
+  sql2="select EENo,EEName from eecode where DeptCode like  ?";
+  console.log(sql2);
   con.query(sql2,["A"+MNNST+"%"],function(err,rows){
     if (err) {
       console.log(err);
@@ -300,6 +308,12 @@ app.get('/shift',function(req,res){//排班網頁
   }
 
     console.log(data);
+    if(data==undefined){
+      data=[];
+    }
+    if(MNdata==undefined){
+      MNdata=[];
+    }
     res.render('shift',{"user":req.session.userName,"changeselect":preNST+"號護理站",data:data ,MNdata:MNdata});
   })
   
@@ -308,11 +322,7 @@ app.get('/shift',function(req,res){//排班網頁
   
 
 });
-app.post("/saveshift",function(req,res){
-  console.log(req.body.MNdata);
-  console.log(req.body.shift);
-  res.redirect("/");
-})
+
 app.get('/messagelist',function(req,res){
   res.render('messagelist',{"user":req.session.userName,"changeselect":preNST+"號護理站"})
 });
@@ -634,6 +644,44 @@ app.post('/saveDNR',function(req,res){
         }
       
   })
+})
+app.post("/saveshift",function(req,res){
+  console.log(req.body.MNdata);
+  console.log(req.body.shift);
+  var PD= req.body.shift;
+  var MN=req.body.MNdata+" ";
+  var updatePD=[];
+  console.log(PD.length);
+  console.log(MN.length);
+  if(typeof(req.body.shift)=="string"){//1筆變更的狀況
+    PD = new Array(req.body.shift);//轉陣列
+    updatePD=PD;
+  }else{
+    
+  
+    updatePD=PD.join(" or PNo= ")+" ";
+
+
+  }
+
+  console.log(updatePD);
+  console.log (typeof(updatePD));
+  console.log(typeof(MN));
+  sql3 = "update bhdata set MN= "+""+MN+" "+ " where PNo = "+updatePD+" ";
+  console.log(sql3);
+  con.query(sql3,function(err,rows){
+    if(err){
+      console.log("error")
+    }
+    if(PD==null | MN==null){
+    
+    }else{
+
+    }
+    res.redirect("/shift");
+  })
+
+
 })
 app.use('/', indexRouter);
 //app.use('/login', loginRouter);
