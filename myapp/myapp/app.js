@@ -87,7 +87,7 @@ app.get('/login', function(req, res){
 
 
 
-app.post('/login', function(req, res){
+app.post('/login', function(req, res){//登入功能
   
    username = ""+req.body.username;
    password = ""+req.body.pwd; 
@@ -258,8 +258,10 @@ app.get('/message', function (req, res) {
  app.get('/remind', function (req, res) {
   res.render('remind')
  });
-app.get('/shift',function(req,res){
+app.get('/shift',function(req,res){//排班網頁
+  
   res.render('shift',{"user":req.session.userName,"changeselect":preNST+"號護理站"})
+
 });
 app.get('/messagelist',function(req,res){
   res.render('messagelist',{"user":req.session.userName,"changeselect":preNST+"號護理站"})
