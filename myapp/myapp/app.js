@@ -256,7 +256,7 @@ app.get('/message', function (req, res) {
   res.render('message',{"user":req.session.userName,"changeselect":preNST+"號護理站"})
  });
  app.get('/remind', function (req, res) {
-  res.render('remind')
+  res.render('remind',{"user":req.session.userName,"changeselect":preNST+"號護理站"})
  });
 app.get('/shift',function(req,res){//排班網頁
   
