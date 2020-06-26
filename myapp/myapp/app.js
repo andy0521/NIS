@@ -309,6 +309,8 @@ app.get('/shift',function(req,res){//排班網頁
 
 });
 app.post("/saveshift",function(req,res){
+  console.log(req.body.MNdata);
+  console.log(req.body.shift);
   res.redirect("/");
 })
 app.get('/messagelist',function(req,res){

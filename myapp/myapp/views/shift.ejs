@@ -106,11 +106,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="patient_shift_box">
-                <form method="POST" action="/saveshift">
-                <table >
+                
+                <form name="shift" method="POST" action="/saveshift">
+                <table  class="PD">
                     <tr>
-                        <th>選擇</th>
                         <th>床號</th>
                         <th>病患</th>
                         <th>護理師</th>
@@ -120,13 +119,17 @@
                     <% for ( var i = 0 ; i < data.length ; i++){ %>
                         <tr>
                             <td>
-                            
-                                <input type="checkbox" name="patientData"  value="<%= data[i].PNo%>" >
-                         
+                                <div class="form-check">
+                              
+                                <input class="form-check-input" type="checkbox" name="shift" id="<%=data[i].BNo%>" name="patientData"  value="<%= data[i].PNo%>" >
+                                <label for="<%=data[i].BNo%>">
+                                    <%= data[i].BNo  %> 
+                                </label>
+                                </input>
+        
+                                </div>
                             </td>
-                            <td>
-                                <%= data[i].BNo  %>
-                            </td>
+                           
                             <td>
                                 <%= data[i].PName  %>
                             </td>
@@ -138,9 +141,9 @@
                         <% } %>
                      
                     </table>
-                    <table >
+                    <table class="ND">
                         <tr>
-                            <th>選擇</th>
+      
                             <th>員編</th>
                             <th>護理師</th>
                        
@@ -149,12 +152,13 @@
                             <tr>
                                 <td>
                                 
-                                    <input type="radio" name="MNdata"  value="<%= MNdata[i].EENo%>" >
-                             
-                                </td>
-                                <td>
+                                <input type="radio" name="MNdata"  id="<%= MNdata[i].EENo%>" value="<%= MNdata[i].EENo%>" >
+                                <label for="<%= MNdata[i].EENo%>">
                                     <%= MNdata[i].EENo%>
+                                </label>
+                                </input>
                                 </td>
+                                
                                 <td>
                                     <%= MNdata[i].EEName  %>
                                 </td>
@@ -165,7 +169,7 @@
                         </table>
                     <input type="submit" value="儲存" >
                 </form>
-            </div>
+        
             <table>
                 <tbody id="tbody1">
                 </tbody>
