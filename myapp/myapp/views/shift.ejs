@@ -106,15 +106,65 @@
                         </div>
                     </div>
                 </div>
-                <div class="shift">
-                <ul id="patient_detail">
-                    <li>床號</li>
-                    <li>病患名</li>
-                    <li>護理師名稱</li>
+                <div class="patient_shift_box">
+                <form method="POST" action="/saveshift">
+                <table >
+                    <tr>
+                        <th>選擇</th>
+                        <th>床號</th>
+                        <th>病患</th>
+                        <th>護理師</th>
+                        <th>專師</th>
                    
-                    <button class="detail">詳細資訊</button>
-                    <span>照護訊息</span>
-                </ul>
+                    </tr>
+                    <% for ( var i = 0 ; i < data.length ; i++){ %>
+                        <tr>
+                            <td>
+                            
+                                <input type="checkbox" name="patientData"  value="<%= data[i].PNo%>" >
+                         
+                            </td>
+                            <td>
+                                <%= data[i].BNo  %>
+                            </td>
+                            <td>
+                                <%= data[i].PName  %>
+                            </td>
+                            <td>
+                                <%= data[i].MN  %>
+                            </td>
+                            <td><%= data[i].CNS  %></td>
+                        </tr>
+                        <% } %>
+                     
+                    </table>
+                    <table >
+                        <tr>
+                            <th>選擇</th>
+                            <th>員編</th>
+                            <th>護理師</th>
+                       
+                        </tr>
+                        <% for ( var i = 0 ; i < MNdata.length ; i++){ %>
+                            <tr>
+                                <td>
+                                
+                                    <input type="radio" name="MNdata"  value="<%= MNdata[i].EENo%>" >
+                             
+                                </td>
+                                <td>
+                                    <%= MNdata[i].EENo%>
+                                </td>
+                                <td>
+                                    <%= MNdata[i].EEName  %>
+                                </td>
+                               
+                            </tr>
+                            <% } %>
+                         
+                        </table>
+                    <input type="submit" value="儲存" >
+                </form>
             </div>
             <table>
                 <tbody id="tbody1">

@@ -260,9 +260,57 @@ app.get('/message', function (req, res) {
  });
 app.get('/shift',function(req,res){//排班網頁
   
-  res.render('shift',{"user":req.session.userName,"changeselect":preNST+"號護理站"})
+  sql ="select BNo,NSTName,PNo,PName,VSD,MN,CNS from patientdata join bhdata using (PNo) join bedrecord using (BNo) where NST=? and DHDate=0 order by MN;"
+  con.query(sql,[preNST],function(err,rows){
+    if (err) {
+      console.log(err);
+  }
+  if(rows.length >0){
+    console.log(rows);
+    var  data = rows;
+    console.log (data);
+  }
+  sql2="select EENo,EEName from eecode where DeptCode like ?";
+  console.log(preNST);
+  console.log(typeof(preNST));
+
+  if(preNST>14){
+
+    var MNNST=Number(preNST)+1;
+  console.log(MNNST);
+    
+  }else{
+    if(preNST<10){
+      MNNST=0+String(preNST);
+      console.log(MNNST);
+    }
+
+  }
+  console.log(MNNST);
+  con.query(sql2,["A"+MNNST+"%"],function(err,rows){
+    if (err) {
+      console.log(err);
+  }
+  if(rows.length >0){
+    console.log(rows);
+    var  MNdata = rows;
+    console.log (MNdata);
+  }else{
+    console.log("Error");
+  }
+
+    console.log(data);
+    res.render('shift',{"user":req.session.userName,"changeselect":preNST+"號護理站",data:data ,MNdata:MNdata});
+  })
+  
+  })
+
+  
 
 });
+app.post("/saveshift",function(req,res){
+  res.redirect("/");
+})
 app.get('/messagelist',function(req,res){
   res.render('messagelist',{"user":req.session.userName,"changeselect":preNST+"號護理站"})
 });
