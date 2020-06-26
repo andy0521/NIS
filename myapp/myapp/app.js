@@ -30,6 +30,7 @@ var preNST=9;
 var taboocount=12;
 var pretaboorecord = ["TABOO_01","TABOO_02","TABOO_03","TABOO_04","TABOO_05","TABOO_06","TABOO_07","TABOO_08","TABOO_09","TABOO_10","TABOO_11","TABOO_12"];
 var preDNR = ["BIdx_01","BIdx_02","BIdx_03","BIdx_04","BIdx_05","BIdx_06","BIdx_07","BIdx_08","BIdx_09","BIdx_10"];
+var MNnamesql="select EEName from eecode where EENo = ?";
 /*var connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
@@ -124,14 +125,15 @@ app.post('/login', function(req, res){//登入功能
     
       }
       
-      con.query('Select BNo,PName,MN,CNS  from bhdata join patientdata using(PNo) where DHDate =0 and BNo like '+"?",[NST+"%"]  , function(err, rows) {//查詢預設護理站欄位
+      con.query('Select BNo,PName,EEName,CNS  from bhdata join patientdata using(PNo) join eecode on EENo=MN where DHDate =0 and BNo like '+"?",[NST+"%"]  , function(err, rows) {//查詢預設護理站欄位
         if (err) {
             console.log(err);
         }
         if(rows.length >0){
             var data = rows;
             console.log (data);
-  
+            
+            
             res.render('index',{"user":req.session.userName,data:data,NST:NST,"changeselect":preNST+"號護理站"});
           }else {
             res.redirect('index',{"user":req.session.userName,data:"null","changeselect":preNST+"號護理站"});
@@ -159,7 +161,7 @@ app.get('/', function(req, res, next) {//重新導入至首頁
   var user = req.query.user;
 
 
-  con.query('Select BNo,PName,MN,CNS  from bhdata join patientdata using(PNo) where DHDate =0 and BNo like '+"?",[NST+"%"] , function(err, rows) {
+  con.query('Select BNo,PName,EEName,CNS  from bhdata join patientdata using(PNo) join eecode on EENo=MN where DHDate =0 and BNo like '+"?",[NST+"%"]  , function(err, rows) {//查詢預設護理站欄位
     if (err) {
         console.log(err);
     }
