@@ -125,7 +125,7 @@ app.post('/login', function(req, res){//登入功能
     
       }
       
-      con.query('Select BNo,PName,EEName,CNS  from bhdata join patientdata using(PNo) join eecode on EENo=MN where DHDate =0 and BNo like '+"?",[NST+"%"]  , function(err, rows) {//查詢預設護理站欄位
+      con.query('Select BNo,PName,EEName,MN,CNS  from bhdata join patientdata using(PNo) join eecode on EENo=MN where DHDate =0 and BNo like ?',[NST+"%"]  , function(err, rows) {//查詢預設護理站欄位
         if (err) {
             console.log(err);
         }
@@ -161,7 +161,7 @@ app.get('/', function(req, res, next) {//重新導入至首頁
   var user = req.query.user;
 
 
-  con.query('Select BNo,PName,EEName,CNS  from bhdata join patientdata using(PNo) join eecode on EENo=MN where DHDate =0 and BNo like '+"?",[NST+"%"]  , function(err, rows) {//查詢預設護理站欄位
+  con.query('Select BNo,PName,MN,CNS  from bhdata join patientdata using(PNo)  where DHDate =0 and BNo like '+"?",[NST+"%"]  , function(err, rows) {//查詢預設護理站欄位
     if (err) {
         console.log(err);
     }
@@ -191,7 +191,7 @@ app.get('/logout', function (req, res) {
    username = "";
   password = ""; 
   req.session.userName = null; // 删除session
-  res.render('login',{'wrong':" "})
+  res.redirect('login')
 });
 
 app.get('/changepwd', function(req, res){//進入頁面
@@ -433,7 +433,7 @@ app.post('/changeNST', function (req, res) {//切換護理站
     req.session.preNST=preNST;
     console.log("現在護理站:"+preNST)
   console.log(NST);
-  con.query('Select BNo,PNo,PName,MN,CNS  from bhdata join patientdata using(PNo) where  DHDate =0 and BNo like '+"?",[NST+"%"]  , function(err, rows) {
+  con.query('Select BNo,PNo,PName,MN,CNS from bhdata join patientdata using(PNo) where  DHDate =0 and BNo like '+"?",[NST+"%"]  , function(err, rows) {
       if (err) {
           console.log(err);
       }
@@ -640,7 +640,7 @@ app.post('/saveDNR',function(req,res){
       
           sql="Update bedidx set "+" "+updateDNR+" "+","+" "+zeroDNR+" "+ " where PNo= ?";
           con.query(sql,[""+PNo]);
-          
+        
           res.redirect("/detail/"+BNo);
           }
         }
