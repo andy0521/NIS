@@ -443,7 +443,7 @@ app.post('/changeNST', function (req, res) {//切換護理站
           console.log (data);
          
         
-          res.render('index',{"user":req.session.userName,data:data, "NST":preNST,"changeselect":preNST+"號護理站"});
+          res.redirect('/');
         }else {
           res.render('index',{"user":req.session.userName,data:"","NST":preNST,"changeselect":preNST+"號護理站"});
 
