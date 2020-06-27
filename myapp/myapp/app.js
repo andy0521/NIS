@@ -395,7 +395,18 @@ app.get('/messagelist',function(req,res){
 
 });
 app.get('/remindlist',function(req,res){
-  res.render('remindlist',{"user":req.session.userName,"changeselect":preNST+"號護理站"})
+      // add data property to about page
+      var db = req.con;
+      var data = "";
+      
+      db.query('SELECT * FROM nis.bbinfo', function(err, rows){
+      if (err) {
+        console.log(err);
+      }
+      var data = rows;
+      console.log(data);
+  res.render('remindlist',{"data": data,"user":req.session.userName,"changeselect":preNST+"號護理站"})
+});
 });
 app.get('/detail/:BNo',function(req,res){
   BNo=req.params.BNo;

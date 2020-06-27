@@ -91,7 +91,7 @@ $data=mysql_query("select * from bbinfo");
                         echo "$rs[0] <br> $rs[1]";
                         ?>-->
                     <!--<div class="container">-->
-                        <table>
+                        <table style="width:1000px;overflow:auto">
                         <!--<table id="table"
                          data-toggle="table"
                         data-side-pagination="server"
@@ -120,9 +120,10 @@ $data=mysql_query("select * from bbinfo");
                                 <th>護理站</th>
                                 <th>狀態</th>
                                 <th>修改</th>
+                                <th>最後更改日期</th>
                             </tr>
                             <% for (var i=0; i< data.length ; i++){ 
-                                if(data[i].MsgClass == 01){%>
+                                if(data[i].MsgClass == 01){ %>
                             <tr>
                                 <td>
                                     <%= data[i].MsgNO %>
@@ -134,7 +135,11 @@ $data=mysql_query("select * from bbinfo");
                                     <%= data[i].NST %>
                                 </td>
                                 <td>
-                                    <%= data[i].Playing %>
+                                    <% if(data[i].Playing == 1) { %> 顯示 <% } %>
+                                    <% if(data[i].Playing == 0) { %> 隱藏 <% } %>
+                                </td>
+                                <td>
+                                    <%= data[i].LDate %>
                                 </td>
 
                                 <td>                                    

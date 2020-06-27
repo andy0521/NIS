@@ -54,7 +54,7 @@
                             <li><a href="#" accesskey="1" title="">公告訊息</a>
                                 <ul>
                                     <li><a href="/messagelist" accesskey="1.1" title="">護理站訊息編輯</a></li>
-                                    <li><a href="/remind" accesskey="1.2" title="">溫馨提醒編輯</a></li>
+                                    <li><a href="/remindlist" accesskey="1.2" title="">溫馨提醒編輯</a></li>
                                 </ul>
                             </li>
                  
@@ -69,22 +69,42 @@
                     <div style="width:300px;height:20px;margin-left:25%;margin-right:25%;margin-top: 3%;">
                         <table style="width:1000px;overflow:auto">                           
                             <caption style="font-family:DFKai-sb;margin-right:5px; font-size:25px;">溫馨提醒訊息列表
-                                <font onclick="javascript:location.href='remind'">新增訊息</font>
+                                <!--<font onclick="javascript:location.href='remind'">新增訊息</font>-->
                                 <input type="button"  value="新增" onclick="javascript:location.href='remind'">
                             </caption>
                             <tr>
-                                <th>主題</th>
+                                <th>訊息編號</th>
                                 <th>內容</th>
-                                <th></th>
+                                <th>護理站</th>
+                                <th>狀態</th>
+                                <th>修改</th>
+                                <th>最後更改日期</th>
                             </tr>
+                            <% for (var i=0; i< data.length ; i++){ 
+                                if(data[i].MsgClass == 02){ %>
                             <tr>
-                                <td>術後注意事項</td>
-                                <td>手術傷口勿沾水，需保持乾燥，若不慎弄濕，須立即更換。</td>
+                                <td>
+                                    <%= data[i].MsgNO %>
+                                </td>
+                                <td>
+                                    <%= data[i].BBCon %>
+                                </td>
+                                <td>
+                                    <%= data[i].NST %>
+                                </td>
+                                <td>
+                                    <% if(data[i].Playing == 1) { %> 顯示 <% } %>
+                                    <% if(data[i].Playing == 0) { %> 隱藏 <% } %>
+                                </td>
+                                <td>
+                                    <%= data[i].LDate %>
+                                </td>
                                 <td>                                    
                                     <button type="button"  href="#">修改</button>
                                     <button type="button"  href="#">刪除</button>
                                 </td>
                             </tr>
+                            <% } }%>
                         </table>
                     </div>
                 </div>
