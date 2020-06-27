@@ -50,6 +50,13 @@ var con = mysql.createConnection({
   password: '123456',
   database: 'nis'
 });
+con.connect(function(err){
+  if (err){
+    console.log('connecting error');
+    return;
+  }
+  console.log('connecting success');
+})
 
 var user = "";
 var username = "";
@@ -224,7 +231,18 @@ app.get('/shift',function(req,res){
   res.render('shift')
 });
 app.get('/messagelist',function(req,res){
-  res.render('messagelist')
+    // add data property to about page
+    var db = req.con;
+    var data = "";
+    
+    db.query('SELECT * FROM nis.bbinfo', function(err, rows){
+    if (err) {
+      console.log(err);
+    }
+    var data = rows;
+    console.log(data);
+    res.render('messagelist',{"data": data});
+});
 });
 app.get('/remindlist',function(req,res){
   res.render('remindlist')
