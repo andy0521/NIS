@@ -133,7 +133,7 @@ app.post('/login', function(req, res){//登入功能
     
       }
       
-      con.query('Select BNo,PName,EEName,MN,CNS  from bhdata join patientdata using(PNo) join eecode on EENo=MN where DHDate =0 and BNo like ?',[NST+"%"]  , function(err, rows) {//查詢預設護理站欄位
+      con.query('Select BNo,PName,MN,CNS  from bhdata join patientdata using(PNo) where DHDate =0 and BNo like ?',[NST+"%"]  , function(err, rows) {//查詢預設護理站欄位
         if (err) {
             console.log(err);
         }
