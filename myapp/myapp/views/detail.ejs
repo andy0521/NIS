@@ -16,34 +16,28 @@
         
 
           
-             
+        <script language="JavaScript"> 
+            function Do_Query(f_str) { 
 
-
-            <div id="header">
+                    document.forms["NST"].submit(); 
                 
-                <div id="logo" >
-                    <h1><span>護理控台</span></h1>
-                    <h2><form class="NST" method="POST" action="/changeNST"  >
-                        <select id="NSTdata"name="NSTdata" method="post"  >
-                        　<option value="9">09號護理站</option>
-                        　<option value="10">10號護理站</option>
-                        　<option value="11">11號護理站</option>
-                        　<option value="12">12號護理站</option>
-                        　<option value="13">13號護理站</option>
-                        　<option value="14">14號護理站</option>
-                        　<option value="15">15號護理站</option>
-                        　<option value="16">16號護理站</option>
-                        </select>
-                        <input type="submit" value="切換護理站" id="changeNST_btn">
-               
-                        </form>
-                    </h2>
-                    <ul id="member">
-                        <li class="memberName" id="WD_name">病房主任：XXX</li>
-                        <li class="memberName" id="HN_name">護理長：OOO</li>
-                    </ul>
-                </div>
-            </div>
+            } 
+        </script>  
+
+
+<div id="header">
+            
+    <div id="logo" >
+        <h1><span>護理控台</span></h1>
+        <h2>當前護理站:<%=changeselect%></h2>
+      
+        <ul id="member">
+            <li class="memberName" id="WD_name">病房主任：XXX</li>
+            <li class="memberName" id="HN_name">護理長：OOO</li>
+            <li class="memberName" id='user'>當前使用者:<%=user%></li>
+        </ul>
+    </div>
+</div>
             <nav id="menu">
                 <div  >
                     <div>
@@ -56,10 +50,10 @@
                                 </ul>
                             </li>
                      
-                            <li><a href="#" accesskey="2" title="">聯絡資訊</a></li>
+                            <li><a href="/contact" accesskey="2" title="">聯絡資訊</a></li>
                             <li><a href="/exitmap" accesskey="3" title="">逃生資訊</a></li>
                             <li><a href="/shift" accesskey="4" title="">護理排班</a></li>
-                            <li><a href="#" accesskey="5" title=""> 白板操作指南</a></li>
+                            <li><a href="/spshift" accesskey="5" title=""> 白板操作指南</a></li>
                             <li class="logout"><a href="/logout" accesskey="" title="">登出</a></li>
                             <li class="changpwd"><a href="/changepwd" accesskey="" title="">變更密碼</a></li>
                         </ul>
@@ -90,97 +84,103 @@
                     </table>
                     <ul style="font-size: 20px;">注意事項</ul>
                     <input type="hidden" name="PNo" value="<%=PNo%>" />
+                   
+                      
+                        
                     
                             <label class="checkbox-inline">
-                                <input type="checkbox" name="TABOO"  value="TABOO_01">左手禁治療
+                            <input type="checkbox" name="TABOO"  value="<%=TABOO_01%>"<%=checked[0]%>>左手禁治療
                             </label>
                             <label class="checkbox-inline">
-                                <input type="checkbox" name="TABOO" value="TABOO_02"> 右手禁治療
+                                <input type="checkbox" name="TABOO" value="<%=TABOO_02%>" <%=checked[1]%>> 右手禁治療
                             </label>
                             <label class="checkbox-inline">
-                                <input type="checkbox" name="TABOO" value="TABOO_03"> 左腳禁治療
+                                <input type="checkbox" name="TABOO" value="<%=TABOO_03%>" <%=checked[2]%>> 左腳禁治療
                             </label>
                             <label class="checkbox-inline">
-                                <input type="checkbox" name="TABOO"  value="TABOO_04">右腳禁治療
+                                <input type="checkbox" name="TABOO"  value="<%=TABOO_04%>"<%=checked[3]%>>右腳禁治療
                             </label>
                             <label class="checkbox-inline">
-                                <input type="checkbox" name="TABOO" value="TABOO_05"> 禁止飲食
+                                <input type="checkbox" name="TABOO" value="<%=TABOO_05%>" <%=checked[4]%>> 禁止飲食
                             </label>
                             <label class="checkbox-inline">
-                                <input type="checkbox" name="TABOO" value="TABOO_06"> 禁止喝水
+                                <input type="checkbox" name="TABOO" value="<%=TABOO_06%>" <%=checked[5]%>>禁止喝水
                             </label>
                             <label class="checkbox-inline">
-                                <input type="checkbox" name="TABOO"  value="TABOO_07">藥物過敏
+                                <input type="checkbox" name="TABOO"  value="<%=TABOO_07%>" <%=checked[6]%>>藥物過敏
                             </label>
                             <label class="checkbox-inline">
-                                <input type="checkbox" name="TABOO" value="TABOO_08"> 食物過敏
+                                <input type="checkbox" name="TABOO" value="<%=TABOO_08%>" <%=checked[7]%>>食物過敏
                             </label>
                             <label class="checkbox-inline">
-                                <input type="checkbox" name="TABOO" value="TABOO_09"> 小心跌倒
+                                <input type="checkbox" name="TABOO" value="<%=TABOO_09%>" <%=checked[8]%>>小心跌倒
                             </label>
                             <label class="checkbox-inline">
-                                <input type="checkbox" name="TABOO"  value="TABOO_10">注意洗手
+                                <input type="checkbox" name="TABOO"  value="<%=TABOO_10%>" <%=checked[9]%>>注意洗手
                             </label>
                             <label class="checkbox-inline">
-                                <input type="checkbox" name="TABOO" value="TABOO_11"> 禁止下床
+                                <input type="checkbox" name="TABOO" value="<%=TABOO_11%>" <%=checked[10]%>>禁止下床
                             </label>
                             <label class="checkbox-inline">
-                                <input type="checkbox" name="TABOO" value="TABOO_12"> 拒絕急救
+                                <input type="checkbox" name="TABOO"  value="<%=TABOO_12%>" <%=checked[11]%>>拒絕急救
                             </label>
                          
                             
                    
-                        <input type="submit" value="儲存" />
+                        <input type="submit" value="儲存"  />
                     </div>
                             
                
                 
             </form>
-            <form name="savePD" method="POST" style="width:1000px;overflow:auto"  action="/savePD"> 
+
+
+            <form name="saveDNR" method="POST" style="width:1000px;overflow:auto"  action="/saveDNR"> 
                 <div>
                
-                <ul style="font-size: 20px;">DNR</ul>
+                <ul style="font-size: 20px;">病床指標</ul>
                 <input type="hidden" name="PNo" value="<%=PNo%>" />
                 
                         <label class="checkbox-inline">
-                            <input type="checkbox" name="TABOO"  value="BIdx-01">DNR
+                            <input type="checkbox" name="DNR"  value="<%=BIdx_01%>" <%=checked[12]%>>DNR
                         </label>
                         <label class="checkbox-inline">
-                            <input type="checkbox" name="TABOO" value="BIdx-02"> 生訊
+                            <input type="checkbox" name="DNR" value="<%=BIdx_02%>" <%=checked[13]%>> 生訊
                         </label>
                         <label class="checkbox-inline">
-                            <input type="checkbox" name="TABOO" value="BIdx-03"> 檢查
+                            <input type="checkbox" name="DNR" value="<%=BIdx_03%>" <%=checked[14]%>> 檢查
                         </label>
                         <label class="checkbox-inline">
-                            <input type="checkbox" name="TABOO"  value="BIdx-04">手術
+                            <input type="checkbox" name="DNR"  value="<%=BIdx_04%>" <%=checked[15]%>>手術
                         </label>
                         <label class="checkbox-inline">
-                            <input type="checkbox" name="TABOO" value="BIdx-05"> 洗腎
+                            <input type="checkbox" name="DNR" value="<%=BIdx_05%>" <%=checked[16]%>> 洗腎
                         </label>
                         <label class="checkbox-inline">
-                            <input type="checkbox" name="TABOO" value="BIdx-06"> 隔離
+                            <input type="checkbox" name="DNR" value="<%=BIdx_06%>" <%=checked[17]%>> 隔離
                         </label>
                         <label class="checkbox-inline">
-                            <input type="checkbox" name="TABOO"  value="BIdx-07">心導管
+                            <input type="checkbox" name="DNR"  value="<%=BIdx_07%>" <%=checked[18]%>>心導管
                         </label>
                         <label class="checkbox-inline">
-                            <input type="checkbox" name="TABOO" value="BIdx-08"> 呼吸器
+                            <input type="checkbox" name="DNR" value="<%=BIdx_08%>" <%=checked[19]%>> 呼吸器
                         </label>
                         <label class="checkbox-inline">
-                            <input type="checkbox" name="TABOO" value="BIdx-09"> 限制訪客
+                            <input type="checkbox" name="DNR" value="<%=BIdx_09%>" <%=checked[20]%>> 限制訪客
                         </label>
                         <label class="checkbox-inline">
-                            <input type="checkbox" name="TABOO"  value="BIdx-10">母嬰同室
+                            <input type="checkbox" name="DNR"  value="<%=BIdx_10%>" <%=checked[21]%>>母嬰同室
                         </label>
             
                         
                
-                    <input type="submit" value="儲存" />
+                    <input type="submit" value="儲存" >"/>
                 </div>
                         
            
             
-        </form>
+             </form>
+        
             </div>        
     </body>
             

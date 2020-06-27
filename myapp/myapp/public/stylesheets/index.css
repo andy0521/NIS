@@ -372,3 +372,19 @@ ul.drop-down-menu li:hover > ul { /* 滑鼠滑入展開次選單*/
 	border:2px orange solid; 
 	width:auto;
 }
+table.PD{
+    font-size: 28px;
+	display:inline;
+	margin: 10px;
+}
+table.ND{
+    font-size: 28px;
+	display:inline;
+	margin: 10px;
+	
+}
+table.SD{
+	font-size: 28px;
+	display:inline;
+	margin: 10px;
+}
