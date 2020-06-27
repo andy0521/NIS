@@ -383,3 +383,8 @@ table.ND{
 	margin: 10px;
 	
 }
+table.SD{
+	font-size: 28px;
+	display:inline;
+	margin: 10px;
+}

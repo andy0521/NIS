@@ -65,10 +65,10 @@
                                 </ul>
                             </li>
              
-                            <li><a href="/contact" accesskey="2" title="">聯絡資訊</a></li>
+                            <li><a href="/cotact" accesskey="2" title="">聯絡資訊</a></li>
                             <li><a href="/exitmap" accesskey="3" title="">逃生資訊</a></li>
                             <li><a href="/shift" accesskey="4" title="">護理排班</a></li>
-                            <li><a href="/spshift" accesskey="5" title=""> 專師排班</a></li>
+                            <li><a href="/spshift" accesskey="5" title="">專師排班</a></li>
                             <li class="logout"><a href="/logout" accesskey="" title="">登出</a></li>
                             
                             <li class="changpwd"><a href="/changepwd" accesskey="" title="">變更密碼</a></li>
@@ -107,7 +107,7 @@
                     </div>
                 </div>
                 
-                <form name="shift" method="POST" action="/saveshift">
+                <form name="shift" method="POST" action="/saveSPshift">
                 <table  class="PD">
                     <tr>
                         <th>床號</th>
@@ -145,22 +145,22 @@
                         <tr>
       
                             <th>員編</th>
-                            <th>護理師</th>
+                            <th>專師</th>
                        
                         </tr>
-                        <% for ( var i = 0 ; i < MNdata.length ; i++){ %>
+                        <% for ( var i = 0 ; i < SPdata.length ; i++){ %>
                             <tr>
                                 <td>
                                 
-                                <input type="radio" name="MNdata"  id="<%= MNdata[i].EENo%>" value="<%= MNdata[i].EENo%>" >
-                                <label for="<%= MNdata[i].EENo%>">
-                                    <%= MNdata[i].EENo%>
+                                <input type="radio" name="SPdata"  id="<%= SPdata[i].EENo%>" value="<%= SPdata[i].EENo%>" >
+                                <label for="<%= SPdata[i].EENo%>">
+                                    <%= SPdata[i].EENo%>
                                 </label>
                                 </input>
                                 </td>
                                 
                                 <td>
-                                    <%= MNdata[i].EEName  %>
+                                    <%= SPdata[i].EEName  %>
                                 </td>
                                
                             </tr>

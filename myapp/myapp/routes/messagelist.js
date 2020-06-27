@@ -12,7 +12,7 @@ router.get('/messagelist', function(req, res, next) {
           console.log(err);
       }
       var data = rows;
-
+      console.log(data);
   res.render('messagelist', { title: '護理站訊息列表' });
 });
 });

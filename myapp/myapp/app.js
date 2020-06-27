@@ -19,6 +19,7 @@ var remindRouter = require('./routes/remind');
 var shiftRouter = require('./routes/shift');
 var messagelistRouter = require('./routes/messagelist');
 var remindlistRouter = require('./routes/remindlist');
+var spshiftRouter = require('./routes/spshift');
 const { data } = require('jquery');
 const { compile } = require('morgan');
 const { cpuUsage, send } = require('process');
@@ -324,7 +325,43 @@ app.get('/shift',function(req,res){//排班網頁
   
 
 });
+app.get('/spshift',function(req,res){//排班網頁 
+  sql ="select BNo,NSTName,PNo,PName,VSD,MN,CNS from patientdata join bhdata using (PNo) join bedrecord using (BNo) where NST=? and DHDate=0 order by CNS;"
+  con.query(sql,[preNST],function(err,rows){
+    if (err) {
+      console.log(err);
+  }
+  if(rows.length >0){
+    console.log(rows);
+   
+    var  data = rows;
+    console.log (data);
+}
+  sql2="select EENo,EEName from eecode where DeptCode = 8700";
+  con.query(sql2,function(err,rows){
+    if (err) {
+      console.log(err);
+  }
+  if(rows.length >0){
+    console.log(rows);
+    var  SPdata = rows;
+    console.log (SPdata);
+  }else{
+    console.log("Error");
+  }
 
+    console.log(data);
+    if(data==undefined){
+      data=[];
+    }
+    if(SPdata==undefined){
+      SPdata=[];
+    }
+    res.render('spshift',{"user":req.session.userName,"changeselect":preNST+"號護理站",data:data ,SPdata:SPdata});
+  })
+  
+  })
+});
 app.get('/messagelist',function(req,res){
   res.render('messagelist',{"user":req.session.userName,"changeselect":preNST+"號護理站"})
 });
@@ -685,6 +722,44 @@ app.post("/saveshift",function(req,res){
 
 
 })
+app.post("/saveSPshift",function(req,res){
+  console.log(req.body.SPdata);
+  console.log(req.body.shift);
+  var PD= req.body.shift;
+  var SP=req.body.SPdata+" ";
+  var updatePD=[];
+  console.log(PD.length);
+  console.log(SP.length);
+  if(typeof(req.body.shift)=="string"){//1筆變更的狀況
+    PD = new Array(req.body.shift);//轉陣列
+    updatePD=PD;
+  }else{
+    
+  
+    updatePD=PD.join(" or PNo= ")+" ";
+
+
+  }
+
+  console.log(updatePD);
+  console.log (typeof(updatePD));
+  console.log(typeof(SP));
+  sql3 = "update bhdata set CNS= "+""+SP+" "+ " where PNo = "+updatePD+" ";
+  console.log(sql3);
+  con.query(sql3,function(err,rows){
+    if(err){
+      console.log("error")
+    }
+    if(PD==null | SP==null){
+    
+    }else{
+
+    }
+    res.redirect("/spshift");
+  })
+
+
+})
 app.use('/', indexRouter);
 //app.use('/login', loginRouter);
 app.use('/users', usersRouter);
@@ -694,7 +769,7 @@ app.use('/remind', remindRouter);
 app.use('/shift',shiftRouter);
 app.use('/messagelist',messagelistRouter);
 app.use('/remindlist',remindlistRouter);
-
+app.use('/spshift',spshiftRouter);
 
 
 // catch 404 and forward to error handler
