@@ -21,7 +21,7 @@ var messagelistRouter = require('./routes/messagelist');
 var remindlistRouter = require('./routes/remindlist');
 const { data } = require('jquery');
 const { compile } = require('morgan');
-const { cpuUsage } = require('process');
+const { cpuUsage, send } = require('process');
 const f = require('session-file-store');
 const { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } = require('constants');
 var preusername = "admin";
@@ -542,7 +542,7 @@ app.post('/savePD',function(req,res){
         console.log(zerotaboo);
           sql="Update taboorecord set "+" "+updatetaboo+" "+","+" "+zerotaboo+" "+ " where PNo= ?";
           con.query(sql,[""+PNo]);
-          res.redirect("/");
+          res.redirect("/detail/"+BNo);
           }
         }
       
@@ -640,8 +640,8 @@ app.post('/saveDNR',function(req,res){
       
           sql="Update bedidx set "+" "+updateDNR+" "+","+" "+zeroDNR+" "+ " where PNo= ?";
           con.query(sql,[""+PNo]);
-        
-          res.redirect("/");
+          
+          res.redirect("/detail/"+BNo);
           }
         }
       
