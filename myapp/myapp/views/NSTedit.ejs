@@ -118,27 +118,27 @@
                
                 <table >
                 <tr>
-                    <th>床號</th>
-                    <th>病患</th>
-                    <th>護理師</th>
-                    <th>專師</th>
+                    <th>護理站</th>
+                    <th>病房主任</th>
+                    <th>護理長</th>
+                
                     <th>編輯</th>
                 </tr>
                 <% for ( var i = 0 ; i < data.length ; i++){ %>
                     <tr>
                         <td>
-                            <%= data[i].BNo  %>
+                            <%= data[i].NST  %>
                         </td>
                         <td>
-                            <%= data[i].PName  %>
+                            <%= data[i].WD  %>
                         </td>
                         <td>
-                            <%= data[i].MN  %>
+                            <%= data[i].HN  %>
                         </td>
                         <td>
-                            <%= data[i].CNS  %>
+                            <%= data[i].NSTP  %>
                         </td>
-                        <td><button><a href="/detail/<%=data[i].BNo%>">編輯</a></button></td>
+                        <td><button><a href="/NSTedit/<%=data[i].NST%>">編輯</a></button></td>
 
                     </tr>
                     <% } %>
