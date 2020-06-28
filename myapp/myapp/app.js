@@ -273,11 +273,100 @@ app.get('/contact', function (req, res) {
   res.render('contact',{"user":req.session.userName,"changeselect":preNST+"號護理站"})
  });
 app.get('/message', function (req, res) {
-  res.render('message',{"user":req.session.userName,"changeselect":preNST+"號護理站"})
- });
- app.get('/remind', function (req, res) {
+  //var db = req.con;
+  //var data = "";
+  
+ //db.query('select * from nis.bbinfo where MsgNo=(select max(MsgNO) from nis.bbinfo;)', function(err, rows){
+  //if (err) {
+  //  console.log(err);
+  //}
+ // var data = rows;
+  //console.log(data);
+  res.render('message',{/*"data": data,*/"user":req.session.userName,"changeselect":preNST+"號護理站"})
+//});
+});
+
+app.post('/new_message', function(req, res, next) {
+
+  var db = req.con;
+  var signal="";
+  var signal;
+
+  db.query('select * from bbinfo where MsgNo=(select max(MsgNO) from bbinfo);', function(err, rows){
+    if (err) {
+      console.log(err);
+  }
+  signal = rows;
+  console.log(signal);
+  if(rows.length >0){
+    signal =rows[0].MsgNO;}
+});
+
+  signal = parseInt(signal);
+  console.log(signal);
+  
+  var date = new Date();
+  var status;
+
+  console.log(req.body.Playing);
+
+ // if(req.body.Playing == 1){
+ //   status = "顯示"
+  //}
+  
+  var sql = {
+    MsgNO : signal+1,
+    MsgClass: '01',
+    Playing: req.body.Playing,
+    NST: req.body.NST,
+    BBCon: req.body.BBCon,
+    LDate: date
+  };
+
+  console.log(sql);
+  db.query('INSERT INTO bbinfo SET ?', sql, function(err, rows) {
+      if (err) {
+          console.log(err);
+      }
+      res.setHeader('Content-Type', 'application/json');
+      res.redirect('/messagelist');
+  });
+});
+
+app.get('/remind', function (req, res) {
   res.render('remind',{"user":req.session.userName,"changeselect":preNST+"號護理站"})
  });
+
+app.get('/messagelist',function(req,res){
+  // add data property to about page
+  var db = req.con;
+  var data = "";
+  
+  db.query('SELECT * FROM nis.bbinfo;', function(err, rows){
+  if (err) {
+    console.log(err);
+  }
+  var data = rows;
+  console.log(data);
+  res.render('messagelist',{"data": data,"user":req.session.userName,"changeselect":preNST+"號護理站"});
+});
+});
+
+app.get('/remindlist',function(req,res){
+    // add data property to about page
+    var db = req.con;
+    var data = "";
+    
+    db.query('SELECT * FROM nis.bbinfo;', function(err, rows){
+    if (err) {
+      console.log(err);
+    }
+    var data = rows;
+    console.log(data);
+res.render('remindlist',{"data": data,"user":req.session.userName,"changeselect":preNST+"號護理站"})
+});
+});
+
 app.get('/shift',function(req,res){//排班網頁
   
   sql ="select BNo,NSTName,PNo,PName,VSD,MN,CNS from patientdata join bhdata using (PNo) join bedrecord using (BNo) where NST=? and DHDate=0 order by MN;"
@@ -379,35 +468,7 @@ app.get('/spshift',function(req,res){//排班網頁
   
   })
 });
-app.get('/messagelist',function(req,res){
-    // add data property to about page
-    var db = req.con;
-    var data = "";
-    
-    db.query('SELECT * FROM nis.bbinfo', function(err, rows){
-    if (err) {
-      console.log(err);
-    }
-    var data = rows;
-    console.log(data);
-    res.render('messagelist',{"data": data,"user":req.session.userName,"changeselect":preNST+"號護理站"});
-});
 
-});
-app.get('/remindlist',function(req,res){
-      // add data property to about page
-      var db = req.con;
-      var data = "";
-      
-      db.query('SELECT * FROM nis.bbinfo', function(err, rows){
-      if (err) {
-        console.log(err);
-      }
-      var data = rows;
-      console.log(data);
-  res.render('remindlist',{"data": data,"user":req.session.userName,"changeselect":preNST+"號護理站"})
-});
-});
 app.get('/detail/:BNo',function(req,res){
   BNo=req.params.BNo;
   var listtaboo=[];

@@ -112,15 +112,15 @@ $data=mysql_query("select * from bbinfo");
                         data-page-size="10"> -->                          
                             <caption style="font-family:DFKai-sb;margin-right:5px; font-size:25px;">護理站訊息列表
                                 <!--<font onclick="javascript:location.href='message'">新增訊息</font>-->
-                                <input type="button"  value="新增" onclick="javascript:location.href='message'">
+                                <input type="submit"  value="新增" onclick="javascript:location.href='message'">
                             </caption>
                             <tr>
                                 <th>訊息編號</th>
                                 <th>內容</th>
                                 <th>護理站</th>
                                 <th>狀態</th>
-                                <th>修改</th>
                                 <th>最後更改日期</th>
+                                <th>修改</th>
                             </tr>
                             <% for (var i=0; i< data.length ; i++){ 
                                 if(data[i].MsgClass == 01){ %>
