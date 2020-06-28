@@ -106,7 +106,6 @@
                             <span class="demand3">緊急呼叫</span>
                         </div>
                         <div class="patientData">
-                            <span class="BedNO">床號123</span>
                             <span class="log">請求時間</span>
                             <span class="demand1">換點滴</span>
                             <span class="demand2">下床陪同</span>
@@ -115,34 +114,26 @@
                     </div>
                 </div>
                 <div class="patient_detail_box">
-               
-                <table >
-                <tr>
-                    <th>床號</th>
-                    <th>病患</th>
-                    <th>護理師</th>
-                    <th>專師</th>
-                    <th>編輯</th>
-                </tr>
-                <% for ( var i = 0 ; i < data.length ; i++){ %>
-                    <tr>
-                        <td>
-                            <%= data[i].BNo  %>
-                        </td>
-                        <td>
-                            <%= data[i].PName  %>
-                        </td>
-                        <td>
-                            <%= data[i].MN  %>
-                        </td>
-                        <td>
-                            <%= data[i].CNS  %>
-                        </td>
-                        <td><button><a href="/detail/<%=data[i].BNo%>">編輯</a></button></td>
+                
+                <span>編輯護理站資訊</span>
 
-                    </tr>
-                    <% } %>
-                </table>
+                <form  class="saveNSTedit" action="/saveNSTedit" method="POST" >
+                
+                    <br>護理站</br>
+                    <input type="text" id="NSTedit" name="NSTedit" value="<%=NST%>">
+                     <br>病房主任</br>
+                    <input type="text" name="wd" value="<%= WD  %>"/>
+                    <br>護理長</br>
+                    <input type="text" name="hn"  value="<%= HN  %>"/>
+                    <br>護理站分機</br>
+                    <input type="text" name="nstp" value="<%= NSTP  %>"/>
+                    
+                    <input type="submit" value="儲存" >
+                </form>
+
+
+              
+            
        
             </body>
             <script>

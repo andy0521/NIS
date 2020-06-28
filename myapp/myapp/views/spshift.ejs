@@ -178,29 +178,9 @@
                     <input type="submit" value="儲存" >
                 </form>
         
-            <table>
-                <tbody id="tbody1">
-                </tbody>
-              </table>
+      
              
-                   <script type="text/javascript">
-                        window.onload()=function ()
-                        {
-
-                   function creatTable(data){
-                    //這個函式的引數可以是從後臺傳過來的也可以是從其他任何地方傳過來的
-                    //這裡我假設這個data是一個長度為5的字串陣列 我要把他放在表格的一行裡面，分成五列
-                    var tableData="<tr>"
-                    //動態增加5個td,並且把data陣列的五個值賦給每個td
-                    for(var i=0;i<data.length;i++){
-                     tableData+="<td>"+data[i]+"</td>"
-                        }
-                     tableData+="</tr>"
-                    //現在tableData已經生成好了，把他賦值給上面的tbody
-                     $("#tbody1").html(tableData)
-                    }
-                }
-               </script>
+                
       
         
                

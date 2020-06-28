@@ -785,6 +785,12 @@ app.post('/saveDNR',function(req,res){
       
   })
 })
+app.post("/saveNSTedit",function(req,res){
+  
+  updatenstsql="update nstrecord set  WD=?,HN=?,NSTP=? where NST =?"
+  con.query(updatenstsql,[req.body.wd+"",req.body.hn+"",req.body.nstp+"",req.body.NSTedit+""]);
+  res.redirect("/NSTedit");
+ });
 app.post("/saveshift",function(req,res){
   console.log(req.body.MNdata);
   console.log(req.body.shift);
@@ -861,6 +867,41 @@ app.post("/saveSPshift",function(req,res){
 
 
 });
+app.get("/NSTedit",function(req,res){
+  var sqlNST="select NST,WD,HN from nstrecord where NST = ? ";
+          con.query(sqlNST,[preNST],function(err,rows){
+            NSTrecord=rows[0];
+            console.log(NSTrecord);
+  var sqlNSTedit="select NST,WD,HN,NSTP from nstrecord ";
+  con.query(sqlNSTedit,[preNST],function(err,rows){
+   var data=rows;
+res.render('NSTedit',{"user":req.session.userName,"changeselect":preNST+"號護理站",data:data,NSTrecord:NSTrecord});
+  });
+});
+});
+app.get("/NSTedit/:NST",function(req,res){
+  var sqlNST="select NST,WD,HN from nstrecord where NST = ? ";
+          con.query(sqlNST,[preNST],function(err,rows){
+            NSTrecord=rows[0];
+            console.log(NSTrecord);
+  var NST=req.params.NST;
+  var sqlNST="select NST ,WD,HN,NSTP from nstrecord where NST = ? ";
+  con.query(sqlNST,[NST],function(err,rows){
+   var data=rows;
+   WD= data[0].WD+"";
+   HN=data[0].HN+"";
+   NSTP=data[0].NSTP+"";
+   NST=data[0].NST+"";
+   console.log(WD);
+   console.log(data);
+ 
+    res.render("NSTeditpage",{"user":req.session.userName,"changeselect":preNST+"號護理站",NST:NST,WD:WD,HN:HN,NSTP:NSTP,NSTrecord:NSTrecord})
+});
+          });
+});
+
+
+
 app.use('/', indexRouter);
 //app.use('/login', loginRouter);
 app.use('/users', usersRouter);
