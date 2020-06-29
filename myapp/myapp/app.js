@@ -14,12 +14,14 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 //var loginRouter = require('./routes/login');
 var exitmapRouter = require('./routes/exitmap');
-var messageRouter = require('./routes/messsage');
+var messageRouter = require('./routes/message');
 var remindRouter = require('./routes/remind');
 var shiftRouter = require('./routes/shift');
 var messagelistRouter = require('./routes/messagelist');
 var remindlistRouter = require('./routes/remindlist');
 var spshiftRouter = require('./routes/spshift');
+var messagechangeRouter = require('./routes/messagechange');
+var remindchangeRouter = require('./routes/remindchange');
 const { data } = require('jquery');
 const { compile } = require('morgan');
 const { cpuUsage, send } = require('process');
@@ -289,21 +291,6 @@ app.get('/message', function (req, res) {
 app.post('/new_message', function(req, res, next) {
 
   var db = req.con;
-  var signal="";
-  var signal;
-
-  db.query('select * from bbinfo where MsgNo=(select max(MsgNO) from bbinfo);', function(err, rows){
-    if (err) {
-      console.log(err);
-  }
-  signal = rows;
-  console.log(signal);
-  if(rows.length >0){
-    signal =rows[0].MsgNO;}
-});
-
-  signal = parseInt(signal);
-  console.log(signal);
   
   var date = new Date();
   var status;
@@ -315,7 +302,6 @@ app.post('/new_message', function(req, res, next) {
   //}
   
   var sql = {
-    MsgNO : signal+1,
     MsgClass: '01',
     Playing: req.body.Playing,
     NST: req.body.NST,
@@ -333,10 +319,6 @@ app.post('/new_message', function(req, res, next) {
   });
 });
 
-app.get('/remind', function (req, res) {
-  res.render('remind',{"user":req.session.userName,"changeselect":preNST+"號護理站"})
- });
-
 app.get('/messagelist',function(req,res){
   // add data property to about page
   var db = req.con;
@@ -350,6 +332,45 @@ app.get('/messagelist',function(req,res){
   console.log(data);
   res.render('messagelist',{"data": data,"user":req.session.userName,"changeselect":preNST+"號護理站"});
 });
+});
+
+app.get('/messagechange', function (req, res) {
+  res.render('contact',{"user":req.session.userName,"changeselect":preNST+"號護理站"})
+ });
+
+app.get('/remind', function (req, res) {
+  res.render('remind',{"user":req.session.userName,"changeselect":preNST+"號護理站"})
+ });
+
+ app.post('/new_remind', function(req, res, next) {
+
+  var db = req.con;
+  
+  var date = new Date();
+  var status;
+
+  console.log(req.body.Playing);
+
+ // if(req.body.Playing == 1){
+ //   status = "顯示"
+  //}
+  
+  var sql = {
+    MsgClass: '02',
+    Playing: req.body.Playing,
+    NST: req.body.NST,
+    BBCon: req.body.BBCon,
+    LDate: date
+  };
+
+  console.log(sql);
+  db.query('INSERT INTO bbinfo SET ?', sql, function(err, rows) {
+      if (err) {
+          console.log(err);
+      }
+      res.setHeader('Content-Type', 'application/json');
+      res.redirect('/remindlist');
+  });
 });
 
 app.get('/remindlist',function(req,res){
@@ -366,6 +387,10 @@ app.get('/remindlist',function(req,res){
 res.render('remindlist',{"data": data,"user":req.session.userName,"changeselect":preNST+"號護理站"})
 });
 });
+
+app.get('/remindchange', function (req, res) {
+  res.render('remind',{"user":req.session.userName,"changeselect":preNST+"號護理站"})
+ });
 
 app.get('/shift',function(req,res){//排班網頁
   
@@ -912,6 +937,8 @@ app.use('/shift',shiftRouter);
 app.use('/messagelist',messagelistRouter);
 app.use('/remindlist',remindlistRouter);
 app.use('/spshift',spshiftRouter);
+app.use('/messagechange', messagechangeRouter);
+app.use('/remindchange', remindchangeRouter);
 
 
 // catch 404 and forward to error handler
