@@ -62,6 +62,7 @@
                             <li><a href="/exitmap" accesskey="3" title="">逃生資訊</a></li>
                             <li><a href="/shift" accesskey="4" title="">護理排班</a></li>
                             <li><a href="/spshift" accesskey="5" title="">專師排班</a></li>
+                            <li><a href="/NSTedit" accesskey="5" title=""> 護理站編輯</a></li>
                             <li class="logout"><a href="/logout" accesskey="" title="">登出</a></li>
                             <li class="changpwd"><a href="/changepwd" accesskey="" title="">變更密碼</a></li>
                         </ul>
@@ -77,8 +78,8 @@
                                 <th>內容</th>
                                 <th>護理站</th>
                                 <th>狀態</th>
-                                <th>最後更改日期</th>
                                 <th>修改</th>
+                                <th>最後更改日期</th>
                             </tr>
                             <% for (var i=0; i< data.length ; i++){ 
                                 if(data[i].MsgClass == 02){ %>
