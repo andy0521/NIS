@@ -881,9 +881,12 @@ app.post("/saveshift",function(req,res){
     updatePD=PD;
   }else{
     
-  
-    updatePD=PD.join(" or PNo= ")+" ";
+  if(req.body.shift==undefined){
 
+  }else{
+
+    updatePD=PD.join(" or PNo= ")+" ";
+  }
 
   }
 
@@ -912,16 +915,17 @@ app.post("/saveSPshift",function(req,res){
   var PD= req.body.shift;
   var SP=req.body.SPdata+" ";
   var updatePD=[];
-  console.log(PD.length);
-  console.log(SP.length);
+
   if(typeof(req.body.shift)=="string"){//1筆變更的狀況
     PD = new Array(req.body.shift);//轉陣列
     updatePD=PD;
   }else{
-    
+    if(req.body.shift==undefined){
+      res.redirect("/spshift");
+    }else{
   
     updatePD=PD.join(" or PNo= ")+" ";
-
+    }
 
   }
 
@@ -937,9 +941,9 @@ app.post("/saveSPshift",function(req,res){
     if(PD==null | SP==null){
     
     }else{
-
+      res.redirect("/spshift");
     }
-    res.redirect("/spshift");
+   
   })
 
 
