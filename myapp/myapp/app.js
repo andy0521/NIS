@@ -27,8 +27,7 @@ const { compile } = require('morgan');
 const { cpuUsage, send } = require('process');
 const f = require('session-file-store');
 const { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } = require('constants');
-var preusername = "admin";
-var prepwd="";
+
 var preNST=9;
 var taboocount=12;
 var pretaboorecord = ["TABOO_01","TABOO_02","TABOO_03","TABOO_04","TABOO_05","TABOO_06","TABOO_07","TABOO_08","TABOO_09","TABOO_10","TABOO_11","TABOO_12"];
@@ -108,16 +107,7 @@ app.post('/login', function(req, res){//登入功能
    if(username==""){
     res.render('login',{'wrong':"帳號或密碼為空"})
    }
-  if(username == preusername && password == prepwd){
-    req.session.userName = req.body.username; // 登錄成功，设置 session
-    req.session.preNST=preNST;
-    console.log("fakelogin");
-    
-    res.render('index',{'user':username, data:" ",NST:NST,"changeselect":preNST+"號護理站"});
-    
 
-  }else{
-  } 
   var sql = "select EEName from eecode where EENO = "+username+" and Password = '"+password+"'";//檢查資料庫有沒有使用者
   if(username && password){
     con.query(sql,[username,password], function(err, rs, fields){
@@ -130,33 +120,39 @@ app.post('/login', function(req, res){//登入功能
         console.log(username+' '+password);
         user = rs[0].EEName;
 
-      } else {
+
+        con.query('Select BNo,PName,MN,CNS  from bhdata join patientdata using(PNo) where DHDate =0 and BNo like ?',[NST+"%"]  , function(err, rows) {//查詢預設護理站欄位
+          if (err) {
+              console.log(err);
+          }
+          if(rows.length >0){
+              var data = rows;
+              console.log (data);
+            var sqlNST="select NST,WD,HN from nstrecord where NST = ? ";
+            con.query(sqlNST,[preNST],function(err,rows){
+              NSTrecord=rows[0];
+              console.log(NSTrecord);
+            
+              res.render('index',{"user":req.session.userName,data:data,NST:NST,"changeselect":preNST+"號護理站",NSTrecord:NSTrecord});
+            })
+              
+             
+            }else {
+              res.redirect('index',{"user":req.session.userName,data:"null","changeselect":preNST+"號護理站"});
+              console.log(wrong);
+         
+          
+            }
+        });
+
+
+
+      } else {//沒找到使用者資料
         res.render('login',{'wrong':"帳號或密碼錯誤"})
     
       }
       
-      con.query('Select BNo,PName,MN,CNS  from bhdata join patientdata using(PNo) where DHDate =0 and BNo like ?',[NST+"%"]  , function(err, rows) {//查詢預設護理站欄位
-        if (err) {
-            console.log(err);
-        }
-        if(rows.length >0){
-            var data = rows;
-            console.log (data);
-          var sqlNST="select NST,WD,HN from nstrecord where NST = ? ";
-          con.query(sqlNST,[preNST],function(err,rows){
-            NSTrecord=rows[0];
-            console.log(NSTrecord);
-            res.render('index',{"user":req.session.userName,data:data,NST:NST,"changeselect":preNST+"號護理站",NSTrecord:NSTrecord});
-          })
-            
-           
-          }else {
-            res.redirect('index',{"user":req.session.userName,data:"null","changeselect":preNST+"號護理站"});
-            console.log(wrong);
-       
-        
-          }
-      });
+      
         // use index.ejs
     });
   }
@@ -356,6 +352,7 @@ app.get('/remind', function (req, res) {
   //}
   
   var sql = {
+    
     MsgClass: '02',
     Playing: req.body.Playing,
     NST: req.body.NST,
