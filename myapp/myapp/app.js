@@ -27,8 +27,7 @@ const { compile } = require('morgan');
 const { cpuUsage, send } = require('process');
 const f = require('session-file-store');
 const { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } = require('constants');
-var preusername = "admin";
-var prepwd = "";
+
 var preNST = 9;
 var taboocount = 12;
 var pretaboorecord = ["TABOO_01", "TABOO_02", "TABOO_03", "TABOO_04", "TABOO_05", "TABOO_06", "TABOO_07", "TABOO_08", "TABOO_09", "TABOO_10", "TABOO_11", "TABOO_12"];
@@ -97,7 +96,6 @@ app.get('/login', function (req, res) {
 
 
 
-
 app.post('/login', function (req, res) {//登入功能
 
   username = "" + req.body.username;
@@ -108,16 +106,7 @@ app.post('/login', function (req, res) {//登入功能
   if (username == "") {
     res.render('login', { 'wrong': "帳號或密碼為空" })
   }
-  if (username == preusername && password == prepwd) {
-    req.session.userName = req.body.username; // 登錄成功，设置 session
-    req.session.preNST = preNST;
-    console.log("fakelogin");
 
-    res.render('index', { 'user': username, data: " ", NST: NST, "changeselect": preNST + "號護理站" });
-
-
-  } else {
-  }
   var sql = "select EEName from eecode where EENO = " + username + " and Password = '" + password + "'";//檢查資料庫有沒有使用者
   if (username && password) {
     con.query(sql, [username, password], function (err, rs, fields) {
@@ -130,33 +119,52 @@ app.post('/login', function (req, res) {//登入功能
         console.log(username + ' ' + password);
         user = rs[0].EEName;
 
-      } else {
+
+        con.query('Select BNo,PName,MN,CNS  from bhdata join patientdata using(PNo) where DHDate =0 and BNo like ?', [NST + "%"], function (err, rows) {//查詢預設護理站欄位
+          if (err) {
+            console.log(err);
+          }
+          if (rows.length > 0) {
+            var data = rows;
+            console.log(data);
+            var sqlNST = "select NST,WD,HN from nstrecord where NST = ? ";
+            con.query(sqlNST, [preNST], function (err, rows) {//有找到護理站編輯
+              NSTrecord = rows[0];
+              console.log(NSTrecord);
+              console.log(NST);
+              con.query("SELECT PNo,CallTime,CancelTime,CallRequest,CallDate,BNo,IVReplace,BedAccompany,NVisit FROM nis.callrecording join callrequirements using(PNo,BNo) where BNo like ?", [preNST + "%"], function (err, rows) {
+                if (err) {
+                  console.log("查不到");
+                  requestlog = "";
+                }
+                if (rows.length > 0) {
+                  var requestlog = rows;
+                  console.log(requestlog);
+
+                  res.render('index', { "user": req.session.userName, data: data, NST: NST, "changeselect": preNST + "號護理站", NSTrecord: NSTrecord, 'requestlog': requestlog });
+                } else {
+                  res.render('index', { "user": req.session.userName, data: data, NST: NST, "changeselect": preNST + "號護理站", NSTrecord: NSTrecord, 'requestlog': "requestlog" });
+                }
+              })
+            })
+
+
+          } else {
+            res.redirect('index', { "user": req.session.userName, data: "null", "changeselect": preNST + "號護理站", requestlog: requestlog });//當前護理站沒有病人
+            console.log(wrong);
+
+
+          }
+        });
+
+
+
+      } else {//沒找到使用者資料
         res.render('login', { 'wrong': "帳號或密碼錯誤" })
 
       }
 
-      con.query('Select BNo,PName,MN,CNS  from bhdata join patientdata using(PNo) where DHDate =0 and BNo like ?', [NST + "%"], function (err, rows) {//查詢預設護理站欄位
-        if (err) {
-          console.log(err);
-        }
-        if (rows.length > 0) {
-          var data = rows;
-          console.log(data);
-          var sqlNST = "select NST,WD,HN from nstrecord where NST = ? ";
-          con.query(sqlNST, [preNST], function (err, rows) {
-            NSTrecord = rows[0];
-            console.log(NSTrecord);
-            res.render('index', { "user": req.session.userName, data: data, NST: NST, "changeselect": preNST + "號護理站", NSTrecord: NSTrecord });
-          })
 
-
-        } else {
-          res.redirect('index', { "user": req.session.userName, data: "null", "changeselect": preNST + "號護理站" });
-          console.log(wrong);
-
-
-        }
-      });
       // use index.ejs
     });
   }
@@ -187,10 +195,25 @@ app.get('/', function (req, res, next) {//重新導入至首頁
         con.query(sqlNST, [preNST], function (err, rows) {
           NSTrecord = rows[0];
           console.log(NSTrecord);
-          res.render('index', { "user": req.session.userName, data: data, NST: NST, "changeselect": preNST + "號護理站", NSTrecord: NSTrecord });
+          con.query("SELECT PNo,CallTime,CancelTime,CallRequest,CallDate,BNo,IVReplace,BedAccompany,NVisit FROM nis.callrecording join callrequirements using(PNo,BNo) where BNo like ?", [preNST + "%"], function (err, rows) {
+            if (err) {
+              console.log("查不到");
+              requestlog = "";
+            }
+            if (rows.length > 0) {
+              var requestlog = rows;
+              var test = rows.NVisit;
+
+              res.render('index', { "user": req.session.userName, data: data, NST: NST, "changeselect": preNST + "號護理站", NSTrecord: NSTrecord, requestlog: requestlog });
+            } else {
+              res.render('index', { "user": req.session.userName, data: data, NST: NST, "changeselect": preNST + "號護理站", NSTrecord: NSTrecord, requestlog: "" });
+              console.log("直接按首頁");//因為沒資料
+            }
+          });
+
         });
       } else {
-        res.redirect('index', { "user": req.session.userName, data: "null", NST: NST, "changeselect": preNST + "號護理站" });
+        res.render('index', { "user": req.session.userName, data: "", NST: NST, "changeselect": preNST + "號護理站", NSTrecord: NSTrecord, requestlog: "" });
 
         console.log(wrong);
 
@@ -419,6 +442,7 @@ app.post('/new_remind', function (req, res, next) {
   //}
 
   var sql = {
+
     MsgClass: '02',
     Playing: req.body.Playing,
     NST: req.body.NST,
@@ -552,32 +576,20 @@ app.get('/shift', function (req, res) {//排班網頁
 
 
     }
-
-    console.log(MNNST);
-    sql2 = "select EENo,EEName from eecode where DeptCode like  ?";
-    console.log(sql2);
-    con.query(sql2, ["A" + MNNST + "%"], function (err, rows) {
+    con.query("SELECT PNo,CallTime,CancelTime,CallRequest,CallDate,BNo,IVReplace,BedAccompany,NVisit FROM nis.callrecording join callrequirements using(PNo,BNo) where BNo like ?", [preNST + "%"], function (err, rows) {
       if (err) {
-        console.log(err);
+        console.log("查不到");
+        requestlog = "";
       }
       if (rows.length > 0) {
-        console.log(rows);
-        var MNdata = rows;
-        console.log(MNdata);
+        var requestlog = rows;
+        console.log(requestlog);
+
+        res.render('spshift', { "user": req.session.userName, "changeselect": preNST + "號護理站", data: data, SPdata: SPdata, requestlog: requestlog });
       } else {
-        console.log("Error");
+        res.render('spshift', { "user": req.session.userName, "changeselect": preNST + "號護理站", data: data, SPdata: SPdata, requestlog: "" });
       }
-
-      console.log(data);
-      if (data == undefined) {
-        data = [];
-      }
-      if (MNdata == undefined) {
-        MNdata = [];
-      }
-      res.render('shift', { "user": req.session.userName, "changeselect": preNST + "號護理站", data: data, MNdata: MNdata });
-    })
-
+    });
   })
 
 
@@ -739,14 +751,10 @@ app.post('/changeNST', function (req, res) {//切換護理站
 
       res.redirect('/');
     } else {
-      res.render('index', { "user": req.session.userName, data: "", "NST": preNST, "changeselect": preNST + "號護理站" });
 
-      console.log(wrong);
-
-
+      res.render('index', { "user": req.session.userName, data: "", "NST": preNST, "changeselect": preNST + "號護理站", requestlog: "" });
     }
   });
-
 });
 app.post('/savePD', function (req, res) {
   console.log("類型：" + typeof (req.body.TABOO))
@@ -960,9 +968,12 @@ app.post("/saveshift", function (req, res) {
     updatePD = PD;
   } else {
 
+    if (req.body.shift == undefined) {
 
-    updatePD = PD.join(" or PNo= ") + " ";
+    } else {
 
+      updatePD = PD.join(" or PNo= ") + " ";
+    }
 
   }
 
@@ -991,16 +1002,17 @@ app.post("/saveSPshift", function (req, res) {
   var PD = req.body.shift;
   var SP = req.body.SPdata + " ";
   var updatePD = [];
-  console.log(PD.length);
-  console.log(SP.length);
+
   if (typeof (req.body.shift) == "string") {//1筆變更的狀況
     PD = new Array(req.body.shift);//轉陣列
     updatePD = PD;
   } else {
+    if (req.body.shift == undefined) {
+      res.redirect("/spshift");
+    } else {
 
-
-    updatePD = PD.join(" or PNo= ") + " ";
-
+      updatePD = PD.join(" or PNo= ") + " ";
+    }
 
   }
 
@@ -1016,9 +1028,9 @@ app.post("/saveSPshift", function (req, res) {
     if (PD == null | SP == null) {
 
     } else {
-
+      res.redirect("/spshift");
     }
-    res.redirect("/spshift");
+
   })
 
 
@@ -1031,7 +1043,21 @@ app.get("/NSTedit", function (req, res) {
     var sqlNSTedit = "select NST,WD,HN,NSTP from nstrecord ";
     con.query(sqlNSTedit, [preNST], function (err, rows) {
       var data = rows;
-      res.render('NSTedit', { "user": req.session.userName, "changeselect": preNST + "號護理站", data: data, NSTrecord: NSTrecord });
+      con.query("SELECT PNo,CallTime,CancelTime,CallRequest,CallDate,BNo,IVReplace,BedAccompany,NVisit FROM nis.callrecording join callrequirements using(PNo,BNo) where BNo like ?", [preNST + "%"], function (err, rows) {
+        if (err) {
+          console.log("查不到");
+          requestlog = "";
+        }
+        if (rows.length > 0) {
+          var requestlog = rows;
+          var test = rows.NVisit;
+
+          res.render('NSTedit', { "user": req.session.userName, "changeselect": preNST + "號護理站", data: data, NSTrecord: NSTrecord, requestlog: requestlog });
+        } else {
+          res.render('NSTedit', { "user": req.session.userName, "changeselect": preNST + "號護理站", data: data, NSTrecord: NSTrecord, requestlog: "" });
+
+        }
+      });
     });
   });
 });
@@ -1050,8 +1076,20 @@ app.get("/NSTedit/:NST", function (req, res) {
       NST = data[0].NST + "";
       console.log(WD);
       console.log(data);
+      con.query("SELECT PNo,CallTime,CancelTime,CallRequest,CallDate,BNo,IVReplace,BedAccompany,NVisit FROM nis.callrecording join callrequirements using(PNo,BNo) where BNo like ?", [preNST + "%"], function (err, rows) {
+        if (err) {
+          console.log("查不到");
+          requestlog = "";
+        }
+        if (rows.length > 0) {
+          var requestlog = rows;
+          var test = rows.NVisit;
 
-      res.render("NSTeditpage", { "user": req.session.userName, "changeselect": preNST + "號護理站", NST: NST, WD: WD, HN: HN, NSTP: NSTP, NSTrecord: NSTrecord })
+          res.render("NSTeditpage", { "user": req.session.userName, "changeselect": preNST + "號護理站", NST: NST, WD: WD, HN: HN, NSTP: NSTP, NSTrecord: NSTrecord, requestlog: requestlog })
+        } else {
+          res.render("NSTeditpage", { "user": req.session.userName, "changeselect": preNST + "號護理站", NST: NST, WD: WD, HN: HN, NSTP: NSTP, NSTrecord: NSTrecord, requestlog: "" })
+        }
+      });
     });
   });
 });
