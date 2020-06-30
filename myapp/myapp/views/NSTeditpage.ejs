@@ -29,22 +29,7 @@
             
                 <div id="logo" >
                     <h1><span>護理控台</span></h1>
-                    <h2><form class="NST" method="POST" action="changeNST" name="NST" >
-                        
-                        <select id="NSTdata"name="NSTdata" method="post" onChange=Do_Query(this.value)>
-
-                          <option  name="changeselect" value="" selected>當前護理站:<%=changeselect%></option>
-                        　<option value="9">9號護理站</option>
-                        　<option value="10">10號護理站</option>
-                        　<option value="11">11號護理站</option>
-                        　<option value="12">12號護理站</option>
-                        　<option value="13">13號護理站</option>
-                        　<option value="14">14號護理站</option>
-                        　<option value="15">15號護理站</option>
-                        　<option value="16">16號護理站</option>
-                        </select>
-                        </form>
-                    </h2>
+                   
                     <ul id="member">
                         <li class="memberName" id="WD_name">病房主任：<%=NSTrecord.WD%></li>
                         <li class="memberName" id="HN_name">護理長：<%=NSTrecord.HN%></li>
@@ -132,8 +117,9 @@
                     <input type="text" name="nstp" value="<%= NSTP  %>"/>
                     
                     <input type="submit" value="儲存" >
+                    <button <a href="/NSTedit" accesskey="5" title=""> 返回護理站編輯</a></button>
                 </form>
-
+             
 
               
             
