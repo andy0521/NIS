@@ -543,56 +543,81 @@ app.get('/remindDelete', function (req, res, next) {
 });
 
 
-app.get('/shift', function (req, res) {//排班網頁
-
-  sql = "select BNo,NSTName,PNo,PName,VSD,MN,CNS from patientdata join bhdata using (PNo) join bedrecord using (BNo) where NST=? and DHDate=0 order by MN;"
-  con.query(sql, [preNST], function (err, rows) {
+app.get('/shift',function(req,res){//排班網頁
+  
+  sql ="select BNo,NSTName,PNo,PName,VSD,MN,CNS from patientdata join bhdata using (PNo) join bedrecord using (BNo) where NST=? and DHDate=0 order by MN;"
+  con.query(sql,[preNST],function(err,rows){
     if (err) {
       console.log(err);
-    }
-    if (rows.length > 0) {
-      console.log(rows);
+  }
+  if(rows.length >0){
+    console.log(rows);
+   
+    var  data = rows;
+    console.log (data);
+  
+}
+  console.log(preNST);
+  console.log(typeof(preNST));
 
-      var data = rows;
-      console.log(data);
+  if(preNST>=14){
 
-    }
-    console.log(preNST);
-    console.log(typeof (preNST));
-
-    if (preNST >= 14) {
-
-      var MNNST = Number(preNST) + 1;
+    var MNNST=Number(preNST)+1;
+  console.log(MNNST);
+    
+  }else{
+    if(preNST<10){
+      MNNST=0+String(preNST);
       console.log(MNNST);
-
-    } else {
-      if (preNST < 10) {
-        MNNST = 0 + String(preNST);
-        console.log(MNNST);
-      } else {
-        MNNST = preNST + "";
-      }
-
-
-
+    }else{
+      MNNST=preNST+"";
     }
-    con.query("SELECT PNo,CallTime,CancelTime,CallRequest,CallDate,BNo,IVReplace,BedAccompany,NVisit FROM nis.callrecording join callrequirements using(PNo,BNo) where BNo like ?", [preNST + "%"], function (err, rows) {
-      if (err) {
-        console.log("查不到");
-        requestlog = "";
-      }
-      if (rows.length > 0) {
-        var requestlog = rows;
-        console.log(requestlog);
 
-        res.render('spshift', { "user": req.session.userName, "changeselect": preNST + "號護理站", data: data, SPdata: SPdata, requestlog: requestlog });
-      } else {
-        res.render('spshift', { "user": req.session.userName, "changeselect": preNST + "號護理站", data: data, SPdata: SPdata, requestlog: "" });
+    
+
+  }
+
+  console.log(MNNST);
+  sql2="select EENo,EEName from eecode where DeptCode like  ?";
+  console.log(sql2);
+  con.query(sql2,["A"+MNNST+"%"],function(err,rows){
+    if (err) {
+      console.log(err);
+  }
+  if(rows.length >0){
+    console.log(rows);
+    var  MNdata = rows;
+    console.log (MNdata);
+  }else{
+    console.log("Error");
+  }
+
+    console.log(data);
+    if(data==undefined){
+      data=[];
+    }
+    if(MNdata==undefined){
+      MNdata=[];
+    }
+    con.query("SELECT PNo,CallTime,CancelTime,CallRequest,CallDate,BNo,IVReplace,BedAccompany,NVisit FROM nis.callrecording join callrequirements using(PNo,BNo) where BNo like ?",[preNST+"%"],function(err,rows){
+      if (err){
+        console.log("查不到");
+        requestlog="";
+      } 
+      if(rows.length>0){
+      var  requestlog=rows;
+      console.log(requestlog);
+
+    res.render('shift',{"user":req.session.userName,"changeselect":preNST+"號護理站",data:data ,MNdata:MNdata,requestlog:requestlog});
+      }else{
+        res.render('shift',{"user":req.session.userName,"changeselect":preNST+"號護理站",data:data ,MNdata:MNdata,requestlog:""});
       }
     });
   })
+  
+  })
 
-
+  
 
 });
 app.get('/spshift', function (req, res) {//排班網頁 
@@ -627,12 +652,24 @@ app.get('/spshift', function (req, res) {//排班網頁
       if (SPdata == undefined) {
         SPdata = [];
       }
-      res.render('spshift', { "user": req.session.userName, "changeselect": preNST + "號護理站", data: data, SPdata: SPdata });
+      con.query("SELECT PNo,CallTime,CancelTime,CallRequest,CallDate,BNo,IVReplace,BedAccompany,NVisit FROM nis.callrecording join callrequirements using(PNo,BNo) where BNo like ?",[preNST+"%"],function(err,rows){
+        if (err){
+          console.log("查不到");
+          requestlog="";
+        } 
+        if(rows.length>0){
+        var  requestlog=rows;
+        console.log(requestlog);
+  
+      res.render('spshift',{"user":req.session.userName,"changeselect":preNST+"號護理站",data:data ,SPdata:SPdata,requestlog:requestlog});
+        }else{
+          res.render('spshift',{"user":req.session.userName,"changeselect":preNST+"號護理站",data:data ,SPdata:SPdata,requestlog:""});
+        }
+      });
     })
-
-  })
-});
-
+    
+    })
+  });
 app.get('/detail/:BNo', function (req, res) {
   BNo = req.params.BNo;
   var listtaboo = [];
