@@ -129,16 +129,29 @@ app.post('/login', function(req, res){//登入功能
               var data = rows;
               console.log (data);
             var sqlNST="select NST,WD,HN from nstrecord where NST = ? ";
-            con.query(sqlNST,[preNST],function(err,rows){
+            con.query(sqlNST,[preNST],function(err,rows){//有找到護理站編輯
               NSTrecord=rows[0];
               console.log(NSTrecord);
-            
-              res.render('index',{"user":req.session.userName,data:data,NST:NST,"changeselect":preNST+"號護理站",NSTrecord:NSTrecord});
+              console.log(NST);
+            con.query("SELECT PNo,CallTime,CancelTime,CallRequest,CallDate,BNo,IVReplace,BedAccompany,NVisit FROM nis.callrecording join callrequirements using(PNo,BNo) where BNo like ?",[preNST+"%"],function(err,rows){
+              if (err){
+                console.log("查不到");
+                requestlog="";
+              } 
+              if(rows.length>0){
+              var  requestlog=rows;
+              console.log(requestlog);
+              console.log(requestlog[0].IVReplace);
+              res.render('index',{"user":req.session.userName,data:data,NST:NST,"changeselect":preNST+"號護理站",NSTrecord:NSTrecord,'requestlog':requestlog});
+              }else{
+                res.render('index',{"user":req.session.userName,data:data,NST:NST,"changeselect":preNST+"號護理站",NSTrecord:NSTrecord,'requestlog':"requestlog"});
+              }
+            })
             })
               
              
             }else {
-              res.redirect('index',{"user":req.session.userName,data:"null","changeselect":preNST+"號護理站"});
+              res.redirect('index',{"user":req.session.userName,data:"null","changeselect":preNST+"號護理站",requestlog:requestlog});//當前護理站沒有病人
               console.log(wrong);
          
           
@@ -183,10 +196,25 @@ app.get('/', function(req, res, next) {//重新導入至首頁
         con.query(sqlNST,[preNST],function(err,rows){
           NSTrecord=rows[0];
           console.log(NSTrecord);
-        res.render('index',{"user":req.session.userName,data:data,NST:NST,"changeselect":preNST+"號護理站",NSTrecord:NSTrecord});
+          con.query("SELECT PNo,CallTime,CancelTime,CallRequest,CallDate,BNo,IVReplace,BedAccompany,NVisit FROM nis.callrecording join callrequirements using(PNo,BNo) where BNo like ?",[preNST+"%"],function(err,rows){
+            if (err){
+              console.log("查不到");
+              requestlog="";
+            } 
+            if(rows.length>0){
+              var  requestlog=rows;
+              console.log(requestlog);
+              console.log(requestlog[0].IVReplace);
+              res.render('index',{"user":req.session.userName,data:data,NST:NST,"changeselect":preNST+"號護理站",NSTrecord:NSTrecord,requestlog:requestlog});
+              }else{
+                res.render('index',{"user":req.session.userName,data:data,NST:NST,"changeselect":preNST+"號護理站",NSTrecord:NSTrecord,requestlog:""});
+                console.log("直接按首頁");//因為沒資料
+              }
+            });
+       
         });
       }else {
-        res.redirect('index',{"user":req.session.userName,data:"null",NST:NST,"changeselect":preNST+"號護理站"});
+        res.render('index',{"user":req.session.userName,data:"",NST:NST,"changeselect":preNST+"號護理站",NSTrecord:NSTrecord,requestlog:"requestlog"});
 
         console.log(wrong);
    
@@ -605,7 +633,8 @@ app.post('/changeNST', function (req, res) {//切換護理站
         
           res.redirect('/');
         }else {
-          res.render('index',{"user":req.session.userName,data:"","NST":preNST,"changeselect":preNST+"號護理站"});
+          
+          res.render('index',{"user":req.session.userName,data:"","NST":preNST,"changeselect":preNST+"號護理站",requestlog:""});
 
           console.log(wrong);
      
