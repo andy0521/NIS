@@ -141,7 +141,7 @@ app.post('/login', function(req, res){//登入功能
               if(rows.length>0){
               var  requestlog=rows;
               console.log(requestlog);
-              console.log(requestlog[0].IVReplace);
+    
               res.render('index',{"user":req.session.userName,data:data,NST:NST,"changeselect":preNST+"號護理站",NSTrecord:NSTrecord,'requestlog':requestlog});
               }else{
                 res.render('index',{"user":req.session.userName,data:data,NST:NST,"changeselect":preNST+"號護理站",NSTrecord:NSTrecord,'requestlog':"requestlog"});
@@ -203,8 +203,8 @@ app.get('/', function(req, res, next) {//重新導入至首頁
             } 
             if(rows.length>0){
               var  requestlog=rows;
-              console.log(requestlog);
-              console.log(requestlog[0].IVReplace);
+              var test=rows.NVisit;
+              
               res.render('index',{"user":req.session.userName,data:data,NST:NST,"changeselect":preNST+"號護理站",NSTrecord:NSTrecord,requestlog:requestlog});
               }else{
                 res.render('index',{"user":req.session.userName,data:data,NST:NST,"changeselect":preNST+"號護理站",NSTrecord:NSTrecord,requestlog:""});
