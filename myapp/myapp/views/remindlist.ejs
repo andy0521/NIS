@@ -1,117 +1,134 @@
 <!DOCTYPE html>
 <html>
-    <head>
 
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
 
-        <title>護理控台系統</title>
-        <link rel='stylesheet' href='/stylesheets/index.css' />
-        <link href="/stylesheets/index.css" rel="stylesheet" type="text/css" media="all" />
-        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    </head>
-    <body>
-        
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-          
-             
+    <title>護理控台系統</title>
+    <link rel='stylesheet' href='/stylesheets/index.css' />
+    <link href="/stylesheets/index.css" rel="stylesheet" type="text/css" media="all" />
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
+    <script>
+        function Edit(MsgNO) {
+            window.location.href = "/remindchange?MsgNO=" + MsgNO;
+        }
+        function Delete(MsgNO) {
+            var rs = confirm('確定刪除?');
+            if (rs) {
+                window.location.href = "/remindDelete?MsgNO=" + MsgNO;
+            }
+        }
+        function Search() {
+            var NST = document.getElementsByName('searchNST')[0].value;
+            window.location.href = "/remindlist?NST=" + NST;;
+        }
+    </script>
 
-        <div id="header">
-            
-            <div id="logo" >
-                <h1><span>護理控台</span></h1>
-                <h2><form class="NST" method="POST" action="changeNST" name="NST" >
-                    
-                    <select id="NSTdata"name="NSTdata" method="post" onChange=Do_Query(this.value)>
+</head>
 
-                      <option  name="changeselect" value="" selected>當前護理站:<%=changeselect%></option>
-                    　<option value="9">9號護理站</option>
-                    　<option value="10">10號護理站</option>
-                    　<option value="11">11號護理站</option>
-                    　<option value="12">12號護理站</option>
-                    　<option value="13">13號護理站</option>
-                    　<option value="14">14號護理站</option>
-                    　<option value="15">15號護理站</option>
-                    　<option value="16">16號護理站</option>
+<body>
+
+    <div id="header">
+
+        <div id="logo">
+            <h1><span>護理控台</span></h1>
+            <h2>
+                <form class="NST" method="POST" action="changeNST" name="NST">
+
+                    <select id="NSTdata" name="NSTdata" method="post" onChange=Do_Query(this.value)>
+
+                        <option name="changeselect" value="" selected>當前護理站:<%=changeselect%></option>
+                        　<option value="9">9號護理站</option>
+                        　<option value="10">10號護理站</option>
+                        　<option value="11">11號護理站</option>
+                        　<option value="12">12號護理站</option>
+                        　<option value="13">13號護理站</option>
+                        　<option value="14">14號護理站</option>
+                        　<option value="15">15號護理站</option>
+                        　<option value="16">16號護理站</option>
                     </select>
-                    </form>
-                </h2>
-                <ul id="member">
-                    <li class="memberName" id="WD_name">病房主任：XXX</li>
-                    <li class="memberName" id="HN_name">護理長：OOO</li>
-                    <li class="memberName" id='user'>當前使用者:<%=user%></li>
+                </form>
+            </h2>
+            <ul id="member">
+                <li class="memberName" id="WD_name">病房主任：XXX</li>
+                <li class="memberName" id="HN_name">護理長：OOO</li>
+                <li class="memberName" id='user'>當前使用者:<%=user%></li>
+            </ul>
+        </div>
+    </div>
+    <nav id="menu">
+        <div>
+            <div>
+                <ul class="nav nav-tabs drop-down-menu">
+                    <li><a href="/" accesskey="1" title="">首頁</a></li>
+                    <li><a href="#" accesskey="1" title="">公告訊息</a>
+                        <ul>
+                            <li><a href="/messagelist" accesskey="1.1" title="">護理站訊息編輯</a></li>
+                            <li><a href="/remindlist" accesskey="1.2" title="">溫馨提醒編輯</a></li>
+                        </ul>
+                    </li>
+
+                    <li><a href="/contact" accesskey="2" title="">聯絡資訊</a></li>
+                    <li><a href="/exitmap" accesskey="3" title="">逃生資訊</a></li>
+                    <li><a href="/shift" accesskey="4" title="">護理排班</a></li>
+                    <li><a href="/spshift" accesskey="5" title="">專師排班</a></li>
+                    <li><a href="/NSTedit" accesskey="5" title=""> 護理站編輯</a></li>
+                    <li class="logout"><a href="/logout" accesskey="" title="">登出</a></li>
+                    <li class="changpwd"><a href="/changepwd" accesskey="" title="">變更密碼</a></li>
                 </ul>
             </div>
-        </div>
-            <nav id="menu">
-                <div  >
-                    <div>
-                        <ul class="nav nav-tabs drop-down-menu">
-                            <li><a href="/" accesskey="1" title="">首頁</a></li>
-                            <li><a href="#" accesskey="1" title="">公告訊息</a>
-                                <ul>
-                                    <li><a href="/messagelist" accesskey="1.1" title="">護理站訊息編輯</a></li>
-                                    <li><a href="/remindlist" accesskey="1.2" title="">溫馨提醒編輯</a></li>
-                                </ul>
-                            </li>
-                 
-                            <li><a href="/contact" accesskey="2" title="">聯絡資訊</a></li>
-                            <li><a href="/exitmap" accesskey="3" title="">逃生資訊</a></li>
-                            <li><a href="/shift" accesskey="4" title="">護理排班</a></li>
-                            <li><a href="/spshift" accesskey="5" title="">專師排班</a></li>
-                            <li><a href="/NSTedit" accesskey="5" title=""> 護理站編輯</a></li>
-                            <li class="logout"><a href="/logout" accesskey="" title="">登出</a></li>
-                            <li class="changpwd"><a href="/changepwd" accesskey="" title="">變更密碼</a></li>
-                        </ul>
-                    </div>
-                    <div style="width:300px;height:20px;margin-left:25%;margin-right:25%;margin-top: 3%;">
-                        <table style="width:1000px;overflow:auto">                           
-                            <caption style="font-family:DFKai-sb;margin-right:5px; font-size:25px;">溫馨提醒訊息列表
-                                <!--<font onclick="javascript:location.href='remind'">新增訊息</font>-->
-                                <input type="button"  value="新增" onclick="javascript:location.href='remind'">
-                            </caption>
-                            <tr>
-                                <th>訊息編號</th>
-                                <th>內容</th>
-                                <th>護理站</th>
-                                <th>狀態</th>
-                                <th>修改</th>
-                                <th>最後更改日期</th>
-                            </tr>
-                            <% for (var i=0; i< data.length ; i++){ 
+            <div style="width:300px;height:20px;margin-left:25%;margin-right:25%;margin-top: 3%;">
+                <table style="width:1000px;overflow:auto">
+                    <caption style="font-family:DFKai-sb;margin-right:5px; font-size:25px;">溫馨提醒訊息列表
+                        <!--<font onclick="javascript:location.href='remind'">新增訊息</font>-->
+                        <input type="button" value="新增" onclick="javascript:location.href='remind'">
+                        <input type="text" name="searchNST" value="<%=NST  %>" placeholder="請輸入兩位數護理站號碼">
+                        <input type="button" name="sNSTbutton" value="搜尋" onclick="Search();">
+                    </caption>
+                    <tr>
+                        <th>訊息編號</th>
+                        <th>內容</th>
+                        <th>護理站</th>
+                        <th>狀態</th>
+                        <th>修改</th>
+                        <th>最後更改日期</th>
+                    </tr>
+                    <% for (var i=0; i< data.length ; i++){ 
                                 if(data[i].MsgClass == 02){ %>
-                            <tr>
-                                <td>
-                                    <%= data[i].MsgNO %>
-                                </td>
-                                <td>
-                                    <%= data[i].BBCon %>
-                                </td>
-                                <td>
-                                    <%= data[i].NST %>
-                                </td>
-                                <td>
-                                    <% if(data[i].Playing == 1) { %> 顯示 <% } %>
-                                    <% if(data[i].Playing == 0) { %> 隱藏 <% } %>
-                                </td>
-                                <td>
-                                    <%= data[i].LDate %>
-                                </td>
-                                <td>                                    
-                                    <button type="button"  href="remindchange">修改</button>
-                                    <button type="button"  href="#">刪除</button>
-                                </td>
-                            </tr>
-                            <% } }%>
-                        </table>
-                    </div>
-                </div>
-            </nav>
-                           
-    </body>
-            
+                    <tr>
+                        <td>
+                            <%= data[i].MsgNO %>
+                        </td>
+                        <td>
+                            <%= data[i].BBCon %>
+                        </td>
+                        <td>
+                            <%= data[i].NST %>
+                        </td>
+                        <td>
+                            <% if(data[i].Playing == 1) { %> 顯示 <% } %>
+                            <% if(data[i].Playing == 0) { %> 隱藏 <% } %>
+                        </td>
+                        <td>
+                            <%= data[i].LDate %>
+                        </td>
+                        <td>
+                            <input type="button" name="edit" value="修改" onclick="Edit('<%= data[i].MsgNO  %>');" />
+                            <input type="button" name="delete" value="刪除" onclick="Delete('<%= data[i].MsgNO  %>');" />
+                        </td>
+                    </tr>
+                    <% } }%>
+                </table>
+            </div>
+        </div>
+    </nav>
+
+</body>
+
 
 </html>

@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html>
-    <head>
 
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
 
-        <title>護理控台系統</title>
-        <link rel='stylesheet' href='/stylesheets/index.css' />
-        <link href="/stylesheets/index.css" rel="stylesheet" type="text/css" media="all" />
-        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <!--<script>
+    <title>護理控台系統</title>
+    <link rel='stylesheet' href='/stylesheets/index.css' />
+    <link href="/stylesheets/index.css" rel="stylesheet" type="text/css" media="all" />
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+    <!--<script>
             x=1;
             function change(){
               x++;
@@ -20,7 +21,7 @@
             }
         </script>-->
 
-        <script type="text/javascript ">
+    <script type="text/javascript ">
             function show1F(){  
                 document.getElementById("1F").style.display="block";
                 document.getElementById("2F").style.display="none";
@@ -209,98 +210,100 @@
     
         </script>
 
-    </head>
-    <body>
-        
-        <div id="header">
-            
-            <div id="logo" >
-                <h1><span>護理控台</span></h1>
-                <h2><form class="NST" method="POST" action="changeNST" name="NST" >
-                    
-                    <select id="NSTdata"name="NSTdata" method="post" onChange=Do_Query(this.value)>
+</head>
 
-                      <option  name="changeselect" value="" selected>當前護理站:<%=changeselect%></option>
-                    　<option value="9">9號護理站</option>
-                    　<option value="10">10號護理站</option>
-                    　<option value="11">11號護理站</option>
-                    　<option value="12">12號護理站</option>
-                    　<option value="13">13號護理站</option>
-                    　<option value="14">14號護理站</option>
-                    　<option value="15">15號護理站</option>
-                    　<option value="16">16號護理站</option>
+<body>
+
+    <div id="header">
+
+        <div id="logo">
+            <h1><span>護理控台</span></h1>
+            <h2>
+                <form class="NST" method="POST" action="changeNST" name="NST">
+
+                    <select id="NSTdata" name="NSTdata" method="post" onChange=Do_Query(this.value)>
+
+                        <option name="changeselect" value="" selected>當前護理站:<%=changeselect%></option>
+                        　<option value="9">9號護理站</option>
+                        　<option value="10">10號護理站</option>
+                        　<option value="11">11號護理站</option>
+                        　<option value="12">12號護理站</option>
+                        　<option value="13">13號護理站</option>
+                        　<option value="14">14號護理站</option>
+                        　<option value="15">15號護理站</option>
+                        　<option value="16">16號護理站</option>
                     </select>
-                    </form>
-                </h2>
-                <ul id="member">
-                    <li class="memberName" id="WD_name">病房主任：XXX</li>
-                    <li class="memberName" id="HN_name">護理長：OOO</li>
-                    <li class="memberName" id='user'>當前使用者:<%=user%></li>
+                </form>
+            </h2>
+            <ul id="member">
+                <li class="memberName" id="WD_name">病房主任：XXX</li>
+                <li class="memberName" id="HN_name">護理長：OOO</li>
+                <li class="memberName" id='user'>當前使用者:<%=user%></li>
+            </ul>
+        </div>
+    </div>
+    <nav id="menu">
+        <div>
+            <div>
+                <ul class="nav nav-tabs drop-down-menu">
+                    <li><a href="/" accesskey="1" title="">首頁</a></li>
+                    <li><a href="#" accesskey="1" title="">公告訊息</a>
+                        <ul>
+                            <li><a href="/messagelist" accesskey="1.1" title="">護理站訊息編輯</a></li>
+                            <li><a href="/remindlist" accesskey="1.2" title="">溫馨提醒編輯</a></li>
+                        </ul>
+                    </li>
+
+                    <li><a href="/contact" accesskey="2" title="">聯絡資訊</a></li>
+                    <li><a href="/exitmap" accesskey="3" title="">逃生資訊</a></li>
+                    <li><a href="/shift" accesskey="4" title="">護理排班</a></li>
+                    <li><a href="/spshift" accesskey="5" title="">專師排班</a></li>
+                    <li><a href="/NSTedit" accesskey="5" title=""> 護理站編輯</a></li>
+                    <li class="logout"><a href="/logout" accesskey="" title="">登出</a></li>
+                    <li class="changpwd"><a href="/changepwd" accesskey="" title="">變更密碼</a></li>
                 </ul>
             </div>
+
         </div>
-            <nav id="menu">
-                <div  >
-                    <div>
-                        <ul class="nav nav-tabs drop-down-menu">
-                            <li><a href="/" accesskey="1" title="">首頁</a></li>
-                            <li><a href="#" accesskey="1" title="">公告訊息</a>
-                                <ul>
-                                    <li><a href="/messagelist" accesskey="1.1" title="">護理站訊息編輯</a></li>
-                                    <li><a href="/remindlist" accesskey="1.2" title="">溫馨提醒編輯</a></li>
-                                </ul>
-                            </li>
-                         
-                            <li><a href="/contact" accesskey="2" title="">聯絡資訊</a></li>
-                            <li><a href="/exitmap" accesskey="3" title="">逃生資訊</a></li>
-                            <li><a href="/shift" accesskey="4" title="">護理排班</a></li>
-                            <li><a href="/spshift" accesskey="5" title="">專師排班</a></li>
-                            <li><a href="/NSTedit" accesskey="5" title=""> 護理站編輯</a></li>
-                            <li class="logout"><a href="/logout" accesskey="" title="">登出</a></li>
-                            <li class="changpwd"><a href="/changepwd" accesskey="" title="">變更密碼</a></li>
-                        </ul>
-                    </div>
-
-                </div>
-            </nav>
-            <div style="margin:0 auto; width:1300px; padding:0 10px; overflow:hidden;">
+    </nav>
+    <div style="margin:0 auto; width:1300px; padding:0 10px; overflow:hidden;">
 
 
 
-                <div style="float:left; border:2px blue solid; width:170px;" >
-                    <p onclick="show1F()">一樓</p>
-                    <p onclick="show2F()">二樓</p>
-                    <p onclick="show3F()">三樓</p>
-                    <p onclick="show4F()">四樓</p>
-                    <p onclick="show5F()">五樓</p>
-                    <p onclick="show6F()">六樓</p>
-                    <p onclick="show7F()">七樓</p>
-                    <p onclick="show8F()">八樓</p>
-                    <p onclick="show9F()">九樓</p>
-                    <p onclick="show10F()">十樓</p>
-                    <p onclick="show11F()">十一樓</p>
-                    <p onclick="show12F()">十二樓</p>
-                </div>
-                <div  style= "margin-left:170px; width:auto;display:block" >
-                    <img id="1F" src='https://www.hosp.ncku.edu.tw/nckm/floor/1F.jpg'  width="100%" style= "display:block">
-                    <img id="2F" src='https://www.hosp.ncku.edu.tw/nckm/floor/2F.jpg'  width="100%" style= "display:none">
-                    <img id="3F" src='https://www.hosp.ncku.edu.tw/nckm/floor/3F.jpg'  width="100%" style= "display:none">
-                    <img id="4F" src='https://www.hosp.ncku.edu.tw/nckm/floor/4F.jpg'  width="100%" style= "display:none">
-                    <img id="5F" src='https://www.hosp.ncku.edu.tw/nckm/floor/5F.jpg'  width="100%" style= "display:none">
-                    <img id="6F" src='https://www.hosp.ncku.edu.tw/nckm/floor/6F.jpg'  width="100%" style= "display:none">
-                    <img id="7F" src='https://www.hosp.ncku.edu.tw/nckm/floor/7F.jpg'  width="100%" style= "display:none">
-                    <img id="8F" src='https://www.hosp.ncku.edu.tw/nckm/floor/8F.jpg'  width="100%" style= "display:none">
-                    <img id="9F" src='https://www.hosp.ncku.edu.tw/nckm/floor/9F.jpg'  width="100%" style= "display:none">
-                    <img id="10F" src='https://www.hosp.ncku.edu.tw/nckm/floor/10F.jpg'  width="100%" style= "display:none">
-                    <img id="11F" src='https://www.hosp.ncku.edu.tw/nckm/floor/11F.jpg'  width="100%" style= "display:none">
-                    <img id="12F" src='https://www.hosp.ncku.edu.tw/nckm/floor/12F.jpg'  width="100%" style= "display:none">
-                    <!--<img src="https://depart.femh.org.tw/medical_image/images/2F%E5%B9%B3%E9%9D%A2%E5%9C%96.jpg" style="display:block; margin:auto;">-->
-                </div>
+        <div style="float:left; border:2px blue solid; width:170px;">
+            <p onclick="show1F()">一樓</p>
+            <p onclick="show2F()">二樓</p>
+            <p onclick="show3F()">三樓</p>
+            <p onclick="show4F()">四樓</p>
+            <p onclick="show5F()">五樓</p>
+            <p onclick="show6F()">六樓</p>
+            <p onclick="show7F()">七樓</p>
+            <p onclick="show8F()">八樓</p>
+            <p onclick="show9F()">九樓</p>
+            <p onclick="show10F()">十樓</p>
+            <p onclick="show11F()">十一樓</p>
+            <p onclick="show12F()">十二樓</p>
+        </div>
+        <div style="margin-left:170px; width:auto;display:block">
+            <img id="1F" src='https://www.hosp.ncku.edu.tw/nckm/floor/1F.jpg' width="100%" style="display:block">
+            <img id="2F" src='https://www.hosp.ncku.edu.tw/nckm/floor/2F.jpg' width="100%" style="display:none">
+            <img id="3F" src='https://www.hosp.ncku.edu.tw/nckm/floor/3F.jpg' width="100%" style="display:none">
+            <img id="4F" src='https://www.hosp.ncku.edu.tw/nckm/floor/4F.jpg' width="100%" style="display:none">
+            <img id="5F" src='https://www.hosp.ncku.edu.tw/nckm/floor/5F.jpg' width="100%" style="display:none">
+            <img id="6F" src='https://www.hosp.ncku.edu.tw/nckm/floor/6F.jpg' width="100%" style="display:none">
+            <img id="7F" src='https://www.hosp.ncku.edu.tw/nckm/floor/7F.jpg' width="100%" style="display:none">
+            <img id="8F" src='https://www.hosp.ncku.edu.tw/nckm/floor/8F.jpg' width="100%" style="display:none">
+            <img id="9F" src='https://www.hosp.ncku.edu.tw/nckm/floor/9F.jpg' width="100%" style="display:none">
+            <img id="10F" src='https://www.hosp.ncku.edu.tw/nckm/floor/10F.jpg' width="100%" style="display:none">
+            <img id="11F" src='https://www.hosp.ncku.edu.tw/nckm/floor/11F.jpg' width="100%" style="display:none">
+            <img id="12F" src='https://www.hosp.ncku.edu.tw/nckm/floor/12F.jpg' width="100%" style="display:none">
+            <!--<img src="https://depart.femh.org.tw/medical_image/images/2F%E5%B9%B3%E9%9D%A2%E5%9C%96.jpg" style="display:block; margin:auto;">-->
+        </div>
 
-                <div style="clear:both;"></div>
-                
-            </div>
-        </body>
-            
+        <div style="clear:both;"></div>
+
+    </div>
+</body>
+
 
 </html>
