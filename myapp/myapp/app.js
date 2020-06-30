@@ -214,7 +214,7 @@ app.get('/', function(req, res, next) {//重新導入至首頁
        
         });
       }else {
-        res.render('index',{"user":req.session.userName,data:"",NST:NST,"changeselect":preNST+"號護理站",NSTrecord:NSTrecord,requestlog:"requestlog"});
+        res.render('index',{"user":req.session.userName,data:"",NST:NST,"changeselect":preNST+"號護理站",NSTrecord:NSTrecord,requestlog:""});
 
         console.log(wrong);
    
@@ -473,7 +473,20 @@ app.get('/shift',function(req,res){//排班網頁
     if(MNdata==undefined){
       MNdata=[];
     }
-    res.render('shift',{"user":req.session.userName,"changeselect":preNST+"號護理站",data:data ,MNdata:MNdata});
+    con.query("SELECT PNo,CallTime,CancelTime,CallRequest,CallDate,BNo,IVReplace,BedAccompany,NVisit FROM nis.callrecording join callrequirements using(PNo,BNo) where BNo like ?",[preNST+"%"],function(err,rows){
+      if (err){
+        console.log("查不到");
+        requestlog="";
+      } 
+      if(rows.length>0){
+      var  requestlog=rows;
+      console.log(requestlog);
+
+    res.render('shift',{"user":req.session.userName,"changeselect":preNST+"號護理站",data:data ,MNdata:MNdata,requestlog:requestlog});
+      }else{
+        res.render('shift',{"user":req.session.userName,"changeselect":preNST+"號護理站",data:data ,MNdata:MNdata,requestlog:""});
+      }
+    });
   })
   
   })
@@ -513,7 +526,20 @@ app.get('/spshift',function(req,res){//排班網頁
     if(SPdata==undefined){
       SPdata=[];
     }
-    res.render('spshift',{"user":req.session.userName,"changeselect":preNST+"號護理站",data:data ,SPdata:SPdata});
+    con.query("SELECT PNo,CallTime,CancelTime,CallRequest,CallDate,BNo,IVReplace,BedAccompany,NVisit FROM nis.callrecording join callrequirements using(PNo,BNo) where BNo like ?",[preNST+"%"],function(err,rows){
+      if (err){
+        console.log("查不到");
+        requestlog="";
+      } 
+      if(rows.length>0){
+      var  requestlog=rows;
+      console.log(requestlog);
+
+    res.render('spshift',{"user":req.session.userName,"changeselect":preNST+"號護理站",data:data ,SPdata:SPdata,requestlog:requestlog});
+      }else{
+        res.render('spshift',{"user":req.session.userName,"changeselect":preNST+"號護理站",data:data ,SPdata:SPdata,requestlog:""});
+      }
+    });
   })
   
   })
@@ -926,8 +952,22 @@ app.get("/NSTedit",function(req,res){
   var sqlNSTedit="select NST,WD,HN,NSTP from nstrecord ";
   con.query(sqlNSTedit,[preNST],function(err,rows){
    var data=rows;
-res.render('NSTedit',{"user":req.session.userName,"changeselect":preNST+"號護理站",data:data,NSTrecord:NSTrecord});
-  });
+   con.query("SELECT PNo,CallTime,CancelTime,CallRequest,CallDate,BNo,IVReplace,BedAccompany,NVisit FROM nis.callrecording join callrequirements using(PNo,BNo) where BNo like ?",[preNST+"%"],function(err,rows){
+    if (err){
+      console.log("查不到");
+      requestlog="";
+    } 
+    if(rows.length>0){
+      var  requestlog=rows;
+      var test=rows.NVisit;
+      
+res.render('NSTedit',{"user":req.session.userName,"changeselect":preNST+"號護理站",data:data,NSTrecord:NSTrecord,requestlog:requestlog});
+    }else{
+      res.render('NSTedit',{"user":req.session.userName,"changeselect":preNST+"號護理站",data:data,NSTrecord:NSTrecord,requestlog:""});
+
+    }
+  }); 
+});
 });
 });
 app.get("/NSTedit/:NST",function(req,res){
@@ -945,9 +985,21 @@ app.get("/NSTedit/:NST",function(req,res){
    NST=data[0].NST+"";
    console.log(WD);
    console.log(data);
- 
-    res.render("NSTeditpage",{"user":req.session.userName,"changeselect":preNST+"號護理站",NST:NST,WD:WD,HN:HN,NSTP:NSTP,NSTrecord:NSTrecord})
-});
+   con.query("SELECT PNo,CallTime,CancelTime,CallRequest,CallDate,BNo,IVReplace,BedAccompany,NVisit FROM nis.callrecording join callrequirements using(PNo,BNo) where BNo like ?",[preNST+"%"],function(err,rows){
+    if (err){
+      console.log("查不到");
+      requestlog="";
+    } 
+    if(rows.length>0){
+      var  requestlog=rows;
+      var test=rows.NVisit;
+      
+    res.render("NSTeditpage",{"user":req.session.userName,"changeselect":preNST+"號護理站",NST:NST,WD:WD,HN:HN,NSTP:NSTP,NSTrecord:NSTrecord,requestlog:requestlog})
+    }else{
+      res.render("NSTeditpage",{"user":req.session.userName,"changeselect":preNST+"號護理站",NST:NST,WD:WD,HN:HN,NSTP:NSTP,NSTrecord:NSTrecord,requestlog:""})
+    }
+  });
+  });
           });
 });
 
