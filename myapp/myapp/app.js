@@ -27,7 +27,7 @@ const { compile } = require('morgan');
 const { cpuUsage, send } = require('process');
 const f = require('session-file-store');
 const { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } = require('constants');
-
+var NST = 9;//預設護理站
 var preNST = 9;
 var taboocount = 12;
 var pretaboorecord = ["TABOO_01", "TABOO_02", "TABOO_03", "TABOO_04", "TABOO_05", "TABOO_06", "TABOO_07", "TABOO_08", "TABOO_09", "TABOO_10", "TABOO_11", "TABOO_12"];
@@ -67,7 +67,7 @@ var user = "";
 var username = "";
 var password = "";
 var BNo;
-var NST = 9;//預設護理站
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
