@@ -143,7 +143,7 @@ app.post('/login', function (req, res) {//登入功能
 
                   res.render('index', { "user": req.session.userName, data: data, NST: NST, "changeselect": preNST + "號護理站", NSTrecord: NSTrecord, 'requestlog': requestlog });
                 } else {
-                  res.render('index', { "user": req.session.userName, data: data, NST: NST, "changeselect": preNST + "號護理站", NSTrecord: NSTrecord, 'requestlog': "requestlog" });
+                  res.render('index', { "user": req.session.userName, data: data, NST: NST, "changeselect": preNST + "號護理站", NSTrecord: NSTrecord, 'requestlog': "" });
                 }
               })
             })
