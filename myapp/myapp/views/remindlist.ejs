@@ -82,8 +82,8 @@
                     <li class="changpwd"><a href="/changepwd" accesskey="" title="">變更密碼</a></li>
                 </ul>
             </div>
-            <div style="width:300px;height:20px;margin-left:10%;margin-right:10%;margin-top: 3%;">
-                <table style="width:1000px;overflow:auto">
+            <div style="height:20px;margin-left:20%;margin-right:20%;margin-top: 3% ;">
+                <table style="width:1300px;overflow:auto">
                     <caption style="font-family:DFKai-sb;margin-right:5px; font-size:25px;">溫馨提醒訊息列表
                         <!--<font onclick="javascript:location.href='remind'">新增訊息</font>-->
                         <input type="button" value="新增" onclick="javascript:location.href='remind'">
@@ -91,12 +91,12 @@
                         <input type="button" name="sNSTbutton" value="搜尋" onclick="Search();">
                     </caption>
                     <tr>
-                        <th>訊息編號</th>
-                        <th>內容</th>
-                        <th>護理站</th>
-                        <th>狀態</th>
-                        <th>修改</th>
-                        <th>最後更改日期</th>
+                        <th width="7%">訊息編號</th>
+                        <th width="55%">內容</th>
+                        <th width="7%">護理站</th>
+                        <th width="7%">狀態</th>
+                        <th width="9%">最後更改日期</th>
+                        <th width="10%">修改</th>
                     </tr>
                     <% for (var i=0; i< data.length ; i++){ 
                                 if(data[i].MsgClass == 02){ %>

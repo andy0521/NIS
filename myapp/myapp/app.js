@@ -315,7 +315,12 @@ app.post('/new_message', function (req, res, next) {
 
   var db = req.con;
 
-  var date = new Date();
+  var fullDate = new Date();
+  var yyyy = fullDate.getFullYear();
+  var MM = (fullDate.getMonth() + 1) >= 10 ? (fullDate.getMonth() + 1) : ("0" + (fullDate.getMonth() + 1));
+  var dd = fullDate.getDate() < 10 ? ("0"+fullDate.getDate()) : fullDate.getDate();
+  var date = yyyy + "/" + MM + "/" + dd;
+  
   var status;
 
   console.log(req.body.Playing);
