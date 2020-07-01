@@ -998,8 +998,7 @@ app.post("/saveshift", function (req, res) {
   var PD = req.body.shift;
   var MN = req.body.MNdata + " ";
   var updatePD = [];
-  console.log(PD.length);
-  console.log(MN.length);
+ 
   if (typeof (req.body.shift) == "string") {//1筆變更的狀況
     PD = new Array(req.body.shift);//轉陣列
     updatePD = PD;
