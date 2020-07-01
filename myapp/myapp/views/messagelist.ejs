@@ -104,12 +104,12 @@ $data=mysql_query("select * from bbinfo");
             </div>
         </nav>
             <div style="height:20px;margin-left:20%;margin-right:20%;margin-top: 3% ;">
-                <table style="width:1300px;overflow:auto">
+                <table style="width:1300px; overflow:auto;  table-layout:fixed;">
                     <caption style="font-family:DFKai-sb;margin-right:5px; font-size:25px;">護理站訊息列表
                         <!--<font onclick="javascript:location.href='message'">新增訊息</font>-->
                         <input type="button" value="新增" onclick="javascript:location.href='message'">
-                        <input type="text" name="searchNST" value="<%=NST  %>" placeholder="請輸入兩位數護理站號碼">
-                        <input type="button" name="sNSTbutton" value="搜尋" onclick="Search();">
+                        <input style="float:right" type="button" name="sNSTbutton" value="搜尋" onclick="Search();">
+                        <input style="float:right" type="text" name="searchNST" value="<%=NST  %>" placeholder="請輸入兩位數護理站號碼">
                     </caption>
                     <tr>
                         <th width="7%">訊息編號</th>
@@ -122,24 +122,24 @@ $data=mysql_query("select * from bbinfo");
                     <% for (var i=0; i< data.length ; i++){ 
                                 if(data[i].MsgClass == 01){ %>
                     <tr>
-                        <td>
+                        <td style="word-wrap:break-word;">
                             <%= data[i].MsgNO %>
                         </td>
-                        <td>
+                        <td style="word-wrap:break-word;">
                             <%= data[i].BBCon %>
                         </td>
-                        <td>
+                        <td style="word-wrap:break-word;">
                             <%= data[i].NST %>
                         </td>
-                        <td>
+                        <td style="word-wrap:break-word;">
                             <% if(data[i].Playing == 1) { %> 顯示 <% } %>
                             <% if(data[i].Playing == 0) { %> 隱藏 <% } %>
                         </td>
-                        <td>
+                        <td style="word-wrap:break-word;">
                             <%= data[i].LDate %>
                         </td>
 
-                        <td>
+                        <td style="word-wrap:break-word;">
                             <input type="button" name="edit" value="修改" onclick="Edit('<%= data[i].MsgNO  %>');" />
                             <input type="button" name="delete" value="刪除" onclick="Delete('<%= data[i].MsgNO  %>');" />
                         </td>

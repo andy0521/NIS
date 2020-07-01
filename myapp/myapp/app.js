@@ -319,8 +319,8 @@ app.post('/new_message', function (req, res, next) {
   var yyyy = fullDate.getFullYear();
   var MM = (fullDate.getMonth() + 1) >= 10 ? (fullDate.getMonth() + 1) : ("0" + (fullDate.getMonth() + 1));
   var dd = fullDate.getDate() < 10 ? ("0"+fullDate.getDate()) : fullDate.getDate();
-  var date = yyyy + "/" + MM + "/" + dd;
-  
+  var date = yyyy + "-" + MM + "-" + dd;
+
   var status;
 
   console.log(req.body.Playing);
@@ -360,7 +360,7 @@ app.get('/messagelist', function (req, res) {
     filter = 'WHERE NST = ?';
   }
 
-  db.query('SELECT * FROM nis.bbinfo ' + filter, NST, function (err, rows) {
+  db.query('SELECT MsgNO,MsgClass,Playing,NST,BBCon,DATE_FORMAT(LDate, "%Y%-%m%-%e") as LDate FROM nis.bbinfo ' + filter, NST, function (err, rows) {
     if (err) {
       console.log(err);
     }
@@ -437,7 +437,11 @@ app.post('/new_remind', function (req, res, next) {
 
   var db = req.con;
 
-  var date = new Date();
+  var fullDate = new Date();
+  var yyyy = fullDate.getFullYear();
+  var MM = (fullDate.getMonth() + 1) >= 10 ? (fullDate.getMonth() + 1) : ("0" + (fullDate.getMonth() + 1));
+  var dd = fullDate.getDate() < 10 ? ("0"+fullDate.getDate()) : fullDate.getDate();
+  var date = yyyy + "-" + MM + "-" + dd;
   var status;
 
   console.log(req.body.Playing);
@@ -479,7 +483,7 @@ app.get('/remindlist', function (req, res) {
   }
 
 
-  db.query('SELECT * FROM nis.bbinfo ' + filter, NST, function (err, rows) {
+  db.query('SELECT MsgNO,MsgClass,Playing,NST,BBCon,DATE_FORMAT(LDate, "%Y%-%m%-%e") as LDate FROM nis.bbinfo ' + filter, NST, function (err, rows) {
     if (err) {
       console.log(err);
     }
