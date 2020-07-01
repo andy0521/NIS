@@ -1129,8 +1129,28 @@ app.get("/NSTedit/:NST", function (req, res) {
     });
   });
 });
-
-
+app.post("/resetshift",function(req,res){
+  console.log("resetshift");
+  sql3 = "update bhdata set MN= '00000' "  + " where BNo like  " +"'"+preNST+"%"+"'"  + " ";
+  con.query(sql3,function(err,rows){
+  console.log(sql3);
+    if(err){
+      console.log(err);
+    }
+    res.redirect("shift");
+  })
+})
+app.post("/resetspshift",function(req,res){
+  console.log("resetspshift");
+  sql3 = "update bhdata set CNS= '00000' "  + " where BNo like  " +"'"+preNST+"%"+"'"  + " ";
+  con.query(sql3,function(err,rows){
+  console.log(sql3);
+    if(err){
+      console.log(err);
+    }
+    res.redirect("spshift");
+  })
+})
 
 app.use('/', indexRouter);
 //app.use('/login', loginRouter);

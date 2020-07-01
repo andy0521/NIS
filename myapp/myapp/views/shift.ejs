@@ -22,6 +22,10 @@
                     document.forms["NST"].submit(); 
                 
         } 
+            function reset(){
+        
+            }
+
         </script> 
              
 
@@ -117,15 +121,16 @@
                         </div>
                     </div>
                 </div>
-                <form name="shift" method="POST" action="/saveshift">
-                <table  class="PD">
-                    <tr>
-                        <th>床號</th>
-                        <th>病患</th>
-                        <th>護理師</th>
-                        <th>專師</th>
+                <div class="patient_detail_box">
+                    <form name="shift" method="POST" action="/saveshift">
+                        <table  class="PD">
+                        <tr>
+                            <th>床號</th>
+                            <th>病患</th>
+                            <th>護理師</th>
+                            <th>專師</th>
                    
-                    </tr>
+                        </tr>
                     <% for ( var i = 0 ; i < data.length ; i++){ %>
                         <tr>
                             <td>
@@ -178,8 +183,14 @@
                          
                         </table>
                     <input type="submit" value="儲存" >
-                </form>
-        
+                    
+                    </form>
+              
+                    <form style="margin-left:10px ;" action="resetshift" method="POST">
+                    <input type="submit" value="重新排班" >
+                    </form>
+                </div>
+              
             <table>
                 <tbody id="tbody1">
                 </tbody>
