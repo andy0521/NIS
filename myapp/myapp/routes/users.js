@@ -12,9 +12,9 @@ router.get('/', function(req, res, next) {
 var mysql = require("mysql");
 
 var con = mysql.createConnection({
-    host: "localhost",
+    host: "JS108-36",
     port: '3306',
-    user: "root",
+    user: "nisbs",
     password: "123456",
     database: "nis"
 });
