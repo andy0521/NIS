@@ -212,6 +212,30 @@
 		left:  1px;
 		bottom: 1px;
 	}
+	.patientData>.demand1_2{
+		padding: 0,0;
+		border: black;
+		background-color: #d9d9d9;
+		font-size: 14px;
+		
+		text-align: left;
+		vertical-align: 0%;
+		position: absolute;
+		left:  1px;
+		bottom: 1px;
+	}
+	.patientData>.demand1_3{
+		padding: 0,0;
+		border: black;
+		background-color: #d9d9d9;
+		font-size: 14px;
+		
+		text-align: left;
+		vertical-align: 0%;
+		position: absolute;
+		left:  1px;
+		bottom: 1px;
+	}
 	.patientData>.demand2_0{
 		padding: 0,0;
 		border: black;
@@ -227,7 +251,31 @@
 	.patientData>.demand2_1{
 		padding: 0,0;
 		border: black;
+		background-color: #d9d9d9;
+		font-size: 14px;
+
+		text-align: left;
+		vertical-align: 0%;
+		position: absolute;
+		left: 50px;
+		bottom: 1px;
+	}
+	.patientData>.demand2_2{
+		padding: 0,0;
+		border: black;
 		background-color: orange;
+		font-size: 14px;
+
+		text-align: left;
+		vertical-align: 0%;
+		position: absolute;
+		left: 50px;
+		bottom: 1px;
+	}
+	.patientData>.demand2_3{
+		padding: 0,0;
+		border: black;
+		background-color: #d9d9d9;
 		font-size: 14px;
 
 		text-align: left;
@@ -249,6 +297,30 @@
 		bottom: 1px;
 	}
 	.patientData>.demand3_1{
+		padding: 0,0;
+		border: black;
+		background-color: #d9d9d9;
+		font-size: 14px;
+
+		text-align: left;
+		vertical-align: 0%;
+		position: absolute;
+		right: 1px;
+		bottom: 1px;
+	}
+	.patientData>.demand3_2{
+		padding: 0,0;
+		border: black;
+		background-color: #d9d9d9;
+		font-size: 14px;
+
+		text-align: left;
+		vertical-align: 0%;
+		position: absolute;
+		right: 1px;
+		bottom: 1px;
+	}
+	.patientData>.demand3_3{
 		padding: 0,0;
 		border: black;
 		background-color:orange;

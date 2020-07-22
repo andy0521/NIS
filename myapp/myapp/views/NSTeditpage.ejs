@@ -72,10 +72,11 @@
                         <% for ( var i = 0 ; i < requestlog.length ; i++){ %>
                             <div class="patientData">
                             <span class="BedNO"><%=requestlog[i].BNo%></span>
-                            <span class="log"><%=requestlog[i].CallTime%></span>
-                            <span class="demand1_<%=requestlog[i].IVReplace%>">換點滴</span>
-                            <span class="demand2_<%=requestlog[i].BedAccompany%>">下床陪同</span>
-                            <span class="demand3_<%=requestlog[i].NVisit%>">緊急呼叫</span>
+                            <span class="log">呼叫時間<%=requestlog[i].CallTime%></span>
+
+                        <span class="demand1_<%=requestlog[i].callRequest%>">換點滴</span>
+                        <span class="demand2_<%=requestlog[i].callRequest%>">下床陪同</span>
+                        <span class="demand3_<%=requestlog[i].callRequest%>">緊急呼叫</span>
                             </div>
                             <% } %>
                         <div class="patientData">
