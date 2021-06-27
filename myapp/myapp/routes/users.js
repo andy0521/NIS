@@ -11,14 +11,19 @@ router.get('/', function(req, res, next) {
 
 var mysql = require("mysql");
 
-var con = mysql.createConnection({
-    host: "JS108-36",
-    port: '3306',
-    user: "nisbs",
-    password: "123456",
-    database: "nis"
+//var con = mysql.createConnection({
+//    host: "JS108-36",
+//    port: '3306',
+//    user: "nisbs",
+//    password: "123456",
+//    database: "nis"
+//});
+var con = mysql.createConnection({//建立連線
+  host: 'localhost',
+  user: 'root',
+  password: '123456',
+  database: 'nis'
 });
-
 con.query('SELECT 12 + 34 AS result', function(err, rows, fields) {
   if (err) throw err;
   console.log('The result is: ', rows[0].result);

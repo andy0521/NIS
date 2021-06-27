@@ -48,10 +48,16 @@ app.set('view engine', 'ejs');
 app.use(bodyparser.json()); // 使用bodyparder
 app.use(bodyparser.urlencoded({ extended: false }));
 // 使用 session
+//var con = mysql.createConnection({//建立連線
+ // host: 'JS108-36',
+  //port: '3306',
+ // user: 'nisbs',
+ // password: '123456',
+ // database: 'nis'
+//});
 var con = mysql.createConnection({//建立連線
-  host: 'JS108-36',
-  port: '3306',
-  user: 'nisbs',
+  host: 'localhost',
+  user: 'root',
   password: '123456',
   database: 'nis'
 });
@@ -61,6 +67,7 @@ con.connect(function (err) {
     return;
   }
   console.log('connecting success');
+  console.log('http://localhost:3000')
 })
 
 var user = "";
@@ -867,14 +874,14 @@ app.post('/savePD', function (req, res) {
 
         if (typeof (req.body.TABOO) == "string") {//1筆變更的狀況
           taboo = new Array(req.body.TABOO);//轉陣列
-          for (i = 0; i < taboo.length; i++) {//有用
+          for (i = 0; i < taboo.length; i++) {
             updatetaboo[i] = taboo + "=1" + " "//加工
           }
           console.log("Work")
           var temp = []; //臨時陣列1 
           var temparray = [];//臨時陣列2  
           for (var i = 0; i < taboo.length; i++) {
-            temp[taboo] = true;//巧妙地方：把陣列B的值當成臨時陣列1的鍵並賦值為真 
+            temp[taboo] = true;
 
           };
 
